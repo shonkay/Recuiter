@@ -12,8 +12,8 @@ namespace Recuiter.Controllers
 		// GET: Applicant
 		public ActionResult Applicant()
 		{
-			var applicant = new Applicant() {FirstName = "Adam", };
-			return View(applicant);
+			//var applicant = new Applicant() {FirstName = "Adam", };
+			return View();
 		}
 
 	}

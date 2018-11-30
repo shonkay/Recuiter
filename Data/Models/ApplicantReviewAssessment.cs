@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Recuiter.Models
+namespace Data.Models
 {
-	public class ApplicantReviewAssessment
-	{
-		public int Id { get; set; }
-		public int ReviewId { get; set; }
-		public string Responses { get; set; }
-		public  string Questions { get; set; }
+	public class ApplicantReviewAssessment : BaseModel
+    {
+        public int InterviewQuestionId { get; set; }
+        public InterviewQuestion InterviewQuestion { get; set; }
+        public int ApplicationReviewId { get; set; }
+        public ApplicationReview ApplicationReview { get; set; }
+        public string Response { get; set; }
 
 	}
 }

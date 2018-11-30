@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Recuiter.Models
+namespace Data.Models
 {
-	public class ApplicationReview
+	public class ApplicationReview :BaseModel
 	{
-		public int Id { get; set; }
+        public virtual ICollection< ApplicantReviewAssessment > Reviews { get; set; }
 		public  int UserId { get; set; }
-		public int ApplicantId { get; set; }
+		public  User User { get; set; }
+		public int ApplicationId { get; set; }
+		public Application Application { get; set; }
 	}
 }
