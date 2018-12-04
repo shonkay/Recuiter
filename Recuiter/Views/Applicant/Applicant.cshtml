@@ -1,8 +1,12 @@
-﻿@model Recuiter.Models.Applicant
+﻿@model Data.Models.Applicant
 
 @{
     ViewBag.Title = "Applicant";
 }
 
 <h2>@Model.FirstName</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@Html.LabelFor(model=> model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
 

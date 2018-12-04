@@ -59,6 +59,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -68,9 +71,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Web.Razor">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Webpages">
       <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.dll</HintPath>
     </Reference>
@@ -109,11 +109,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Context\Map\DocumentMap.cs" />
+    <Compile Include="Context\RecruiterContext.cs" />
     <Compile Include="Controllers\ApplicantController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811301254219_initial.cs" />
+    <Compile Include="Migrations\201811301254219_initial.Designer.cs">
+      <DependentUpon>201811301254219_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811301302536_ApplicantDocument.cs" />
+    <Compile Include="Migrations\201811301302536_ApplicantDocument.Designer.cs">
+      <DependentUpon>201811301302536_ApplicantDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811301312404_User.cs" />
+    <Compile Include="Migrations\201811301312404_User.Designer.cs">
+      <DependentUpon>201811301312404_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811301459371_singular_tablenames.cs" />
+    <Compile Include="Migrations\201811301459371_singular_tablenames.Designer.cs">
+      <DependentUpon>201811301459371_singular_tablenames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="CustomAuthentication\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj">
@@ -146,6 +166,20 @@
       <Project>{17e54bc0-6653-4da9-958b-08182ac6ed62}</Project>
       <Name>Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811301254219_initial.resx">
+      <DependentUpon>201811301254219_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811301302536_ApplicantDocument.resx">
+      <DependentUpon>201811301302536_ApplicantDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811301312404_User.resx">
+      <DependentUpon>201811301312404_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811301459371_singular_tablenames.resx">
+      <DependentUpon>201811301459371_singular_tablenames.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

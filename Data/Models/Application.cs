@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Data.Models
+﻿namespace Data.Models
 {
-	public class Application : BaseModel
+    public class Application : BaseModel
 	{   
         public int ApplicantId { get; set; }
         public Applicant Applicant { get; set; }
