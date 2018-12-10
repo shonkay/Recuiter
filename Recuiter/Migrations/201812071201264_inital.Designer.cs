@@ -7,13 +7,13 @@ namespace Recuiter.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class singular_tablenames : IMigrationMetadata
+    public sealed partial class inital : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(singular_tablenames));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(inital));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811301459371_singular_tablenames"; }
+            get { return "201812071201264_inital"; }
         }
         
         string IMigrationMetadata.Source
