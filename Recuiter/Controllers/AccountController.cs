@@ -120,8 +120,8 @@ namespace Recruiter.Controllers
                         //Email = registrationView.Email,
                         Password = registrationView.Password,
                         CreatedDate = DateTime.Now,
-                        LastModifiedDate = DateTime.Now,
-                        ActivationCode = Guid.NewGuid(),
+                        LastModifiedDate = DateTime.Now
+                        //ActivationCode = Guid.NewGuid(),
                     };
 
                     dbContext.Users.Add(user);
@@ -129,7 +129,7 @@ namespace Recruiter.Controllers
                 }
 
                 //Verification Email
-                VerificationEmail(registrationView.Email, registrationView.ActivationCode.ToString());
+                /*VerificationEmail(registrationView.Email, registrationView.ActivationCode.ToString());*/
                 messageRegistration = "Your account has been created successfully. ^_^";
                 statusRegistration = true;
             }
@@ -152,8 +152,8 @@ namespace Recruiter.Controllers
             bool statusAccount = false;
             using (RecruiterContext dbContext = new RecruiterContext())
             {
-                var userAccount = dbContext.Users.Where(u => u.ActivationCode.ToString().Equals(id)).FirstOrDefault();
-              //  var userAccount = dbContext.Users.Where(u => u.Id.ToString().Equals(id)).FirstOrDefault();
+                //var userAccount = dbContext.Users.Where(u => u.ActivationCode.ToString().Equals(id)).FirstOrDefault();
+                var userAccount = dbContext.Users.Where(u => u.Id.ToString().Equals(id)).FirstOrDefault();
 
                 if (userAccount != null)
                 {
@@ -182,15 +182,15 @@ namespace Recruiter.Controllers
         }
 
         [NonAction]
-        public void VerificationEmail(string email, string ActivationCode)
+        public void VerificationEmail(string email, string activationCode)
         {
-            var url = string.Format("/Account/ActivationAccount/{0}", ActivationCode);
+            var url = string.Format("/Account/ActivationAccount/{0}", activationCode);
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, url);
 
-            var fromEmail = new MailAddress("ebunsbsc@gmail.com", "Activation Account - AKKA");
+            var fromEmail = new MailAddress("mehdi.rami2012@gmail.com", "Activation Account - AKKA");
             var toEmail = new MailAddress(email);
 
-            var fromEmailPassword = "NewPassword";
+            var fromEmailPassword = "******************";
             string subject = "Activation Account !";
 
             string body = "<br/> Please click on the following link in order to activate your account" + "<br/><a href='" + link + "'> Activation Account ! </a>";
