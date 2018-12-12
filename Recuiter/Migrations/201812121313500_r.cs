@@ -1,9 +1,9 @@
-namespace Recuiter.Migrations
+namespace Recruiter.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class inital : DbMigration
+    public partial class r : DbMigration
     {
         public override void Up()
         {
@@ -59,6 +59,7 @@ namespace Recuiter.Migrations
                         Password = c.String(),
                         IsActive = c.Boolean(nullable: false),
                         DepartmentId = c.Int(),
+                        ActivationCode = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.CreatedById)

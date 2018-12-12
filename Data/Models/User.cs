@@ -30,5 +30,6 @@ namespace Data.Models
 		public Department Department { get; set; }
 		public int? DepartmentId { get; set; }
 		public virtual ICollection<UserRole> Roles { get; set; }
-	}
+        public Guid ActivationCode { get; set; }
+    }
 }
