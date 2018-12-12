@@ -107,6 +107,11 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -118,8 +123,9 @@
     <Compile Include="Context\RecruiterContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicantController.cs" />
-    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAuthentication\CustomAuthorizeAttribute.cs" />
     <Compile Include="CustomAuthentication\CustomMembership.cs" />
@@ -133,17 +139,9 @@
     <Compile Include="Migrations\201812071201264_inital.Designer.cs">
       <DependentUpon>201812071201264_inital.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812101529174_20181210.cs" />
-    <Compile Include="Migrations\201812101529174_20181210.Designer.cs">
-      <DependentUpon>201812101529174_20181210.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812101616043_now.cs" />
-    <Compile Include="Migrations\201812101616043_now.Designer.cs">
-      <DependentUpon>201812101616043_now.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812101619463_try.cs" />
-    <Compile Include="Migrations\201812101619463_try.Designer.cs">
-      <DependentUpon>201812101619463_try.cs</DependentUpon>
+    <Compile Include="Migrations\201812120918032_Initial.cs" />
+    <Compile Include="Migrations\201812120918032_Initial.Designer.cs">
+      <DependentUpon>201812120918032_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -158,18 +156,18 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Applicant\Applicant.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Account\ActivationAccount.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Departments\Create.cshtml" />
-    <Content Include="Views\Departments\Delete.cshtml" />
-    <Content Include="Views\Departments\Details.cshtml" />
-    <Content Include="Views\Departments\Edit.cshtml" />
-    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -190,14 +188,8 @@
     <EmbeddedResource Include="Migrations\201812071201264_inital.resx">
       <DependentUpon>201812071201264_inital.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812101529174_20181210.resx">
-      <DependentUpon>201812101529174_20181210.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812101616043_now.resx">
-      <DependentUpon>201812101616043_now.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812101619463_try.resx">
-      <DependentUpon>201812101619463_try.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812120918032_Initial.resx">
+      <DependentUpon>201812120918032_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
