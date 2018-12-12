@@ -3,7 +3,7 @@ using Recuiter.Context.Map;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace Recuiter.Context
+namespace Recruiter.Context
 {
     public class RecruiterContext : DbContext
     {
@@ -17,11 +17,15 @@ namespace Recuiter.Context
         public IDbSet<ApplicantReviewAssessment> ApplicantReviewAssessments { get; set; }
         public IDbSet<InterviewQuestion> InterviewQuestions { get; set; }
         public IDbSet<User> Users { get; set; }
+        public IDbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating( DbModelBuilder modelBuilder )
         {
             modelBuilder.Conventions.Remove(new PluralizingTableNameConvention());
 
+            modelBuilder.Configurations.Add(new UserMap());
+            modelBuilder.Configurations.Add(new UserRoleMap());
+            modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new DocumentMap());
             modelBuilder.Configurations.Add(new DepartmentMap());
             modelBuilder.Configurations.Add(new ApplicantMap());

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Data.Models
 {
-	public class UserRole
+	public class UserRole : BaseModel
 	{
 		public User User { get; set; }
         [Key(), Column(Order = 1)]

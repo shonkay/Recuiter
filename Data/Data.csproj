@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -53,7 +56,8 @@
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\InterviewQuestion.cs" />
-    <Compile Include="Models\Roles.cs" />
+    <Compile Include="Models\LoginView.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -66,6 +70,7 @@
     <None Include="obj\Debug\Data.csprojAssemblyReference.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Release\Data.csproj.CoreCompileInputs.cache" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="obj\Debug\Data.csproj.FileListAbsolute.txt" />

@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Recuiter</RootNamespace>
-    <AssemblyName>Recuiter</AssemblyName>
+    <RootNamespace>Recruiter</RootNamespace>
+    <AssemblyName>Recruiter</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -50,6 +50,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -105,32 +108,42 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Context\Map\DocumentMap.cs" />
     <Compile Include="Context\RecruiterContext.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicantController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomAuthentication\CustomAuthorizeAttribute.cs" />
+    <Compile Include="CustomAuthentication\CustomMembership.cs" />
+    <Compile Include="CustomAuthentication\CustomMembershipUser.cs" />
+    <Compile Include="CustomAuthentication\CustomPrincipal.cs" />
+    <Compile Include="CustomAuthentication\CustomRole.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811301254219_initial.cs" />
-    <Compile Include="Migrations\201811301254219_initial.Designer.cs">
-      <DependentUpon>201811301254219_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201812071201264_inital.cs" />
+    <Compile Include="Migrations\201812071201264_inital.Designer.cs">
+      <DependentUpon>201812071201264_inital.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811301302536_ApplicantDocument.cs" />
-    <Compile Include="Migrations\201811301302536_ApplicantDocument.Designer.cs">
-      <DependentUpon>201811301302536_ApplicantDocument.cs</DependentUpon>
+    <Compile Include="Migrations\201812101529174_20181210.cs" />
+    <Compile Include="Migrations\201812101529174_20181210.Designer.cs">
+      <DependentUpon>201812101529174_20181210.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811301312404_User.cs" />
-    <Compile Include="Migrations\201811301312404_User.Designer.cs">
-      <DependentUpon>201811301312404_User.cs</DependentUpon>
+    <Compile Include="Migrations\201812101616043_now.cs" />
+    <Compile Include="Migrations\201812101616043_now.Designer.cs">
+      <DependentUpon>201812101616043_now.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811301459371_singular_tablenames.cs" />
-    <Compile Include="Migrations\201811301459371_singular_tablenames.Designer.cs">
-      <DependentUpon>201811301459371_singular_tablenames.cs</DependentUpon>
+    <Compile Include="Migrations\201812101619463_try.cs" />
+    <Compile Include="Migrations\201812101619463_try.Designer.cs">
+      <DependentUpon>201812101619463_try.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,6 +159,17 @@
     <Content Include="Views\Applicant\Applicant.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\ActivationAccount.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Registration.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -155,30 +179,25 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="CustomAuthentication\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj">
-      <Project>{4ee969e5-1149-4a60-8615-c72857e4f199}</Project>
-      <Name>ApplicationCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{17e54bc0-6653-4da9-958b-08182ac6ed62}</Project>
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811301254219_initial.resx">
-      <DependentUpon>201811301254219_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812071201264_inital.resx">
+      <DependentUpon>201812071201264_inital.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811301302536_ApplicantDocument.resx">
-      <DependentUpon>201811301302536_ApplicantDocument.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812101529174_20181210.resx">
+      <DependentUpon>201812101529174_20181210.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811301312404_User.resx">
-      <DependentUpon>201811301312404_User.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812101616043_now.resx">
+      <DependentUpon>201812101616043_now.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811301459371_singular_tablenames.resx">
-      <DependentUpon>201811301459371_singular_tablenames.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812101619463_try.resx">
+      <DependentUpon>201812101619463_try.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
