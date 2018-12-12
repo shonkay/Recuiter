@@ -107,6 +107,11 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -120,8 +125,8 @@
     <Compile Include="Controllers\ApplicantController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="CustomAuthentication\CustomAuthorizeAttribute.cs" />
     <Compile Include="CustomAuthentication\CustomMembership.cs" />
     <Compile Include="CustomAuthentication\CustomMembershipUser.cs" />
@@ -134,9 +139,9 @@
     <Compile Include="Migrations\201812071201264_inital.Designer.cs">
       <DependentUpon>201812071201264_inital.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812121327524_p.cs" />
-    <Compile Include="Migrations\201812121327524_p.Designer.cs">
-      <DependentUpon>201812121327524_p.cs</DependentUpon>
+    <Compile Include="Migrations\201812120918032_Initial.cs" />
+    <Compile Include="Migrations\201812120918032_Initial.Designer.cs">
+      <DependentUpon>201812120918032_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -151,18 +156,18 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Applicant\Applicant.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Account\ActivationAccount.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -183,8 +188,8 @@
     <EmbeddedResource Include="Migrations\201812071201264_inital.resx">
       <DependentUpon>201812071201264_inital.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812121327524_p.resx">
-      <DependentUpon>201812121327524_p.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812120918032_Initial.resx">
+      <DependentUpon>201812120918032_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

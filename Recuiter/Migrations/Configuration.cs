@@ -10,7 +10,7 @@ namespace Recruiter.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(RecruiterContext context)
