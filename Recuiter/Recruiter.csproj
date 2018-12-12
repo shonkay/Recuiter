@@ -121,6 +121,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="CustomAuthentication\CustomAuthorizeAttribute.cs" />
     <Compile Include="CustomAuthentication\CustomMembership.cs" />
     <Compile Include="CustomAuthentication\CustomMembershipUser.cs" />
@@ -132,6 +133,10 @@
     <Compile Include="Migrations\201812071201264_inital.cs" />
     <Compile Include="Migrations\201812071201264_inital.Designer.cs">
       <DependentUpon>201812071201264_inital.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812121327524_p.cs" />
+    <Compile Include="Migrations\201812121327524_p.Designer.cs">
+      <DependentUpon>201812121327524_p.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -153,6 +158,11 @@
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -172,6 +182,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201812071201264_inital.resx">
       <DependentUpon>201812071201264_inital.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812121327524_p.resx">
+      <DependentUpon>201812121327524_p.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
