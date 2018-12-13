@@ -1,5 +1,4 @@
-﻿
-using Recuiter;
+﻿using Recuiter;
 using System.Web.Mvc;
 using System.Web.Routing;
 

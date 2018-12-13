@@ -11,7 +11,7 @@ using Recruiter.Context;
 
 namespace Recruiter.Controllers
 {
-	[Authorize]
+	
     public class RolesController : Controller
     {
         private RecruiterContext db = new RecruiterContext();
