@@ -1,0 +1,179 @@
+﻿@model Data.Models.Job
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Job</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastModifiedBy.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastModifiedBy.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Responsibility)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Responsibility)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GeneralRequirement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GeneralRequirement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SkillSet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SkillSet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinimumQualification)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinimumQualification)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExperienceLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExperienceLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractClass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractClass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractLength)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractLength)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpiryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsApproved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPublished)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPublished)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastModifiedDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

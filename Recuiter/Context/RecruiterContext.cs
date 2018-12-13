@@ -42,6 +42,6 @@ namespace Recruiter.Context
            
         }
 
-		public System.Data.Entity.DbSet<Data.Models.Role> Roles { get; set; }
-	}
+       
+    }
 }
