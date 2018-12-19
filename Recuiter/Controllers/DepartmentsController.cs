@@ -6,11 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Data.Models;
 using Recruiter.Context;
+using Recruiter.CustomAuthentication;
 
 namespace Recruiter.Controllers
 {
+    [Authorize]
     public class DepartmentsController : Controller
     {
         private RecruiterContext db = new RecruiterContext();
@@ -18,7 +21,7 @@ namespace Recruiter.Controllers
         // GET: Departments
         public ActionResult Index()
         {
-            var departments = db.Departments.Include(d => d.CreatedBy).Include(d => d.HoD).Include(d => d.LastModifiedBy);
+            var departments = db.Departments.Include(d => d.CreatedBy).Include(d => d.HoD).Include(d => d.LastModifiedBy).Where(d => d.IsDeleted == false);
             return View(departments.ToList());
         }
 
@@ -51,10 +54,19 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,HoDId,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Department department)
+        public ActionResult Create(Department department)
         {
             if (ModelState.IsValid)
             {
+               var user= Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
+
+                if (user!=null)
+                {
+                    department.CreatedById = user.UserId;
+                }
+
+                department.CreatedDate = DateTime.Now;
+
                 db.Departments.Add(department);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,10 +101,19 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,HoDId,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Department department)
+        public ActionResult Edit(Department department)
         {
             if (ModelState.IsValid)
             {
+                var user = Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
+
+                if (user != null)
+                {
+                    department.LastModifiedById = user.UserId;
+                }
+
+                department.LastModifiedDate = DateTime.Now;
+
                 db.Entry(department).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -124,7 +145,8 @@ namespace Recruiter.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Department department = db.Departments.Find(id);
-            db.Departments.Remove(department);
+            //db.Departments.Remove(department);
+            department.IsDeleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

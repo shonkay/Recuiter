@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Recuiter.Controllers
+namespace Recruiter.Controllers
 {
-    public class HomeController : Controller
+    [Authorize]
+    public class UserDashboardController : Controller
     {
-        // GET: Home
+        // GET: UserDashboard
         public ActionResult Index()
         {
             return View();

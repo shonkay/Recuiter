@@ -11,33 +11,33 @@ using Recruiter.Context;
 
 namespace Recruiter.Controllers
 {
-    public class UsersController : Controller
+    public class JobsController : Controller
     {
         private RecruiterContext db = new RecruiterContext();
 
-        // GET: Users
+        // GET: Jobs
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.CreatedBy).Include(u => u.Department).Include(u => u.LastModifiedBy).Where(u => u.IsDeleted == false);
-            return View(users.ToList());
+            var jobs = db.Jobs.Include(j => j.CreatedBy).Include(j => j.Department).Include(j => j.LastModifiedBy);
+            return View(jobs.ToList());
         }
 
-        // GET: Users/Details/5
+        // GET: Jobs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Job job = db.Jobs.Find(id);
+            if (job == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(job);
         }
 
-        // GET: Users/Create
+        // GET: Jobs/Create
         public ActionResult Create()
         {
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username");
@@ -46,86 +46,85 @@ namespace Recruiter.Controllers
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Jobs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById,IsDeleted,Username,FirstName,LastName,Email,Password,IsActive,DepartmentId")] User user)
+        public ActionResult Create([Bind(Include = "Id,JobId,DepartmentId,JobDescription,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Job job)
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
+                db.Jobs.Add(job);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", user.CreatedById);
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", user.DepartmentId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", user.LastModifiedById);
-            return View(user);
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", job.CreatedById);
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
+            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", job.LastModifiedById);
+            return View(job);
         }
 
-        // GET: Users/Edit/5
+        // GET: Jobs/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Job job = db.Jobs.Find(id);
+            if (job == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", user.CreatedById);
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", user.DepartmentId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", user.LastModifiedById);
-            return View(user);
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", job.CreatedById);
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
+            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", job.LastModifiedById);
+            return View(job);
         }
 
-        // POST: Users/Edit/5
+        // POST: Jobs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById,IsDeleted,Username,FirstName,LastName,Email,Password,IsActive,DepartmentId")] User user)
+        public ActionResult Edit([Bind(Include = "Id,JobId,DepartmentId,JobDescription,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Job job)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(job).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", user.CreatedById);
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", user.DepartmentId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", user.LastModifiedById);
-            return View(user);
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", job.CreatedById);
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
+            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", job.LastModifiedById);
+            return View(job);
         }
 
-        // GET: Users/Delete/5
+        // GET: Jobs/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Job job = db.Jobs.Find(id);
+            if (job == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(job);
         }
 
-        // POST: Users/Delete/5
+        // POST: Jobs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            //db.Users.Remove(user);
-            user.IsDeleted = true;
+            Job job = db.Jobs.Find(id);
+            db.Jobs.Remove(job);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -134,7 +133,7 @@ namespace Recruiter.Controllers
         {
             if (disposing)
             {
-                 db.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }
