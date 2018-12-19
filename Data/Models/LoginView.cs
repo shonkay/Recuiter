@@ -62,4 +62,15 @@ namespace Data.Models
 
 
     }
+
+    public class DepartmentView
+    {
+        [Required(ErrorMessage = " Department name is required")]
+        [Display(Name = "Name of Department")]
+        public string Name { get; set; }
+       
+        [Required(ErrorMessage = "HoD's ID is required")]
+        [Display(Name = "HoD's ID")]
+        public int? HoDId { get; set; }
+    }
 }

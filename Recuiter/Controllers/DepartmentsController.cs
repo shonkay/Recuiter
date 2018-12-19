@@ -6,11 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Data.Models;
 using Recruiter.Context;
+using Recruiter.CustomAuthentication;
+using Recruiter.ViewModels;
 
 namespace Recruiter.Controllers
 {
+    [Authorize]
     public class DepartmentsController : Controller
     {
         private RecruiterContext db = new RecruiterContext();
@@ -51,19 +55,32 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,HoDId,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Department department)
+        public ActionResult Create(DepartmentVM departmentVM)
         {
             if (ModelState.IsValid)
             {
+
+                var user = Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
+
+                var department = new Department
+                {
+                    Name = departmentVM.Name,
+                    CreatedDate = DateTime.Now,
+                    HoDId = departmentVM.HoDId
+                };
+
+                if (user != null)
+                {
+                    department.CreatedById = user.UserId;
+                }
+
                 db.Departments.Add(department);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", department.CreatedById);
-            ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", department.HoDId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", department.LastModifiedById);
-            return View(department);
+            ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", departmentVM.HoDId);
+            return View(departmentVM);
         }
 
         // GET: Departments/Edit/5

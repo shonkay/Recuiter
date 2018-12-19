@@ -29,6 +29,7 @@ namespace Recruiter.Controllers
         // GET: Account
         public ActionResult Index()
         {
+            ViewBag.Status = true;
             return View();
         }
 
