@@ -147,9 +147,19 @@
     <Compile Include="Migrations\201812120918032_Initial.Designer.cs">
       <DependentUpon>201812120918032_Initial.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="Migrations\201812191138320_LastModifiedDateNullable.cs" />
+    <Compile Include="Migrations\201812191138320_LastModifiedDateNullable.Designer.cs">
+      <DependentUpon>201812191138320_LastModifiedDateNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812191152143_LastModifiedNullable.cs" />
+    <Compile Include="Migrations\201812191152143_LastModifiedNullable.Designer.cs">
+      <DependentUpon>201812191152143_LastModifiedNullable.cs</DependentUpon>
+=======
     <Compile Include="Migrations\201812181619313_BaseNullables.cs" />
     <Compile Include="Migrations\201812181619313_BaseNullables.Designer.cs">
       <DependentUpon>201812181619313_BaseNullables.cs</DependentUpon>
+>>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
     </Compile>
     <Compile Include="Migrations\201812191414068_CreatedById.cs" />
     <Compile Include="Migrations\201812191414068_CreatedById.Designer.cs">
@@ -165,9 +175,14 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="ViewModels\JobCreateView.cs" />
     <Compile Include="ViewModels\LoginView.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
+=======
+    <Compile Include="ViewModels\DepartmentVM.cs" />
+    <Compile Include="ViewModels\LoginView.cs" />
+>>>>>>> 0c2f0072ae4a2c2cb3e251ca2107981a4038cef6
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -230,8 +245,16 @@
     <EmbeddedResource Include="Migrations\201812120918032_Initial.resx">
       <DependentUpon>201812120918032_Initial.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
+    <EmbeddedResource Include="Migrations\201812191138320_LastModifiedDateNullable.resx">
+      <DependentUpon>201812191138320_LastModifiedDateNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812191152143_LastModifiedNullable.resx">
+      <DependentUpon>201812191152143_LastModifiedNullable.cs</DependentUpon>
+=======
     <EmbeddedResource Include="Migrations\201812181619313_BaseNullables.resx">
       <DependentUpon>201812181619313_BaseNullables.cs</DependentUpon>
+>>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812191414068_CreatedById.resx">
       <DependentUpon>201812191414068_CreatedById.cs</DependentUpon>

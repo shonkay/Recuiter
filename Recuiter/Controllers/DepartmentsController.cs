@@ -10,6 +10,10 @@ using System.Web.Security;
 using Data.Models;
 using Recruiter.Context;
 using Recruiter.CustomAuthentication;
+<<<<<<< HEAD
+using Recruiter.ViewModels;
+=======
+>>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
 
 namespace Recruiter.Controllers
 {
@@ -54,6 +58,23 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+<<<<<<< HEAD
+        public ActionResult Create(DepartmentVM departmentVM)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var user = Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
+
+                var department = new Department
+                {
+                    Name = departmentVM.Name,
+                    CreatedDate = DateTime.Now,
+                    HoDId = departmentVM.HoDId
+                };
+
+                if (user != null)
+=======
         public ActionResult Create(Department department)
         {
             if (ModelState.IsValid)
@@ -61,21 +82,23 @@ namespace Recruiter.Controllers
                var user= Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
 
                 if (user!=null)
+>>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
                 {
                     department.CreatedById = user.UserId;
                 }
 
+<<<<<<< HEAD
+=======
                 department.CreatedDate = DateTime.Now;
 
+>>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
                 db.Departments.Add(department);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", department.CreatedById);
-            ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", department.HoDId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", department.LastModifiedById);
-            return View(department);
+            ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", departmentVM.HoDId);
+            return View(departmentVM);
         }
 
         // GET: Departments/Edit/5
