@@ -94,15 +94,15 @@ namespace Recruiter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department_g = db.Departments.Find(id);
-            if (department_g == null)
+            Department department_old = db.Departments.Find(id);
+            if (department_old == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", department_g.CreatedById);
-            ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", department_g.HoDId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", department_g.LastModifiedById);
-            return View(department_g);
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", department_old.CreatedById);
+            ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", department_old.HoDId);
+            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", department_old.LastModifiedById);
+            return View(department_old);
         }
 
         // POST: Departments/Edit/5
