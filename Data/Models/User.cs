@@ -9,7 +9,7 @@ namespace Data.Models
 
         public DateTime CreatedDate { get; set; }
 
-        public DateTime LastModifiedDate { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
 
         public User CreatedBy { get; set; }
 

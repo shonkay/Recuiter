@@ -6,11 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Data.Models;
 using Recruiter.Context;
+using Recruiter.CustomAuthentication;
+using Recruiter.ViewModels;
 
 namespace Recruiter.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private RecruiterContext db = new RecruiterContext();
@@ -51,19 +55,36 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById,IsDeleted,Username,FirstName,LastName,Email,Password,IsActive,DepartmentId")] User user)
+        public ActionResult Create(UserVM userVM)
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
+                var user = Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
+
+                var users = new User
+                {
+                    Username = userVM.Username,
+                    FirstName = userVM.FirstName,
+                    LastName = userVM.LastName,
+                    Email = userVM.Email,
+                    Password = userVM.Password,
+                    CreatedDate = DateTime.Now
+                };
+                
+                if (user != null)
+                {
+                    users.CreatedById = user.UserId;
+                }
+
+                db.Users.Add(users);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", user.CreatedById);
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", user.DepartmentId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", user.LastModifiedById);
-            return View(user);
+            //ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", user.CreatedById);
+            //ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", user.DepartmentId);
+            //ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", user.LastModifiedById);
+            return View(userVM);
         }
 
         // GET: Users/Edit/5

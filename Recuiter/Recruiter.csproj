@@ -151,8 +151,23 @@
     <Compile Include="Migrations\201812181619313_BaseNullables.Designer.cs">
       <DependentUpon>201812181619313_BaseNullables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812191414068_CreatedById.cs" />
+    <Compile Include="Migrations\201812191414068_CreatedById.Designer.cs">
+      <DependentUpon>201812191414068_CreatedById.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812191447205_LastModifiedBY.cs" />
+    <Compile Include="Migrations\201812191447205_LastModifiedBY.Designer.cs">
+      <DependentUpon>201812191447205_LastModifiedBY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812210934511_VacancyModule.cs" />
+    <Compile Include="Migrations\201812210934511_VacancyModule.Designer.cs">
+      <DependentUpon>201812210934511_VacancyModule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\JobCreateView.cs" />
+    <Compile Include="ViewModels\LoginView.cs" />
+    <Compile Include="ViewModels\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -217,6 +232,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812181619313_BaseNullables.resx">
       <DependentUpon>201812181619313_BaseNullables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812191414068_CreatedById.resx">
+      <DependentUpon>201812191414068_CreatedById.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812191447205_LastModifiedBY.resx">
+      <DependentUpon>201812191447205_LastModifiedBY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812210934511_VacancyModule.resx">
+      <DependentUpon>201812210934511_VacancyModule.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

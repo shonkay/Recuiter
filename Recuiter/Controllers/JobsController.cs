@@ -6,8 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Data.Models;
 using Recruiter.Context;
+using Recruiter.CustomAuthentication;
+using Recruiter.ViewModels;
 
 namespace Recruiter.Controllers
 {
@@ -18,7 +21,7 @@ namespace Recruiter.Controllers
         // GET: Jobs
         public ActionResult Index()
         {
-            var jobs = db.Jobs.Include(j => j.CreatedBy).Include(j => j.Department).Include(j => j.LastModifiedBy);
+            var jobs = db.Jobs.Include(j => j.CreatedBy).Include(j => j.Department).Include(j => j.LastModifiedBy).Where(j => j.IsDeleted == false);
             return View(jobs.ToList());
         }
 
@@ -51,37 +54,83 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,JobId,DepartmentId,JobDescription,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Job job)
+        public ActionResult Create(JobCreateView jobCreateView)
         {
             if (ModelState.IsValid)
             {
-                db.Jobs.Add(job);
+                var user = Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
+
+
+                var jobs = new Job
+                {
+                    Id = jobCreateView.JobId,
+                    DepartmentId = jobCreateView.DepartmentId,
+                    Title = jobCreateView.Title,
+                    Summary = jobCreateView.Summary,
+                    Description = jobCreateView.Description,
+                    Responsibility = jobCreateView.Responsibility,
+                    GeneralRequirement = jobCreateView.GeneralRequirement,
+                    SkillSet = jobCreateView.SkillSet,
+                    MinimumQualification = jobCreateView.MinimumQualification,
+                    ExperienceLevel = jobCreateView.ExperienceLevel,
+                    ContractClass = jobCreateView.ContractClass,
+                    ContractLength = jobCreateView.ContractLength,
+                    ExpiryDate = jobCreateView.ExpiryDate,
+                    CreatedDate = DateTime.Now
+                };
+                if (user != null)
+                {
+                    jobs.CreatedById = user.UserId;
+                    jobs.LastModifiedById = user.UserId;
+                }
+
+                db.Jobs.Add(jobs);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", job.CreatedById);
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", job.LastModifiedById);
-            return View(job);
+            //ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", job.CreatedById);
+            //ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
+            //ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", job.LastModifiedById);
+            return View(jobCreateView);
         }
 
         // GET: Jobs/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.route = Request.CurrentExecutionFilePath;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Job job = db.Jobs.Find(id);
+            var jobVM = new JobCreateView(); //Need to change the name to a more generic name.
             if (job == null)
             {
                 return HttpNotFound();
             }
+            jobVM.Id = job.Id;
+            jobVM.JobId = job.JobId;
+            jobVM.DepartmentId = job.DepartmentId;
+            jobVM.Title = job.Title;
+            jobVM.Summary = job.Summary;
+            jobVM.Description = job.Description;
+            jobVM.Responsibility = job.Responsibility;
+            jobVM.GeneralRequirement = job.GeneralRequirement;
+            jobVM.SkillSet = job.SkillSet;
+            jobVM.MinimumQualification = job.MinimumQualification;
+            jobVM.ExperienceLevel = job.ExperienceLevel;
+            jobVM.ExperienceLength = job.ExperienceLength;
+            jobVM.ContractClass = job.ContractClass;
+            jobVM.ContractLength = job.ContractLength;
+            jobVM.ExpiryDate = job.ExpiryDate;
+            jobVM.CreatedById = job.CreatedById;
+
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", job.CreatedById);
             ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", job.LastModifiedById);
-            return View(job);
+
+            return View(jobVM);
         }
 
         // POST: Jobs/Edit/5
@@ -89,10 +138,31 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,JobId,DepartmentId,JobDescription,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Job job)
+        public ActionResult Edit(JobCreateView jobVM)
         {
+            var user = Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
+            //var job = new Job();
+            var job = db.Jobs.Find(jobVM.Id);
             if (ModelState.IsValid)
             {
+                job.JobId = jobVM.JobId;
+                job.DepartmentId = jobVM.DepartmentId;
+                job.Title = jobVM.Title;
+                job.Summary = jobVM.Summary;
+                job.Description = jobVM.Description;
+                job.Responsibility = jobVM.Responsibility;
+                job.GeneralRequirement = jobVM.GeneralRequirement;
+                job.SkillSet = jobVM.SkillSet;
+                job.MinimumQualification = jobVM.MinimumQualification;
+                job.ExperienceLevel = jobVM.ExperienceLevel;
+                job.ExperienceLength = jobVM.ExperienceLength;
+                job.ContractClass = jobVM.ContractClass;
+                job.ContractLength = jobVM.ContractLength;
+                job.ExpiryDate = jobVM.ExpiryDate;
+                job.LastModifiedById = user.UserId;
+                job.LastModifiedDate = DateTime.Now;
+
+
                 db.Entry(job).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -100,7 +170,7 @@ namespace Recruiter.Controllers
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", job.CreatedById);
             ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
             ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", job.LastModifiedById);
-            return View(job);
+            return View(jobVM);
         }
 
         // GET: Jobs/Delete/5
@@ -124,7 +194,7 @@ namespace Recruiter.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Job job = db.Jobs.Find(id);
-            db.Jobs.Remove(job);
+            job.IsDeleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

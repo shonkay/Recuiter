@@ -14,7 +14,7 @@ namespace Data.Models
 
         public User CreatedBy { get; set; }
 
-        public int? CreatedById { get; set; }
+        public int CreatedById { get; set; }
 
         public User LastModifiedBy { get; set; }
 
