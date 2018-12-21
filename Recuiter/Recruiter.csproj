@@ -156,6 +156,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DepartmentVM.cs" />
+    <Compile Include="ViewModels\LoginView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
