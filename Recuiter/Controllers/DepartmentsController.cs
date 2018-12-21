@@ -87,44 +87,22 @@ namespace Recruiter.Controllers
         }
         
 
-        //public ActionResult Create(Department department)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
-
-        //        if (user != null)
-        //        {
-        //            department.CreatedById = user.UserId;
-        //        }
-
-        //        department.CreatedDate = DateTime.Now;
-
-        //        db.Departments.Add(department);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", departmentVM.HoDId);
-        //    return View(departmentVM);
-        //}
-
-        // GET: Departments/Edit/5
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = db.Departments.Find(id);
-            if (department == null)
+            Department department_g = db.Departments.Find(id);
+            if (department_g == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", department.CreatedById);
-            ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", department.HoDId);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", department.LastModifiedById);
-            return View(department);
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", department_g.CreatedById);
+            ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", department_g.HoDId);
+            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", department_g.LastModifiedById);
+            return View(department_g);
         }
 
         // POST: Departments/Edit/5
