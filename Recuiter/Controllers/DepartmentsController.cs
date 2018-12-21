@@ -10,10 +10,8 @@ using System.Web.Security;
 using Data.Models;
 using Recruiter.Context;
 using Recruiter.CustomAuthentication;
-<<<<<<< HEAD
 using Recruiter.ViewModels;
-=======
->>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
+
 
 namespace Recruiter.Controllers
 {
@@ -58,7 +56,6 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-<<<<<<< HEAD
         public ActionResult Create(DepartmentVM departmentVM)
         {
             if (ModelState.IsValid)
@@ -74,24 +71,12 @@ namespace Recruiter.Controllers
                 };
 
                 if (user != null)
-=======
-        public ActionResult Create(Department department)
-        {
-            if (ModelState.IsValid)
-            {
-               var user= Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
-
-                if (user!=null)
->>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
                 {
                     department.CreatedById = user.UserId;
                 }
 
-<<<<<<< HEAD
-=======
                 department.CreatedDate = DateTime.Now;
 
->>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
                 db.Departments.Add(department);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -100,6 +85,29 @@ namespace Recruiter.Controllers
             ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", departmentVM.HoDId);
             return View(departmentVM);
         }
+        
+
+        //public ActionResult Create(Department department)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
+
+        //        if (user != null)
+        //        {
+        //            department.CreatedById = user.UserId;
+        //        }
+
+        //        department.CreatedDate = DateTime.Now;
+
+        //        db.Departments.Add(department);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.HoDId = new SelectList(db.Users, "Id", "Username", departmentVM.HoDId);
+        //    return View(departmentVM);
+        //}
 
         // GET: Departments/Edit/5
         public ActionResult Edit(int? id)
