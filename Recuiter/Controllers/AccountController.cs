@@ -1,9 +1,4 @@
-﻿
-
-
-
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +29,7 @@ namespace Recruiter.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login(string ReturnUrl = "")
+        public ActionResult Login(string ReturnUrl = "~/UserDashboard/Index")
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -188,10 +183,10 @@ namespace Recruiter.Controllers
             var url = string.Format("/Account/ActivationAccount/{0}", activationCode);
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, url);
 
-            var fromEmail = new MailAddress("mehdi.rami2012@gmail.com", "Activation Account - AKKA");
+            var fromEmail = new MailAddress("ebunsbsc@gmail.com", "Activation Account - AKKA");
             var toEmail = new MailAddress(email);
 
-            var fromEmailPassword = "******************";
+            var fromEmailPassword = "NewPassword";
             string subject = "Activation Account !";
 
             string body = "<br/> Please click on the following link in order to activate your account" + "<br/><a href='" + link + "'> Activation Account ! </a>";

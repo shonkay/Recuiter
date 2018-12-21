@@ -8,13 +8,13 @@ namespace Data.Models
 
 		public bool IsDeleted { get; set; }
 
-		public DateTime CreatedDate { get; set; }
+		public DateTime? CreatedDate { get; set; }
 
 		public DateTime? LastModifiedDate { get; set; }
 
         public User CreatedBy { get; set; }
 
-        public int CreatedById { get; set; }
+        public int? CreatedById { get; set; }
 
         public User LastModifiedBy { get; set; }
 

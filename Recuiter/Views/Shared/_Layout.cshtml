@@ -20,12 +20,50 @@
                 </button>
                 @Html.ActionLink("E-Recruiter", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+           
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+<<<<<<< HEAD
                     <li class="active"><a href="~/Departments/Index">Department <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Jobs</a></li>
                     <li><a href="~/Users/Index">Users</a></li>
                     <li><a href="~/Roles/Index">Roles</a></li>
+=======
+                    <li class="active"><a href="~/Departments/index">Department <span class="sr-only">(current)</span></a></li>
+                    <li><a href="~/Jobs/index">Job</a></li>
+                    <li><a href="~/Users/index">Users <span class="sr-only">(current)</span></a></li>
+                    <li><a href="~/Roles/index">Roles</a></li>
+                    @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>*@
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        
+
+                    }
+                    else
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/account/update">Update</a></li>
+                                <li><a href="~/account/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    }
+>>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -48,12 +86,17 @@
                 </ul>
                 @User.Identity.Name
             </div>
+           @User.Identity.Name
         </div>
     </div>
 
     <div id="header_container">
         <div id="header">
+<<<<<<< HEAD
              @*@ViewBag.Title*@
+=======
+            
+>>>>>>> 75059718b33ef5185c93084f5b1fd7e59941e081
             <span style="float:right; font-size:small">
                 @if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
