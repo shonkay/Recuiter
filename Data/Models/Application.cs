@@ -1,4 +1,6 @@
-﻿namespace Data.Models
+﻿
+
+namespace Data.Models
 {
     public class Application : BaseModel
 	{   

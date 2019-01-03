@@ -129,7 +129,7 @@
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\UserDashboardController.cs" />
+    <Compile Include="Controllers\UserDashboard.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="CustomAuthentication\CustomAuthorizeAttribute.cs" />
     <Compile Include="CustomAuthentication\CustomMembership.cs" />
@@ -138,6 +138,10 @@
     <Compile Include="CustomAuthentication\CustomRole.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901031422151_new.cs" />
+    <Compile Include="Migrations\201901031422151_new.Designer.cs">
+      <DependentUpon>201901031422151_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -184,6 +188,8 @@
     <Content Include="Views\Jobs\Edit.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\UserDashboard\Index.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -201,11 +207,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812071201264_inital.resx">
-      <DependentUpon>201812071201264_inital.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812120918032_Initial.resx">
-      <DependentUpon>201812120918032_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901031422151_new.resx">
+      <DependentUpon>201901031422151_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
