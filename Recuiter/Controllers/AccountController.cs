@@ -44,9 +44,9 @@ namespace Recruiter.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(loginView.UserName, loginView.Password))
+                if (Membership.ValidateUser(loginView.Email, loginView.Password))
                 {
-                    var user = (CustomMembershipUser)Membership.GetUser(loginView.UserName, false);
+                    var user = (CustomMembershipUser)Membership.GetUser(loginView.Email, false);
                     if (user != null)
                     {
                         CustomSerializeModel userModel = new Data.Models.CustomSerializeModel()
@@ -60,7 +60,7 @@ namespace Recruiter.Controllers
                         string userData = JsonConvert.SerializeObject(userModel);
                         FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket
                             (
-                            1, loginView.UserName, DateTime.Now, DateTime.Now.AddMinutes(15), false, userData
+                            1, loginView.Email, DateTime.Now, DateTime.Now.AddMinutes(15), false, userData
                             );
 
                         string enTicket = FormsAuthentication.Encrypt(authTicket);
