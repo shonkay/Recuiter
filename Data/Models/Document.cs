@@ -14,6 +14,6 @@ namespace Data.Models
 		public string FilePath { get; set; }
 		public FileType Type { get; set; }
 
-        //public virtual ICollection<Applicant> Applicants { get; set; }
+        public virtual ICollection<Applicant> Applicants { get; set; }
 	}
 }
