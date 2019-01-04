@@ -9,12 +9,12 @@ namespace Data.Models
     public class LoginView
     {
         [Required]
-        [Display(Name = "User Name")]
-        public string UserName { get; set; }
+        [Display(Name = "Email address")]
+        public string Email { get; set; }
         [Required]
-        [Display(Name = "Password")]
+        [Display(Name = "Create Password")]
         public string Password { get; set; }
-        [Display(Name = "Remember Me")]
+        [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
     }
 
