@@ -52,6 +52,7 @@
     <Compile Include="Models\ApplicantInterview.cs" />
     <Compile Include="Models\ApplicantReviewAssessment.cs" />
     <Compile Include="Models\Application.cs" />
+    <Compile Include="Models\ApplicationInterviewReview.cs" />
     <Compile Include="Models\ApplicationReview.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Department.cs" />
@@ -60,6 +61,8 @@
     <Compile Include="Models\InterviewReviewers.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\InterviewQuestion.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\QuestionTemplate.cs" />
     <Compile Include="Models\ResetPassword.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\UserRoles.cs" />

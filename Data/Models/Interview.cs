@@ -12,6 +12,10 @@ namespace Data.Models
 		
 		public DateTime? EndTime { get; set; }
 
+		public int DepartmentId { get; set; }
+
+		public Department Department { get; set; }
+
 		public QuestionTemplate QuestionTemplate { get; set; }
 
 		public int QuestionTemplateId { get; set; }

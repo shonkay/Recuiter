@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-	public class InterviewReviewer
+	public class InterviewReviewer : BaseModel
 	{
+		
+		public int InterviewId { get; set; }
+
+		public Interview Interview { get; set; }
+
+
 	}
 }
