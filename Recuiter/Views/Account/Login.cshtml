@@ -73,7 +73,7 @@
                                     @Html.CheckBoxFor(model => model.RememberMe)
                                     @Html.LabelFor(model => model.RememberMe)
                                 </div>
-                                <h6 style=color:#313366><a href="#">Forgot Password?</a></h6>
+								<h6 style=color:#313366> @Html.ActionLink("Forgot Password", "ForgotPassword")</h6>
 
                             </div>
                             <div>

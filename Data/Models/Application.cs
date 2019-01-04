@@ -1,5 +1,7 @@
 ﻿
 
+using Data.Enums;
+
 namespace Data.Models
 {
     public class Application : BaseModel
@@ -8,6 +10,6 @@ namespace Data.Models
         public Applicant Applicant { get; set; }
 		public Job Job { get; set; }
 		public int JobId { get; set; }
-		public string Status { get; set; }
+		public JobApplicationWorkFlow Status { get; set; }
 	}
 }

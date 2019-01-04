@@ -45,6 +45,7 @@ namespace Data.Models
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
         [Required]
         public Guid ActivationCode { get; set; }
 

@@ -226,7 +226,6 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserDashboard.cs" />
-    <Compile Include="Controllers\UserDashboardController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="CustomAuthentication\CustomAuthorizeAttribute.cs" />
     <Compile Include="CustomAuthentication\CustomMembership.cs" />
@@ -285,6 +284,8 @@
     <Content Include="Views\Jobs\Edit.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\UserDashboard\Index.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -302,12 +303,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812071201264_inital.resx">
-      <DependentUpon>201812071201264_inital.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812120918032_Initial.resx">
-      <DependentUpon>201812120918032_Initial.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901030900433_update.resx">
       <DependentUpon>201901030900433_update.cs</DependentUpon>
     </EmbeddedResource>
