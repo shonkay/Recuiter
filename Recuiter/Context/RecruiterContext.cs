@@ -9,10 +9,11 @@ namespace Recruiter.Context
 	public class RecruiterContext : DbContext
 
 	{
-		public IDbSet<Applicant> Applicants { get; set; }
+		public IDbSet<Applicant> Applicant { get; set; }
 		public IDbSet<Job> Jobs { get; set; }
 		//public IDbSet<ApplicantDocument> Documents { get; set; }
 		public IDbSet<ApplicantDocument> ApplicantDocuments { get; set; }
+		//public IDbSet<Language> Languages { get; set; }
 		public IDbSet<ApplicationReview> ApplicationReviews { get; set; }
 		public IDbSet<Application> Applications { get; set; }
 		public IDbSet<Department> Departments { get; set; }
@@ -21,6 +22,7 @@ namespace Recruiter.Context
 		public IDbSet<User> Users { get; set; }
 		public IDbSet<UserRole> UserRoles { get; set; }
 
+		public IDbSet<Role> Roles { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
@@ -43,8 +45,6 @@ namespace Recruiter.Context
 		public RecruiterContext()
 		{
 		}
-
-		public System.Data.Entity.DbSet<Data.Models.Role> Roles { get; set; }
 
 		
 		

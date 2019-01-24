@@ -250,11 +250,34 @@
     <Compile Include="Migrations\201901231129208_NewDatabasf.Designer.cs">
       <DependentUpon>201901231129208_NewDatabasf.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901240959391_ApplicantProfile.cs" />
+    <Compile Include="Migrations\201901240959391_ApplicantProfile.Designer.cs">
+      <DependentUpon>201901240959391_ApplicantProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901241312244_newChanges.cs" />
+    <Compile Include="Migrations\201901241312244_newChanges.Designer.cs">
+      <DependentUpon>201901241312244_newChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901241347486_db-update.cs" />
+    <Compile Include="Migrations\201901241347486_db-update.Designer.cs">
+      <DependentUpon>201901241347486_db-update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901241402372_remove_language.cs" />
+    <Compile Include="Migrations\201901241402372_remove_language.Designer.cs">
+      <DependentUpon>201901241402372_remove_language.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901241414252_remve-edcatn.cs" />
+    <Compile Include="Migrations\201901241414252_remve-edcatn.Designer.cs">
+      <DependentUpon>201901241414252_remve-edcatn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901241415230_add_education.cs" />
+    <Compile Include="Migrations\201901241415230_add_education.Designer.cs">
+      <DependentUpon>201901241415230_add_education.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ApplicantDocumentViewModel.cs" />
     <Compile Include="ViewModels\ApplicantProfileViewModels.cs" />
-    <Compile Include="ViewModels\ApplicantResumeVM.cs" />
     <Compile Include="ViewModels\JobViewModel.cs" />
     <Compile Include="ViewModels\LoginView.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
@@ -325,6 +348,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901231129208_NewDatabasf.resx">
       <DependentUpon>201901231129208_NewDatabasf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901240959391_ApplicantProfile.resx">
+      <DependentUpon>201901240959391_ApplicantProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241312244_newChanges.resx">
+      <DependentUpon>201901241312244_newChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241347486_db-update.resx">
+      <DependentUpon>201901241347486_db-update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241402372_remove_language.resx">
+      <DependentUpon>201901241402372_remove_language.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241414252_remve-edcatn.resx">
+      <DependentUpon>201901241414252_remve-edcatn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241415230_add_education.resx">
+      <DependentUpon>201901241415230_add_education.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

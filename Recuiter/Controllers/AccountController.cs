@@ -159,7 +159,7 @@ namespace Recruiter.Controllers
 						CreatedDate = DateTime.Now,
 						LastModifiedDate = DateTime.Now
 					};
-					dbContext.Applicants.Add(applicant);
+					dbContext.Applicant.Add(applicant);
 					dbContext.SaveChanges();
 				}
 

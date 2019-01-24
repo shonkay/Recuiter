@@ -47,7 +47,9 @@ namespace Recruiter.ViewModels
 
 		public int Age { get; set; }
 
-		public  List<string> Language { get; set; }
+		public string Language { get; set; }
+
+		public List<string> LanguageList => Language.Split(',').ToList();
 
 		[DisplayName("Education Level")]
 		public MinimumQualificationType EducationLevel { get; set; }
@@ -61,6 +63,27 @@ namespace Recruiter.ViewModels
 
 		[DisplayName("Upload File")]
 		public string ImagePath { get; set; }
+		
+
+		public List<Education> PastEducation { get; set; }
+
+		public List<Experience> WorkExperience { get; set; }
+
+		public List<ApplicantDocument> ApplicantDocuments { get; set; }
+
+		public List<Skill> Skills { get; set; }
+
+		public List<Education> Educations { get; set; }
+
+		public List<Institution> Institutions { get; set; }
+
+		public string Achievement { get; set; }
+
+		public string FilePath { get; set; }
+
+		public string Name { get; set; }
+
+		public FileType Type { get; set; }
 	}
 
 }

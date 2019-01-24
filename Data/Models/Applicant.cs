@@ -31,7 +31,7 @@ namespace Data.Models
 		
 		public int Age { get; set; }
 
-		public virtual ICollection<string> Languages { get; set; }
+		public string Languages { get; set; }
 
 		[DisplayName("Education Level")]
 		public MinimumQualificationType EducationLevel { get; set; }
@@ -45,6 +45,9 @@ namespace Data.Models
 		public virtual ICollection<ApplicantDocument> ApplicantDocuments { get; set; }
 
 		public virtual ICollection<Skill> Skills { get; set; }
+		
+
+		public virtual ICollection<Institution> Institutions { get; set; }
 
 		public string Achievement { get; set; }
 
