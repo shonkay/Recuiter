@@ -101,7 +101,7 @@ namespace Recruiter.Controllers
 				//				 }).FirstOrDefault();
 
 				//// learn how to join tables using linq;
-				var query = (from p in dbContext.Applicant.Include(x => x.User)
+				var query = (from p in dbContext.Applicants.Include(x => x.User)
 							 where p.UserId == currentUserId
 							 select new ApplicantProfileViewModels
 							 {
@@ -133,7 +133,7 @@ namespace Recruiter.Controllers
 			var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
 			using (RecruiterContext dbContext = new RecruiterContext())
 			{
-				var query = (from p in dbContext.Applicant.Include(x => x.User)
+				var query = (from p in dbContext.Applicants.Include(x => x.User)
 							 where p.UserId == currentUserId
 							 select new ApplicantProfileViewModels
 							 {
@@ -176,7 +176,7 @@ namespace Recruiter.Controllers
 				using (RecruiterContext dbContext = new RecruiterContext())
 				{
 
-					var applicant = dbContext.Applicant.Where(a => a.UserId == currentUserId).FirstOrDefault();
+					var applicant = dbContext.Applicants.Where(a => a.UserId == currentUserId).FirstOrDefault();
 
 					if (applicant != null)
 					{
@@ -189,7 +189,7 @@ namespace Recruiter.Controllers
 						applicant.EducationLevel = applicantProfileViewModel.EducationLevel;
 						applicant.YearsOfExperience = applicantProfileViewModel.YearsOfExperience;
 
-						dbContext.Applicant.Add(applicant);
+						dbContext.Applicants.Add(applicant);
 						dbContext.SaveChanges();
 					}
 					else
@@ -217,46 +217,11 @@ namespace Recruiter.Controllers
 			return View();
 		}
 
-		// Just to get the User Profile informations from the database
 		public ActionResult ApplicantProfilePage()
 		{
-			var loggedInUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
-			using (RecruiterContext dbContext = new RecruiterContext())
-			{
-				var check = (from p in dbContext.Applicant.Include(x => x.User).Include(x => x.PastEducation).Include(x => x.Skills).Include(x => x.ApplicantDocuments)
-							 .Include(x => x.Institutions).Include(x => x.Languages)
-							 where p.UserId == loggedInUserId
 
-							 select new ApplicantProfileViewModels
-							 {
-
-								 CompleteAddress = p.Address,
-								 Achievement = p.Achievement,
-								 Age = p.Age,
-								 Bio = p.Bio,
-								 EducationLevel = p.EducationLevel,
-								 FirstName = p.User.FirstName,
-								 LastName = p.User.LastName,
-								 Language = p.Languages,
-								 Certificates = (from files in dbContext.ApplicantDocuments
-												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsDeleted
-												 select new ApplicantDocumentViewModel
-												 {
-													 FilePath = files.FilePath,
-													 Name = files.Name,
-													 Type = files.Type
-												 }).ToList(),
-								 // Language = dbContext.Languages.Select(x => x.ApplicantId == p.Id, new Language { Name=})
-								 
-							 }).FirstOrDefault();
-
-				return View(check);
-			}
-			
-			
+			return View();
 		}
-
-
 
 
 
@@ -269,7 +234,7 @@ namespace Recruiter.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Applicant applicant = db.Applicant.Find(id);
+			Applicant applicant = db.Applicants.Find(id);
 			if (applicant == null)
 			{
 				return HttpNotFound();
@@ -295,7 +260,7 @@ namespace Recruiter.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				db.Applicant.Add(applicant);
+				db.Applicants.Add(applicant);
 				db.SaveChanges();
 				return RedirectToAction("Index");
 			}
@@ -313,7 +278,7 @@ namespace Recruiter.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Applicant applicant = db.Applicant.Find(id);
+			Applicant applicant = db.Applicants.Find(id);
 			if (applicant == null)
 			{
 				return HttpNotFound();
@@ -350,7 +315,7 @@ namespace Recruiter.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Applicant applicant = db.Applicant.Find(id);
+			Applicant applicant = db.Applicants.Find(id);
 			if (applicant == null)
 			{
 				return HttpNotFound();
@@ -363,8 +328,8 @@ namespace Recruiter.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id)
 		{
-			Applicant applicant = db.Applicant.Find(id);
-			db.Applicant.Remove(applicant);
+			Applicant applicant = db.Applicants.Find(id);
+			db.Applicants.Remove(applicant);
 			db.SaveChanges();
 			return RedirectToAction("Index");
 		}
