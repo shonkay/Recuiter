@@ -47,6 +47,7 @@ namespace Data.Models
         [Display(Name = "Minimum Academic Qualification")]
         [Required]
         public MinimumQualificationType MinimumQualification { get; set; }
+
         [Display(Name = "Level of Expertise")]
         [Required]
         public ExperienceLevelType ExperienceLevel { get; set; }
@@ -54,16 +55,21 @@ namespace Data.Models
         [Range(0, 50)]
         [Required]
         public int ExperienceLength { get; set; }
+
         [Display(Name = "Contract Class")]
         [Required]
         public ContractClassType ContractClass { get; set; }
+
         [Display(Name = "Contract Length")]
         [Required]
         public string ContractLength { get; set; } // A combination of drop-down lists of Integer and month/year. Mutually exclusive on ContractType
+
         [Display(Name = "Expiry Date")]
         [Required]
         public DateTime ExpiryDate { get; set; }
+
         public bool IsApproved { get; set; }
+
         public bool IsPublished { get; set; }
     }
 }

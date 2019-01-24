@@ -42,6 +42,11 @@ namespace Recruiter.ViewModels
 
 	public class Skill
 	{
+		public int Id { get; set; }
+
+		public SkillLevel Skilllevel { get; set; }
+
+		public string Achievement { get; set; }
 
 	}
 }

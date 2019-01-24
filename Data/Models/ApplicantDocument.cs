@@ -1,19 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿using System;
+using System.Collections.Generic;
 
 namespace Data.Models
 {
-    public class ApplicantDocument
-    {
-        [Key, Column(Order = 1)]
-        public int DocumentId { get; set; }
+    public class ApplicantDocument : BaseModel
+	{
+		public Applicant Applicant { get; set; }
 
-        public Document Document { get; set; }
+		public int ApplicantId { get; set; }
 
-        [Key, Column(Order = 2)]
-        public int ApplicantId { get; set; }
+		public string Name { get; set; }
 
-        public Applicant Applicant { get; set; }
-    }
+		public string FilePath { get; set; }
+
+		public FileType Type { get; set; }
+
+	}
 }

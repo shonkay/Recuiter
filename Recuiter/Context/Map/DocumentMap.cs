@@ -34,11 +34,11 @@ namespace Recuiter.Context.Map
     }
 
 
-    public class DocumentMap : EntityTypeConfiguration<Document>
+    public class ApplicantDocumentMap : EntityTypeConfiguration<ApplicantDocument>
     {
-        public DocumentMap()
+        public ApplicantDocumentMap()
         {
-            HasRequired(x => x.User).WithMany().WillCascadeOnDelete(false);
+          
         }
     }
 

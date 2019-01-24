@@ -11,7 +11,7 @@ namespace Recruiter.Context
 	{
 		public IDbSet<Applicant> Applicants { get; set; }
 		public IDbSet<Job> Jobs { get; set; }
-		public IDbSet<Document> Documents { get; set; }
+		//public IDbSet<ApplicantDocument> Documents { get; set; }
 		public IDbSet<ApplicantDocument> ApplicantDocuments { get; set; }
 		public IDbSet<ApplicationReview> ApplicationReviews { get; set; }
 		public IDbSet<Application> Applications { get; set; }
@@ -29,7 +29,7 @@ namespace Recruiter.Context
 			modelBuilder.Configurations.Add(new UserMap());
 			modelBuilder.Configurations.Add(new UserRoleMap());
 			modelBuilder.Configurations.Add(new RoleMap());
-			modelBuilder.Configurations.Add(new DocumentMap());
+			modelBuilder.Configurations.Add(new ApplicantDocumentMap());
 			modelBuilder.Configurations.Add(new DepartmentMap());
 			modelBuilder.Configurations.Add(new ApplicantMap());
 			modelBuilder.Configurations.Add(new ApplicationMap());
@@ -46,11 +46,7 @@ namespace Recruiter.Context
 
 		public System.Data.Entity.DbSet<Data.Models.Role> Roles { get; set; }
 
-
-
-		public System.Data.Entity.DbSet<Data.Models.Image> Images { get; set; }
-		public IEnumerable Document { get; internal set; }
-
-		public System.Data.Entity.DbSet<Recruiter.ViewModels.ApplicantProfileViewModels> ApplicantProfileViewModels { get; set; }
+		
+		
 	}
 }

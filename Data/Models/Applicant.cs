@@ -10,15 +10,13 @@ namespace Data.Models
 {
     public class Applicant : BaseModel
 	{
-		public User User { get; set; }
+		public virtual User User { get; set; }
 
-		public int? UserId { get; set; }
+		public int UserId { get; set; }
 
 		public string Address { get; set; }
 
-		//public Image Image { get; set; }
-
-		//public int ImageId { get; set; }
+		public string ProfilePicPath { get; set; }
 
 		[DataType(DataType.PhoneNumber)]
 		[DisplayName("Phone Number")]
@@ -33,13 +31,23 @@ namespace Data.Models
 		
 		public int Age { get; set; }
 
-		//public virtual ICollection<string> Languages { get; set; }
+		public virtual ICollection<string> Languages { get; set; }
 
 		[DisplayName("Education Level")]
 		public MinimumQualificationType EducationLevel { get; set; }
 
 		public string Bio { get; set; }
 
-		public virtual ICollection<Document> Documents { get; set; }
+		public virtual ICollection<Education> PastEducation { get; set; }
+
+		public virtual ICollection<Experience> WorkExperience { get; set; }
+
+		public virtual ICollection<ApplicantDocument> ApplicantDocuments { get; set; }
+
+		public virtual ICollection<Skill> Skills { get; set; }
+
+		public string Achievement { get; set; }
+
+
 	}
 }

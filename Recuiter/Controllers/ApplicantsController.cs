@@ -14,19 +14,7 @@ using Recruiter.ViewModels;
 
 namespace Recruiter.Controllers
 {
-	public class Search
-	{
-		public int? Contract { get; set; }
-		public int? Expereince { get; set; }
-	}
 
-	public class Institution
-	{
-		public string name { get; set; }
-		public string city { get; set; }
-		public string code { get; set; }
-
-	}
 	public class ApplicantsController : Controller
 	{
 		private RecruiterContext db = new RecruiterContext();
@@ -35,13 +23,8 @@ namespace Recruiter.Controllers
 		[HttpGet]
 		public ActionResult Index(string searchString, string searchSkills, string searchContract, int? ContractClass, int? ExperienceLevel)
 		{
-
-
 			var jobss = from j in db.Jobs.Include(x => x.Department) select j;
-			//var jobss = new JobViewModel()
-			//{
-			//	Id = 
-			//};
+
 			if (!String.IsNullOrEmpty(searchString))
 			{
 				jobss = jobss.Where(s => s.Title.Contains(searchString));
@@ -71,7 +54,7 @@ namespace Recruiter.Controllers
 			//var jobList = new List<JobViewModel>();
 			//foreach(Job job in jobsss)
 			//{
-				
+
 			//	var jobView = new JobViewModel
 			//	{
 			//		Id = job.Id,
@@ -89,7 +72,7 @@ namespace Recruiter.Controllers
 			//		ContractClass = job.ContractClass,
 			//		ExpiryDate = job.ExpiryDate
 			//	};
-				//jobList.Add(jobView);
+			//jobList.Add(jobView);
 			//}
 			return View(jobss.ToList());
 		}
@@ -100,16 +83,45 @@ namespace Recruiter.Controllers
 			var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
 			using (RecruiterContext dbContext = new RecruiterContext())
 			{
-				var user = (from u in dbContext.Users where u.Id == currentUserId select u).FirstOrDefault();
-				var applicant = (from p in dbContext.Applicants where p.UserId == currentUserId select p).FirstOrDefault();
-				var applicantProfileModel = new ApplicantProfileViewModels
-				{
-					Id = applicant.UserId.Value,
-					FirstName = user.FirstName,
-					LastName = user.LastName,
-					Email = user.Email
-				};
-				return View(applicantProfileModel);
+				////var user = (from u in dbContext.Users where u.Id == currentUserId select u).FirstOrDefault();
+				//var applicant = (from p in dbContext.Applicants.Include(x=> x.User)
+				//				 .Include(x=> x.ApplicantDocuments)
+				//				 where p.UserId == currentUserId
+				//				 select new ApplicantProfileViewModels
+				//				 {
+				//					 Age = p.Age,
+				//					 Bio = p.Bio,
+				//					 EducationLevel = p.EducationLevel,
+				//					 Certificates = p.ApplicantDocuments.Select(x => new ApplicantDocumentViewModel
+				//					 {
+				//						 FilePath = x.FilePath,
+				//						 Name = x.Name,
+				//						 Type = x.Type
+				//					 }).ToList()
+				//				 }).FirstOrDefault();
+
+				//// learn how to join tables using linq;
+				var query = (from p in dbContext.Applicants.Include(x => x.User)
+							 where p.UserId == currentUserId
+							 select new ApplicantProfileViewModels
+							 {
+								 Age = p.Age,
+								 Bio = p.Bio,
+								 EducationLevel = p.EducationLevel,
+								 FirstName = p.User.FirstName,
+								 LastName = p.User.LastName,
+								 Certificates = (from files in dbContext.ApplicantDocuments
+												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsDeleted
+												 select new ApplicantDocumentViewModel
+												 {
+													 FilePath = files.FilePath,
+													 Name = files.Name,
+													 Type = files.Type
+												 }).ToList()
+							 }).FirstOrDefault();
+
+
+				return View(query);
 			}
 		}
 
@@ -118,19 +130,40 @@ namespace Recruiter.Controllers
 		// GET: Applicants
 		public ActionResult ApplicantProfileEdit(int Id)
 		{
+			var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
 			using (RecruiterContext dbContext = new RecruiterContext())
 			{
-				var user = (from u in dbContext.Users where u.Id == Id select u).FirstOrDefault();
-				var applicant = (from p in dbContext.Applicants where p.UserId == Id select p).FirstOrDefault();
-				var applicantProfileModel = new ApplicantProfileViewModels
-				{
-					Id = applicant.UserId.Value,
-					FirstName = user.FirstName,
-					LastName = user.LastName,
-					Email = user.Email
-				};
-				return View(applicantProfileModel);
+				var query = (from p in dbContext.Applicants.Include(x => x.User)
+							 where p.UserId == currentUserId
+							 select new ApplicantProfileViewModels
+							 {
+								 Age = p.Age,
+								 Bio = p.Bio,
+								 PhoneNumber = p.PhoneNumber,
+								 Email = p.User.Email,
+								 City = p.City,
+								 Country = p.Country,
+								 CompleteAddress = p.Country,
+								 YearsOfExperience = p.YearsOfExperience,
+
+								 EducationLevel = p.EducationLevel,
+								 FirstName = p.User.FirstName,
+								 LastName = p.User.LastName,
+
+								 Certificates = (from files in dbContext.ApplicantDocuments
+												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsDeleted
+												 select new ApplicantDocumentViewModel
+												 {
+													 FilePath = files.FilePath,
+													 Name = files.Name,
+													 Type = files.Type
+												 }).ToList()
+							 }).FirstOrDefault();
+
+
+				return View(query);
 			}
+
 		}
 
 
@@ -139,12 +172,12 @@ namespace Recruiter.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var currentUserId =(Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+				var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
 				using (RecruiterContext dbContext = new RecruiterContext())
 				{
-					
-					var applicant= dbContext.Applicants.Where(a => a.UserId == currentUserId).FirstOrDefault();
-					
+
+					var applicant = dbContext.Applicants.Where(a => a.UserId == currentUserId).FirstOrDefault();
+
 					if (applicant != null)
 					{
 						applicant.PhoneNumber = applicantProfileViewModel.PhoneNumber;
@@ -157,13 +190,14 @@ namespace Recruiter.Controllers
 						applicant.YearsOfExperience = applicantProfileViewModel.YearsOfExperience;
 
 						dbContext.Applicants.Add(applicant);
-						dbContext.SaveChanges();					}
+						dbContext.SaveChanges();
+					}
 					else
 					{
 						ModelState.AddModelError("Warning Error", "Information is not correct");
 						return View(applicantProfileViewModel);
 					}
-					
+
 				}
 
 			}
@@ -183,121 +217,131 @@ namespace Recruiter.Controllers
 			return View();
 		}
 
+		public ActionResult ApplicantProfilePage()
+		{
+
+			return View();
+		}
+
+
+
+
 		// GET: Applicants/Details/5
-			public ActionResult Details(int? id)
-        {
-			
-				if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Applicant applicant = db.Applicants.Find(id);
-            if (applicant == null)
-            {
-                return HttpNotFound();
-            }
-            return View(applicant);
-        }
+		public ActionResult Details(int? id)
+		{
 
-        // GET: Applicants/Create
-        public ActionResult Create()
-        {
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username");
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Username");
-            return View();
-        }
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Applicant applicant = db.Applicants.Find(id);
+			if (applicant == null)
+			{
+				return HttpNotFound();
+			}
+			return View(applicant);
+		}
 
-        // POST: Applicants/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,Address,PhoneNumber,Country,City,YearsOfExperience,Age,EducationLevel,Bio,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Applicant applicant)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Applicants.Add(applicant);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+		// GET: Applicants/Create
+		public ActionResult Create()
+		{
+			ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username");
+			ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username");
+			ViewBag.UserId = new SelectList(db.Users, "Id", "Username");
+			return View();
+		}
 
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", applicant.CreatedById);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", applicant.LastModifiedById);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", applicant.UserId);
-            return View(applicant);
-        }
+		// POST: Applicants/Create
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create([Bind(Include = "Id,UserId,Address,PhoneNumber,Country,City,YearsOfExperience,Age,EducationLevel,Bio,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Applicant applicant)
+		{
+			if (ModelState.IsValid)
+			{
+				db.Applicants.Add(applicant);
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
 
-        // GET: Applicants/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Applicant applicant = db.Applicants.Find(id);
-            if (applicant == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", applicant.CreatedById);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", applicant.LastModifiedById);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", applicant.UserId);
-            return View(applicant);
-        }
+			ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", applicant.CreatedById);
+			ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", applicant.LastModifiedById);
+			ViewBag.UserId = new SelectList(db.Users, "Id", "Username", applicant.UserId);
+			return View(applicant);
+		}
 
-        // POST: Applicants/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserId,Address,PhoneNumber,Country,City,YearsOfExperience,Age,EducationLevel,Bio,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Applicant applicant)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(applicant).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", applicant.CreatedById);
-            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", applicant.LastModifiedById);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", applicant.UserId);
-            return View(applicant);
-        }
+		// GET: Applicants/Edit/5
+		public ActionResult Edit(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Applicant applicant = db.Applicants.Find(id);
+			if (applicant == null)
+			{
+				return HttpNotFound();
+			}
+			ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", applicant.CreatedById);
+			ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", applicant.LastModifiedById);
+			ViewBag.UserId = new SelectList(db.Users, "Id", "Username", applicant.UserId);
+			return View(applicant);
+		}
 
-        // GET: Applicants/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Applicant applicant = db.Applicants.Find(id);
-            if (applicant == null)
-            {
-                return HttpNotFound();
-            }
-            return View(applicant);
-        }
+		// POST: Applicants/Edit/5
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit([Bind(Include = "Id,UserId,Address,PhoneNumber,Country,City,YearsOfExperience,Age,EducationLevel,Bio,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Applicant applicant)
+		{
+			if (ModelState.IsValid)
+			{
+				db.Entry(applicant).State = EntityState.Modified;
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", applicant.CreatedById);
+			ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", applicant.LastModifiedById);
+			ViewBag.UserId = new SelectList(db.Users, "Id", "Username", applicant.UserId);
+			return View(applicant);
+		}
 
-        // POST: Applicants/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Applicant applicant = db.Applicants.Find(id);
-            db.Applicants.Remove(applicant);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+		// GET: Applicants/Delete/5
+		public ActionResult Delete(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Applicant applicant = db.Applicants.Find(id);
+			if (applicant == null)
+			{
+				return HttpNotFound();
+			}
+			return View(applicant);
+		}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-    }
+		// POST: Applicants/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteConfirmed(int id)
+		{
+			Applicant applicant = db.Applicants.Find(id);
+			db.Applicants.Remove(applicant);
+			db.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				db.Dispose();
+			}
+			base.Dispose(disposing);
+
+		}
+	}
 }

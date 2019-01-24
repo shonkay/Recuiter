@@ -6,7 +6,7 @@ public enum FileType
     CoverLetter = 1,
     Cv,
     MedicalReport,
-
+	Certificate
 }
 
 public enum MinimumQualificationType
@@ -30,6 +30,12 @@ public enum ExperienceLevelType
     Expert = 1,
     Intermediate,
     Beginner
+}
+public enum SkillLevel
+{
+	Expert = 1,
+	Intermediate,
+	Beginner
 }
 
 public enum ContractClassType

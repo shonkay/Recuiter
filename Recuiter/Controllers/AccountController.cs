@@ -224,10 +224,10 @@ namespace Recruiter.Controllers
 			var url = string.Format("/Account/ActivationAccount/emailFor/{0}", activationCode);
 			var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, url);
 
-			var fromEmail = new MailAddress("shonkayworld_don@yahoo.com", "Account Activation - AKKA");
+			var fromEmail = new MailAddress("azure_89d453a1dcbff544a33dff3f0f9e7bf5@azure.com", "Account Activation - AKKA");
 			var toEmail = new MailAddress(email);
 
-			var fromEmailPassword = "y6Kp4wPykRWzkHr";
+			var fromEmailPassword = "testgrid@1234";
 			string subject = "Your Account is Successfully created!";
 
 			string body = "<br/> Please click on the following link in order to activate your account" + "<br/><a href='" + link + "'> Activation Account ! </a>";
@@ -249,8 +249,8 @@ namespace Recruiter.Controllers
 
 			var smtp = new SmtpClient
 			{
-				Host = "smtp.mail.yahoo.com",
-				Port = 465,
+				Host = "smtp.sendgrid.net",
+				Port = 25,
 				EnableSsl = true,
 				DeliveryMethod = SmtpDeliveryMethod.Network,
 				UseDefaultCredentials = false,

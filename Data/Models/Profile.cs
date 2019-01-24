@@ -18,7 +18,7 @@ namespace Data.Models
 
 		public int ApplicantId { get; set; }
 
-		public Document Document { get; set; }
+		public ApplicantDocument Document { get; set; }
 
 		public int DocumentId { get; set; }
 

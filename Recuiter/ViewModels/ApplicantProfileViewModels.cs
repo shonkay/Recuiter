@@ -10,16 +10,8 @@ namespace Recruiter.ViewModels
 {
 	public class ApplicantProfileViewModels
 	{
-		internal bool IsActive;
-
 		public int Id { get; set; }
 
-		public Applicant Applicant { get; set; }
-
-		public int ApplicantId { get; set; }
-
-		public Document Document { get; set; }
-		
 		[DisplayName("First Name")]
 		[Required(AllowEmptyStrings = false, ErrorMessage = "First Name is required")]
 		public string FirstName { get; set; }
@@ -30,10 +22,7 @@ namespace Recruiter.ViewModels
 
 		public int DocumentId { get; set; }
 
-		public Image Image { get; set; }
-
-		public int ImageId { get; set; }
-
+		
 		//public Guid ActivationCode { get; set; }
 
 		[DisplayName("Phone Number")]
@@ -58,11 +47,20 @@ namespace Recruiter.ViewModels
 
 		public int Age { get; set; }
 
-		public virtual ICollection<string> Language { get; set; }
+		public  List<string> Language { get; set; }
 
 		[DisplayName("Education Level")]
 		public MinimumQualificationType EducationLevel { get; set; }
 
 		public string Bio { get; set; }
+
+		public List<ApplicantDocumentViewModel> Certificates { get; set; }
+
+		[Display(Name = "Image Title")]
+		public string Title { get; set; }
+
+		[DisplayName("Upload File")]
+		public string ImagePath { get; set; }
 	}
+
 }
