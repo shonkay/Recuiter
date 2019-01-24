@@ -8,7 +8,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Linq;
-
+using Recruiter.Context;
+using System.Data.Entity;
 
 namespace Recruiter
 {
@@ -19,10 +20,11 @@ namespace Recruiter
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-        }
+			new DbInsertOnAppStart().Seed();
+		}
 
 
-        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+		protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
             HttpCookie authCookie = Request.Cookies["Cookie1"];
             if (authCookie != null)
@@ -36,7 +38,7 @@ namespace Recruiter
                 principal.UserId = serializeModel.UserId;
                 principal.FirstName = serializeModel.FirstName;
                 principal.LastName = serializeModel.LastName;
-                principal.Roles = serializeModel.RoleName.ToArray<string>();
+                principal.Roles = (serializeModel.RoleName != null) ? (serializeModel.RoleName.ToArray<string>()) : new string[] { };
 
                 HttpContext.Current.User = principal;
             }

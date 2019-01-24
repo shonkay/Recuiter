@@ -953,7 +953,7 @@
             data.to(config);
           } else if (typeof action === 'string') {
             if (typeof data[action] === 'undefined') {
-              throw new TypeError("No method named \"" + action + "\"");
+              throw new TypeError("No method "name"d \"" + action + "\"");
             }
 
             data[action]();
@@ -1347,7 +1347,7 @@
 
           if (typeof config === 'string') {
             if (typeof data[config] === 'undefined') {
-              throw new TypeError("No method named \"" + config + "\"");
+              throw new TypeError("No method "name"d \"" + config + "\"");
             }
 
             data[config]();
@@ -2270,11 +2270,11 @@
    * @memberof Popper.Utils
    * @param {dataObject} data
    * @param {Array} modifiers
-   * @param {String} ends - Optional modifier name used as stopper
+   * @param {String} ends - Optional modifier "name" used as stopper
    * @returns {dataObject}
    */
   function runModifiers(modifiers, data, ends) {
-    var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, 'name', ends));
+    var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, '"name"', ends));
 
     modifiersToRun.forEach(function (modifier) {
       if (modifier['function']) {
@@ -2357,14 +2357,14 @@
    */
   function isModifierEnabled(modifiers, modifierName) {
     return modifiers.some(function (_ref) {
-      var name = _ref.name,
+      var "name" = _ref."name",
           enabled = _ref.enabled;
-      return enabled && name === modifierName;
+      return enabled && "name" === modifierName;
     });
   }
 
   /**
-   * Get the prefixed supported property name
+   * Get the prefixed supported property "name"
    * @method
    * @memberof Popper.Utils
    * @argument {String} property (camelCase)
@@ -2624,7 +2624,7 @@
     // Remove this legacy support in Popper.js v2
 
     var legacyGpuAccelerationOption = find(data.instance.modifiers, function (modifier) {
-      return modifier.name === 'applyStyle';
+      return modifier."name" === 'applyStyle';
     }).gpuAcceleration;
     if (legacyGpuAccelerationOption !== undefined) {
       console.warn('WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!');
@@ -2711,18 +2711,18 @@
    * @method
    * @memberof Popper.Utils
    * @param {Array} modifiers - list of modifiers
-   * @param {String} requestingName - name of requesting modifier
-   * @param {String} requestedName - name of requested modifier
+   * @param {String} requestingName - "name" of requesting modifier
+   * @param {String} requestedName - "name" of requested modifier
    * @returns {Boolean}
    */
   function isModifierRequired(modifiers, requestingName, requestedName) {
     var requesting = find(modifiers, function (_ref) {
-      var name = _ref.name;
-      return name === requestingName;
+      var "name" = _ref."name";
+      return "name" === requestingName;
     });
 
     var isRequired = !!requesting && modifiers.some(function (modifier) {
-      return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order;
+      return modifier."name" === requestedName && modifier.enabled && modifier.order < requesting.order;
     });
 
     if (!isRequired) {
@@ -3302,7 +3302,7 @@
 
     var refRect = data.offsets.reference;
     var bound = find(data.instance.modifiers, function (modifier) {
-      return modifier.name === 'preventOverflow';
+      return modifier."name" === 'preventOverflow';
     }).boundaries;
 
     if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {
@@ -3371,7 +3371,7 @@
    *
    * Usually you don't want to override the `order`, `fn` and `onLoad` props.
    * All the other properties are configurations that could be tweaked.
-   * @namespace modifiers
+   * @"name"space modifiers
    */
   var modifiers = {
     /**
@@ -3679,7 +3679,7 @@
   /**
    * The `dataObject` is an object containing all the informations used by Popper.js
    * this object get passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
-   * @name dataObject
+   * @"name" dataObject
    * @property {Object} data.instance The Popper.js instance
    * @property {String} data.placement Placement applied to popper
    * @property {String} data.originalPlacement Placement originally defined on init
@@ -3813,15 +3813,15 @@
 
       // Deep merge modifiers options
       this.options.modifiers = {};
-      Object.keys(_extends({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {
-        _this.options.modifiers[name] = _extends({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
+      Object.keys(_extends({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function ("name") {
+        _this.options.modifiers["name"] = _extends({}, Popper.Defaults.modifiers["name"] || {}, options.modifiers ? options.modifiers["name"] : {});
       });
 
       // Refactoring modifiers' list (Object => Array)
-      this.modifiers = Object.keys(this.options.modifiers).map(function (name) {
+      this.modifiers = Object.keys(this.options.modifiers).map(function ("name") {
         return _extends({
-          name: name
-        }, _this.options.modifiers[name]);
+          "name": "name"
+        }, _this.options.modifiers["name"]);
       })
       // sort the modifiers by order
       .sort(function (a, b) {
@@ -3831,7 +3831,7 @@
       // modifiers have the ability to execute arbitrary code when Popper.js get inited
       // such code is executed in the same order of its modifier
       // they could add new properties to their options configuration
-      // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
+      // BE AWARE: don't add options to `options.modifiers."name"` but to `modifierOptions`!
       this.modifiers.forEach(function (modifierOptions) {
         if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
           modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
@@ -3914,7 +3914,7 @@
    * ```
    *
    * NB: This feature isn't supported in Internet Explorer 10
-   * @name referenceObject
+   * @"name" referenceObject
    * @property {Function} data.getBoundingClientRect
    * A function that returns a set of coordinates compatible with the native `getBoundingClientRect` method.
    * @property {number} data.clientWidth
@@ -4235,7 +4235,7 @@
 
           if (typeof config === 'string') {
             if (typeof data[config] === 'undefined') {
-              throw new TypeError("No method named \"" + config + "\"");
+              throw new TypeError("No method "name"d \"" + config + "\"");
             }
 
             data[config]();
@@ -4908,7 +4908,7 @@
 
           if (typeof config === 'string') {
             if (typeof data[config] === 'undefined') {
-              throw new TypeError("No method named \"" + config + "\"");
+              throw new TypeError("No method "name"d \"" + config + "\"");
             }
 
             data[config](relatedTarget);
@@ -5592,7 +5592,7 @@
 
           if (typeof config === 'string') {
             if (typeof data[config] === 'undefined') {
-              throw new TypeError("No method named \"" + config + "\"");
+              throw new TypeError("No method "name"d \"" + config + "\"");
             }
 
             data[config]();
@@ -5788,7 +5788,7 @@
 
           if (typeof config === 'string') {
             if (typeof data[config] === 'undefined') {
-              throw new TypeError("No method named \"" + config + "\"");
+              throw new TypeError("No method "name"d \"" + config + "\"");
             }
 
             data[config]();
@@ -6114,7 +6114,7 @@
 
           if (typeof config === 'string') {
             if (typeof data[config] === 'undefined') {
-              throw new TypeError("No method named \"" + config + "\"");
+              throw new TypeError("No method "name"d \"" + config + "\"");
             }
 
             data[config]();
@@ -6373,7 +6373,7 @@
 
           if (typeof config === 'string') {
             if (typeof data[config] === 'undefined') {
-              throw new TypeError("No method named \"" + config + "\"");
+              throw new TypeError("No method "name"d \"" + config + "\"");
             }
 
             data[config]();

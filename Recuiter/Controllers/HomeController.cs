@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Recruiter.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,10 @@ namespace Recuiter.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+			RecruiterContext ctxt = new RecruiterContext();
+			ctxt.Roles.ToList();
+
+			return View();
         }
     }
 }

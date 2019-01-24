@@ -11,29 +11,39 @@ namespace Data.Models
         [Display(Name = "Job Id")]
         [Required]
         public int JobId { get; set; }
+
         [Display(Name = "Department")]
         public Department Department { get; set; }
+
         [Display(Name = "Department")]
         [Required]
         public int DepartmentId { get; set; }
+
         [Display(Name = "Job Title")]
         [Required]
         public string Title { get; set; }
+
+
         [Display(Name = "Job Summary")]
         [Required]
         public string Summary { get; set; }
+
         [Display(Name = "Job Description")]
         [Required]
         public string Description { get; set; }
+
         [Display(Name = "Duties & Responsibilities")]
         [Required]
         public string Responsibility { get; set; }
+
         [Display(Name = "General Requirement")]
         [Required]
         public string GeneralRequirement { get; set; } //Text Area
+
         [Display(Name = "Skill Set")]
         [Required]
         public string SkillSet { get; set; } //Text Area
+
         [Display(Name = "Minimum Academic Qualification")]
         [Required]
         public MinimumQualificationType MinimumQualification { get; set; }

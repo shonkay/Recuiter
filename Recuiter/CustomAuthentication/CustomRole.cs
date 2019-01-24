@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using Recruiter.Context;
+using System.Configuration.Provider;
 
 namespace Recruiter.CustomAuthentication
 {
@@ -75,15 +76,45 @@ namespace Recruiter.CustomAuthentication
             }
         }
 
-        public override void AddUsersToRoles(string[] usernames, string[] roleNames)
-        {
-            throw new NotImplementedException();
-        }
+		public override void AddUsersToRoles(string[] usernames, string[] rolenames)
+		{
+			throw new NotImplementedException();
 
-        public override void CreateRole(string roleName)
-        {
-            throw new NotImplementedException();
-        }
+		}
+
+		public bool AddUserToRole(UserRole userRole)
+		{
+			if (userRole != null)
+			{
+				RecruiterContext db = new RecruiterContext();
+				db.UserRoles.Add(userRole);
+				var ret = db.SaveChanges();
+				return (db.SaveChanges() == 1) ? true : false;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool CreateRole(Role role) {
+			using (RecruiterContext dbContext = new RecruiterContext())
+			{
+				var roles = (from us in dbContext.Roles
+							 where string.Compare(role.Name, us.Name, StringComparison.InvariantCultureIgnoreCase) == 0
+							 select us).FirstOrDefault();
+				if (roles == null)
+				{
+					dbContext.Roles.Add(role);
+					dbContext.SaveChanges();
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+		}
+
 
         public override bool DeleteRole(string roleName, bool throwOnPopulatedRole)
         {
@@ -97,7 +128,16 @@ namespace Recruiter.CustomAuthentication
 
         public override string[] GetAllRoles()
         {
-            throw new NotImplementedException();
+			var db = new RecruiterContext();
+			var roles = db.Roles.ToList();
+			string[] roleArray = new string[roles.Count];
+			int n = 0;
+			foreach (Role role in roles)
+			{
+				roleArray[n] = role.Name.ToString();
+				n++;
+			}
+			return roleArray;
         }
 
         public override string[] GetUsersInRole(string roleName)
@@ -116,6 +156,11 @@ namespace Recruiter.CustomAuthentication
             throw new NotImplementedException();
         }
 
-        #endregion
-    }
+		public override void CreateRole(string roleName)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+	}
 }

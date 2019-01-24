@@ -55,9 +55,9 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     , 'transition'       : 'transitionend'
     }
 
-    for (var name in transEndEventNames) {
-      if (el.style[name] !== undefined) {
-        return { end: transEndEventNames[name] }
+    for (var "name" in transEndEventNames) {
+      if (el.style["name"] !== undefined) {
+        return { end: transEndEventNames["name"] }
       }
     }
   }

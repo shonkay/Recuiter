@@ -1,8 +1,26 @@
-﻿
+﻿@model Data.Models.Image
+
+
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>User Dashboard</h2>
 
+<div>
+	<h3>Upload File</h3>
+	<div class="form-group">
+		@Html.LabelFor(model => model.Title, new { @class = "control-label col-md-10-"})
+		<div class="col-md-10">
+			@Html.EditorFor( model => model.ImagePath)
+			@Html.ValidationMessageFor(model => model.ImagePath)
+		</div>
+	</div>
+	@using (Html.BeginForm("Add", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
+	{
+		<input type="file" name="file" />
+		<br /><br />
+		<input type="submit" value="Upload" class="btn btn-primary" />
+	}
+</div>

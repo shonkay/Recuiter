@@ -54,7 +54,7 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(JobCreateView jobCreateView)
+        public ActionResult Create(JobViewModel jobCreateView)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace Recruiter.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Job job = db.Jobs.Find(id);
-            var jobVM = new JobCreateView(); //Need to change the name to a more generic name.
+            var jobVM = new JobViewModel(); //Need to change the name to a more generic name.
             if (job == null)
             {
                 return HttpNotFound();
@@ -138,7 +138,7 @@ namespace Recruiter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(JobCreateView jobVM)
+        public ActionResult Edit(JobViewModel jobVM)
         {
             var user = Membership.GetUser(User.Identity.Name) as CustomMembershipUser;
             //var job = new Job();

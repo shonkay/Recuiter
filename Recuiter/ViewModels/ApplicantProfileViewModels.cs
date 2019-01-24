@@ -1,0 +1,68 @@
+﻿using System;
+using Data.Models;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+
+namespace Recruiter.ViewModels
+{
+	public class ApplicantProfileViewModels
+	{
+		internal bool IsActive;
+
+		public int Id { get; set; }
+
+		public Applicant Applicant { get; set; }
+
+		public int ApplicantId { get; set; }
+
+		public Document Document { get; set; }
+		
+		[DisplayName("First Name")]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "First Name is required")]
+		public string FirstName { get; set; }
+
+		[DisplayName("Last Name")]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Last Name is required")]
+		public string LastName { get; set; }
+
+		public int DocumentId { get; set; }
+
+		public Image Image { get; set; }
+
+		public int ImageId { get; set; }
+
+		//public Guid ActivationCode { get; set; }
+
+		[DisplayName("Phone Number")]
+		[DataType(DataType.PhoneNumber)]
+		public string PhoneNumber { get; set; }
+
+		[Display(Name ="E-mail Address")]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "E-mail Address is required")]
+		[DataType(DataType.EmailAddress)]
+		public string Email { get; set; }
+
+		[Display(Name = "Country")]
+		public string Country { get; set; }
+
+		public string City { get; set; }
+
+		[DisplayName("Complete Address")]
+		public string CompleteAddress { get; set; }
+
+		[DisplayName("Years Of Experience")]
+		public int YearsOfExperience { get; set; }
+
+		public int Age { get; set; }
+
+		public virtual ICollection<string> Language { get; set; }
+
+		[DisplayName("Education Level")]
+		public MinimumQualificationType EducationLevel { get; set; }
+
+		public string Bio { get; set; }
+	}
+}

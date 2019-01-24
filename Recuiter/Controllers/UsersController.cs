@@ -22,7 +22,7 @@ namespace Recruiter.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.CreatedBy).Include(u => u.Department).Include(u => u.LastModifiedBy).Where(u => u.IsDeleted == false);
+            var users = db.Users.Include(u => u.CreatedBy).Include(u => u.Department).Include(u => u.LastModifiedBy).Include(u => u.Roles).Where(u => u.IsDeleted == false);
             return View(users.ToList());
         }
 

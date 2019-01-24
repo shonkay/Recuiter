@@ -8,6 +8,7 @@ namespace Data.Models
 	public class Role: BaseModel
 	{
 		public string Name { get; set; }
-        //public virtual ICollection<UserRole> Users { get; set; }
+
+		public virtual ICollection<UserRole> Users { get; set; }
     }
 }

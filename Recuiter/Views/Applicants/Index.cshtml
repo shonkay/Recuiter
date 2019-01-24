@@ -1,0 +1,138 @@
+﻿@model IEnumerable<Data.Models.Job>
+
+@{
+	ViewBag.Title = "Vacancy List";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>Job Vacancies and Careers in SBSC Nigeria</h3>
+@using (Html.BeginForm())
+{
+
+
+	<p>
+		Find by Job Title: @Html.TextBox("SearchString")
+	</p>
+
+	<p>
+		Find by Skill Set: @Html.TextBox("SearchSkills")
+	</p>
+
+
+	<p>
+		Find by Job Type:
+		<select name="ContractClass">
+			<option value="">All</option>
+			<option value="1">Full time</option>
+			<option value="2">Internship</option>
+			<option value="3">Contract</option>
+		</select>
+	</p>
+
+	<p>
+		Find by Experience Level:
+		<select name="ExperienceLevel">
+			<option value="">All</option>
+			<option value="1">Expert</option>
+			<option value="2">Intermediate</option>
+			<option value="3">Beginner</option>
+		</select>
+	</p>
+	<input type="submit" value="Search" />
+}
+
+	<table class="table">
+		@if (Model != null)
+		{
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Title)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Summary)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Description)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Responsibility)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.GeneralRequirement)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.SkillSet)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.MinimumQualification)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.ExperienceLevel)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.ExperienceLength)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.ContractClass)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.ContractLength)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.ExpiryDate)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.CreatedById)
+				</th>
+				<th></th>
+			</tr>
+
+
+			foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Title)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Summary)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Responsibility)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.GeneralRequirement)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.SkillSet)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.MinimumQualification)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ExperienceLevel)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ExperienceLength)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ContractClass)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ContractLength)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ExpiryDate)
+					</td>
+					@*<td>
+						@Html.DisplayFor(modelItem => item.CreatedBy.Id)
+					</td>*@
+					<td>
+						@Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+					</td>
+				</tr>
+			}
+		}
+	</table>

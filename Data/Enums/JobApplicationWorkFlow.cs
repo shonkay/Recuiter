@@ -18,10 +18,4 @@ namespace Data.Enums
 		Archived,
 		Rejected
 	}
-
-	public enum WorkFlowType
-	{
-		JobApplication = 1,
-		Interview
-	}
 }

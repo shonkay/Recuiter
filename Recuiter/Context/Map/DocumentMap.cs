@@ -58,7 +58,8 @@ namespace Recuiter.Context.Map
         {
             HasOptional(x => x.CreatedBy).WithMany().WillCascadeOnDelete(false);
             HasOptional(x => x.LastModifiedBy).WithMany().WillCascadeOnDelete(false);
-        }
+			HasRequired(x => x.User).WithMany().WillCascadeOnDelete(false);
+		}
     }
 
     class ApplicationMap : EntityTypeConfiguration<Application>
@@ -108,4 +109,11 @@ namespace Recuiter.Context.Map
             HasOptional(x => x.LastModifiedBy).WithMany().WillCascadeOnDelete(false);
         }
     }
+	class ImageMap : EntityTypeConfiguration<Image>
+	{
+		public ImageMap()
+		{
+			HasRequired(x => x.User).WithMany().WillCascadeOnDelete(false);
+		}
+	}
 }

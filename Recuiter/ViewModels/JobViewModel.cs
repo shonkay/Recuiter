@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Recruiter.ViewModels
 {
-    public class JobCreateView
+    public class JobViewModel
     {
         [Display(Name = "Job Id")]
         [Required]

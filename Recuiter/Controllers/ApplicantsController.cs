@@ -1,0 +1,303 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Security;
+using Data.Models;
+using Recruiter.Context;
+using Recruiter.CustomAuthentication;
+using Recruiter.ViewModels;
+
+namespace Recruiter.Controllers
+{
+	public class Search
+	{
+		public int? Contract { get; set; }
+		public int? Expereince { get; set; }
+	}
+
+	public class Institution
+	{
+		public string name { get; set; }
+		public string city { get; set; }
+		public string code { get; set; }
+
+	}
+	public class ApplicantsController : Controller
+	{
+		private RecruiterContext db = new RecruiterContext();
+		//private readonly object applicationProfileViewModel;
+
+		[HttpGet]
+		public ActionResult Index(string searchString, string searchSkills, string searchContract, int? ContractClass, int? ExperienceLevel)
+		{
+
+
+			var jobss = from j in db.Jobs.Include(x => x.Department) select j;
+			//var jobss = new JobViewModel()
+			//{
+			//	Id = 
+			//};
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				jobss = jobss.Where(s => s.Title.Contains(searchString));
+			}
+
+			if (!String.IsNullOrEmpty(searchSkills))
+			{
+				jobss = jobss.Where(s => s.SkillSet.Contains(searchSkills));
+			}
+
+			if (ContractClass != null)
+			{
+				jobss = jobss.Where(x => x.ContractClass == (ContractClassType)ContractClass);
+
+
+				ViewBag.SearchFilter = new Search { Contract = ContractClass };
+
+			}
+
+			if (ExperienceLevel != null)
+			{
+				jobss = jobss.Where(x => x.ExperienceLevel == (ExperienceLevelType)ExperienceLevel);
+
+				ViewBag.SearchFilter = new Search { Expereince = ExperienceLevel };
+			}
+
+			//var jobList = new List<JobViewModel>();
+			//foreach(Job job in jobsss)
+			//{
+				
+			//	var jobView = new JobViewModel
+			//	{
+			//		Id = job.Id,
+			//		JobId = job.JobId,
+			//		DepartmentId = job.DepartmentId,
+			//		Title = job.Title,
+			//		Summary = job.Summary,
+			//		Description = job.Description,
+			//		Responsibility = job.Responsibility,
+			//		GeneralRequirement = job.GeneralRequirement,
+			//		SkillSet = job.SkillSet,
+			//		MinimumQualification = job.MinimumQualification,
+			//		ExperienceLevel = job.ExperienceLevel,
+			//		ExperienceLength = job.ExperienceLength,
+			//		ContractClass = job.ContractClass,
+			//		ExpiryDate = job.ExpiryDate
+			//	};
+				//jobList.Add(jobView);
+			//}
+			return View(jobss.ToList());
+		}
+
+		public ActionResult ApplicantProfileEditReadOnly()
+		{
+
+			var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+			using (RecruiterContext dbContext = new RecruiterContext())
+			{
+				var user = (from u in dbContext.Users where u.Id == currentUserId select u).FirstOrDefault();
+				var applicant = (from p in dbContext.Applicants where p.UserId == currentUserId select p).FirstOrDefault();
+				var applicantProfileModel = new ApplicantProfileViewModels
+				{
+					Id = applicant.UserId.Value,
+					FirstName = user.FirstName,
+					LastName = user.LastName,
+					Email = user.Email
+				};
+				return View(applicantProfileModel);
+			}
+		}
+
+
+		[HttpGet]
+		// GET: Applicants
+		public ActionResult ApplicantProfileEdit(int Id)
+		{
+			using (RecruiterContext dbContext = new RecruiterContext())
+			{
+				var user = (from u in dbContext.Users where u.Id == Id select u).FirstOrDefault();
+				var applicant = (from p in dbContext.Applicants where p.UserId == Id select p).FirstOrDefault();
+				var applicantProfileModel = new ApplicantProfileViewModels
+				{
+					Id = applicant.UserId.Value,
+					FirstName = user.FirstName,
+					LastName = user.LastName,
+					Email = user.Email
+				};
+				return View(applicantProfileModel);
+			}
+		}
+
+
+		[HttpPost]
+		public ActionResult ApplicantProfileEdit(ApplicantProfileViewModels applicantProfileViewModel)
+		{
+			if (ModelState.IsValid)
+			{
+				var currentUserId =(Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+				using (RecruiterContext dbContext = new RecruiterContext())
+				{
+					
+					var applicant= dbContext.Applicants.Where(a => a.UserId == currentUserId).FirstOrDefault();
+					
+					if (applicant != null)
+					{
+						applicant.PhoneNumber = applicantProfileViewModel.PhoneNumber;
+						applicant.Address = applicantProfileViewModel.CompleteAddress;
+						applicant.Age = applicantProfileViewModel.Age;
+						applicant.Country = applicantProfileViewModel.Country;
+						applicant.City = applicantProfileViewModel.City;
+						applicant.Bio = applicantProfileViewModel.Bio;
+						applicant.EducationLevel = applicantProfileViewModel.EducationLevel;
+						applicant.YearsOfExperience = applicantProfileViewModel.YearsOfExperience;
+
+						dbContext.Applicants.Add(applicant);
+						dbContext.SaveChanges();					}
+					else
+					{
+						ModelState.AddModelError("Warning Error", "Information is not correct");
+						return View(applicantProfileViewModel);
+					}
+					
+				}
+
+			}
+			return View(applicantProfileViewModel);
+		}
+
+		[HttpGet]
+		public ActionResult ApplicantResumeProfile()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult ApplicantResumeProfile(ApplicantProfileViewModels applicant)
+		{
+
+			return View();
+		}
+
+		// GET: Applicants/Details/5
+			public ActionResult Details(int? id)
+        {
+			
+				if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Applicant applicant = db.Applicants.Find(id);
+            if (applicant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(applicant);
+        }
+
+        // GET: Applicants/Create
+        public ActionResult Create()
+        {
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username");
+            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Username");
+            return View();
+        }
+
+        // POST: Applicants/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,UserId,Address,PhoneNumber,Country,City,YearsOfExperience,Age,EducationLevel,Bio,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Applicant applicant)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Applicants.Add(applicant);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", applicant.CreatedById);
+            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", applicant.LastModifiedById);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", applicant.UserId);
+            return View(applicant);
+        }
+
+        // GET: Applicants/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Applicant applicant = db.Applicants.Find(id);
+            if (applicant == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", applicant.CreatedById);
+            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", applicant.LastModifiedById);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", applicant.UserId);
+            return View(applicant);
+        }
+
+        // POST: Applicants/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,UserId,Address,PhoneNumber,Country,City,YearsOfExperience,Age,EducationLevel,Bio,IsDeleted,CreatedDate,LastModifiedDate,CreatedById,LastModifiedById")] Applicant applicant)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(applicant).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", applicant.CreatedById);
+            ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", applicant.LastModifiedById);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", applicant.UserId);
+            return View(applicant);
+        }
+
+        // GET: Applicants/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Applicant applicant = db.Applicants.Find(id);
+            if (applicant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(applicant);
+        }
+
+        // POST: Applicants/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Applicant applicant = db.Applicants.Find(id);
+            db.Applicants.Remove(applicant);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

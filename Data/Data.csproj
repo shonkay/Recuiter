@@ -45,8 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crypto.cs" />
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Enums\JobApplicationWorkFlow.cs" />
+    <Compile Include="Enums\WorkFlowType.cs" />
     <Compile Include="Models\Applicant.cs" />
     <Compile Include="Models\ApplicantDocument.cs" />
     <Compile Include="Models\ApplicantInterview.cs" />
@@ -57,10 +59,13 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Interview.cs" />
     <Compile Include="Models\InterviewReviewers.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\InterviewQuestion.cs" />
+    <Compile Include="Models\MyResume.cs" />
+    <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionTemplate.cs" />
     <Compile Include="Models\ResetPassword.cs" />
