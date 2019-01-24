@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+
 namespace Data.Models
 {
     public class ApplicationReview :BaseModel
@@ -13,5 +14,7 @@ namespace Data.Models
         public int ApplicationId { get; set; }
 
 		public Application Application { get; set; }
+
+		public User User { get; set; }
 	}
 }

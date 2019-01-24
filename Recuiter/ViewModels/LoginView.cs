@@ -46,9 +46,6 @@ namespace Data.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        public Guid ActivationCode { get; set; }
-
         [Required(ErrorMessage = "Password required")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -60,7 +57,11 @@ namespace Data.Models
         [Compare("Password", ErrorMessage = "Error : Confirm password does not match with password")]
         public string ConfirmPassword { get; set; }
 
+		public Guid ActivationCode { get; set; }
+
+		public bool IsEmailVerfied { get; set; }
 
 
-    }
+
+	}
 }

@@ -8,6 +8,7 @@ namespace Data.Models
 {
 	public class ApplicationInterviewReview
 	{
+
 		public int InterviewReviewerId { get; set; }
 
 		public InterviewReviewer InterviewReviewer { get; set; }

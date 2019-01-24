@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Data.Models
 {
@@ -23,12 +24,21 @@ namespace Data.Models
 
         public string Username { get; set; }
 
+		[Display(Name = "First Name")]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "First Name is required")]
         public string FirstName { get; set; }
 
+		[Display(Name = "Last Name")]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Last Name is required")]
 		public string LastName { get; set; }
 
-        public string Email { get; set; }
+		[Display(Name = "E-mail Address")]
+		[DataType(DataType.EmailAddress)]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "E-mail Address is required")]
+		public string Email { get; set; }
 
+		[Display(Name = "Password")]
+		[DataType(DataType.Password)]
         public string Password { get; set; }
 
 		public bool IsActive { get; set; }
@@ -36,7 +46,9 @@ namespace Data.Models
 		public Department Department { get; set; }
 
 		public int? DepartmentId { get; set; }
+
 		public virtual ICollection<UserRole> Roles { get; set; }
+
 		public string ResetPasswordCode { get; set; }
 	}
 }
