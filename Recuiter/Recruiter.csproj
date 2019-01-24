@@ -176,10 +176,34 @@
     <Content Include="Content\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
-    <Content Include="Content\images\bgIMG.svg" />
+    <Content Include="Content\combined.css" />
+    <Content Include="Content\images\account_logo.svg" />
+    <Content Include="Content\images\company_logo.svg" />
+    <Content Include="Content\images\confirm_mail.svg" />
     <Content Include="Content\images\create_account.svg" />
+    <Content Include="Content\images\facebook.svg" />
+    <Content Include="Content\images\Group 9224.svg" />
+    <Content Include="Content\images\Group 9226.svg" />
+    <Content Include="Content\images\handshake .svg" />
+    <Content Include="Content\images\ic_school_24px.svg" />
+    <Content Include="Content\images\join.svg" />
+    <Content Include="Content\images\landingpage.svg" />
+    <Content Include="Content\images\linkedIn.svg" />
+    <Content Include="Content\images\mail.svg" />
+    <Content Include="Content\images\passport.jpg" />
     <Content Include="Content\images\sbsc_logo.svg" />
-    <Content Include="Content\style.css" />
+    <Content Include="Content\images\skills.svg" />
+    <Content Include="Content\images\twitter.svg" />
+    <Content Include="Content\images\User Interface%402x.jpg" />
+    <Content Include="Content\images\User Interface%402x.png" />
+    <Content Include="Content\images\User Interface%403x.jpg" />
+    <Content Include="Content\images\User Interface%403x.png" />
+    <Content Include="Content\images\User Interface.jpg" />
+    <Content Include="Content\images\User Interface.png" />
+    <Content Include="Content\images\UserInterface%402x.png" />
+    <Content Include="Content\images\UserInterface%403x.png" />
+    <Content Include="Content\images\UserInterface.png" />
+    <Content Include="Content\images\welcome_icon.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -233,6 +257,7 @@
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserDashboard.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="CustomAuthentication\CustomAuthorizeAttribute.cs" />
     <Compile Include="CustomAuthentication\CustomMembership.cs" />
@@ -242,13 +267,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901231042553_NewDatabase.cs" />
-    <Compile Include="Migrations\201901231042553_NewDatabase.Designer.cs">
-      <DependentUpon>201901231042553_NewDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901231129208_NewDatabasf.cs" />
-    <Compile Include="Migrations\201901231129208_NewDatabasf.Designer.cs">
-      <DependentUpon>201901231129208_NewDatabasf.cs</DependentUpon>
+    <Compile Include="Migrations\201901221443576_fresh.cs" />
+    <Compile Include="Migrations\201901221443576_fresh.Designer.cs">
+      <DependentUpon>201901221443576_fresh.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201901240959391_ApplicantProfile.cs" />
     <Compile Include="Migrations\201901240959391_ApplicantProfile.Designer.cs">
@@ -276,7 +297,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ApplicantDocumentViewModel.cs" />
     <Compile Include="ViewModels\ApplicantProfileViewModels.cs" />
     <Compile Include="ViewModels\JobViewModel.cs" />
     <Compile Include="ViewModels\LoginView.cs" />
@@ -319,6 +339,7 @@
     <Content Include="Views\Jobs\Details.cshtml" />
     <Content Include="Views\Jobs\Edit.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
+    <Content Include="Views\UserDashboard\Index.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Applicants\Create.cshtml" />
@@ -328,7 +349,7 @@
     <Content Include="Views\Applicants\ApplicantProfileEdit.cshtml" />
     <Content Include="Views\Applicants\Index.cshtml" />
     <Content Include="Views\Applicants\ApplicantProfileEditReadOnly.cshtml" />
-    <Content Include="Views\Applicants\ApplicantProfilePage.cshtml" />
+    <Content Include="Views\Shared\ProfileLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -343,11 +364,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901231042553_NewDatabase.resx">
-      <DependentUpon>201901231042553_NewDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901231129208_NewDatabasf.resx">
-      <DependentUpon>201901231129208_NewDatabasf.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901221443576_fresh.resx">
+      <DependentUpon>201901221443576_fresh.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901240959391_ApplicantProfile.resx">
       <DependentUpon>201901240959391_ApplicantProfile.cs</DependentUpon>
