@@ -5,16 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Data.Models
+
 {
-	public class Education
+	//public class ApplicantResume
+	//{ 
+	//public ICollection<Education> Education { get; set; }
+	//public ICollection<Experience> Experience { get; set; }
+	//public ICollection<Skill> Skill { get; set; }
+}
+
+
+
+public class Education
 	{
 		public int Id { get; set; }
 
 		public string Qualification { get; set; }
 
-		public int FromDate { get; set; }
+		public DateTime FromDate { get; set; }
 
-		public int ToDate { get; set; }
+		public DateTime ToDate { get; set; }
 
 		public string Institution { get; set; }
 
@@ -28,9 +38,9 @@ namespace Data.Models
 
 		public string Title { get; set; }
 
-		public int FromDate { get; set; }
+		public DateTime FromDate { get; set; }
 
-		public int ToDate { get; set; }
+		public DateTime ToDate { get; set; }
 
 		public bool IsPresent { get; set; }
 
@@ -49,4 +59,4 @@ namespace Data.Models
 
 	}
 
-}
+

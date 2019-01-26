@@ -4,9 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/style.css" rel="stylesheet" type="text/css" />
-    <!--<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
+    <link href="~/Content/combined.css" rel="stylesheet" type="text/css" />
+    @*<link href="~/Content/stylee.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Content/media.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -22,17 +24,13 @@
 </head>
 <body>
 
+
     <nav class="navbar navbar-light bg-light">
-        
-            <a class="navbar-brand mr-auto" href="@Url.Action("Index", "Home", null)"><img src="~/Content/images/sbsc_logo.svg" style="width:100px; height:70px;"></a>
-            <div class="d-flex ">
-                <div class="row bar1">
-                    <p>Who we are</p>
-                    <p>Our services</p>
-                    <p>Contact Us</p>
-                </div>
-                <!--<button class="btn" id="btn_login"><a href="#">Login</a></button>-->
-            </div>
+
+        <a class="navbar-brand mr-auto" href="@Url.Action("Index", "Home", null)"><img src="~/Content/images/company_logo.svg" style="width:100px; height:70px;"></a>
+        <div class="d-flex ">
+
+        </div>
     </nav>
 
 
@@ -47,71 +45,71 @@
                 @Html.ActionLink("E-Recruiter", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>*@
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+    @*<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
 
-                    <li class="active"><a href="~/Departments/index">Department <span class="sr-only">(current)</span></a></li>
-                    <li><a href="~/Jobs/index">Job</a></li>
-                    <li><a href="~/Users/index">Users <span class="sr-only">(current)</span></a></li>
-                    <li><a href="~/Roles/index">Roles</a></li>
-                    @*<li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>*@
-                </ul>
+            <li class="active"><a href="~/Departments/index">Department <span class="sr-only">(current)</span></a></li>
+            <li><a href="~/Jobs/index">Job</a></li>
+            <li><a href="~/Users/index">Users <span class="sr-only">(current)</span></a></li>
+            <li><a href="~/Roles/index">Roles</a></li>*@
+    @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+            </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
+        <ul class="nav navbar-nav navbar-right">
+            @if (!User.Identity.IsAuthenticated)
+            {
 
 
-                    }
-                    else
-                    {
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="~/account/update">Update</a></li>
-                                <li><a href="~/account/logout">Logout</a></li>
-                            </ul>
-                        </li>
-                    }
+            }
+            else
+            {
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/account/update">Update</a></li>
+                        <li><a href="~/account/logout">Logout</a></li>
+                    </ul>
+                </li>
+            }
 
-                </ul>
+        </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
+        <ul class="nav navbar-nav navbar-right">
+            @if (!User.Identity.IsAuthenticated)
+            {
 
-                        <li><a href="~/account/login">Login</a></li>
+                <li><a href="~/account/login">Login</a></li>
 
-                    }
-                    else
-                    {
+            }
+            else
+            {
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="~/account/update">Update</a></li>
-                                <li><a href="~/account/logout">Logout</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/account/update">Update</a></li>
+                        <li><a href="~/account/logout">Logout</a></li>
 
-                            </ul>
-                        </li>
-                    }
-                </ul>
-                @User.Identity.Name
-            </div>
-            @User.Identity.Name
-        @*</div>
-    </div>*@
+                    </ul>
+                </li>
+            }
+        </ul>
+        @User.Identity.Name
+        </div>*@
+    @User.Identity.Name
+    @*</div>
+        </div>*@
 
     <div id="header_container">
         <div id="header">
@@ -131,8 +129,12 @@
 
     <div class="container body-content">
         @RenderBody()
-        
-        @*<div class="footer">
+
+        <footer class="footer d-flex justify-content-between mx-0">
+            <div>
+                <p class="footnote" style="color: #707070;  font-family: Roboto; font-size: 10px; margin-right: 10px;">Copyright © 2018. All rights reserved. <span style="color:#f16722;">Software Business Solutions Consulting.</span> </p>
+            </div>
+
             <div class="d-flex justify-content-center">
                 <i class="fab fa-facebook-f pr-4"></i>
                 <i class="fab fa-google-plus-g pr-4"></i>
@@ -140,10 +142,9 @@
                 <i class="fab fa-twitter"></i>
 
             </div>
-            <div>
-                <p class="footnote" style="color: #707070;  font-family: Roboto; font-size: 10px; margin-right: 10px;">Copyright © 2018. All rights reserved. <span style="color:#f16722;">Software Business Solutions Consulting.</span> </p>
-            </div>
-        </div>*@
+
+        </footer>
+
     </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>

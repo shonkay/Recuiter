@@ -128,7 +128,7 @@ namespace Recruiter.Controllers
 
 		[HttpGet]
 		// GET: Applicants
-		public ActionResult ApplicantProfileEdit(int Id)
+		public ActionResult ApplicantProfileEdit()
 		{
 			var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
 			using (RecruiterContext dbContext = new RecruiterContext())
@@ -204,23 +204,101 @@ namespace Recruiter.Controllers
 			return View(applicantProfileViewModel);
 		}
 
-		[HttpGet]
-		public ActionResult ApplicantResumeProfile()
-		{
-			return View();
-		}
-
 		[HttpPost]
-		public ActionResult ApplicantResumeProfile(ApplicantProfileViewModels applicant)
+		public ActionResult ApplicantResumeProfile(ApplicantProfileViewModels applicantProfileViewModel)
 		{
+			if (ModelState.IsValid)
+			{
+				var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+				using (RecruiterContext dbContext = new RecruiterContext())
+				{
+					var applicantEntity = dbContext.Applicants.Where(a => a.UserId == currentUserId).Include(x => x.User).Include(x => x.PastEducation).Include(x => x.Skills).Include(x => x.ApplicantDocuments)
+								 .Include(x => x.Institutions).FirstOrDefault();
 
-			return View();
+					if(applicantEntity == null)
+					//var   returnapp = new ApplicantResumeVM
+
+					{
+						applicantEntity.PastEducation.Select(edu => new ViewModels.Education
+						{
+							Qualification = edu.Qualification,
+							FromDate = edu.FromDate,
+							ToDate = edu.ToDate,
+							Institution = edu.Institution,
+							CourseStudies = edu.CourseStudied,
+						});
+
+						applicantEntity.WorkExperience.Select(edx => new ViewModels.Experience
+						{
+							Title = edx.Title,
+							FromDate = edx.FromDate,
+							ToDate = edx.ToDate,
+							Company = edx.CompanyName,
+						});
+
+						applicantEntity.Skills.Select(skill => new ViewModels.Skill
+						{
+							Achievement = skill.Achievement,
+							Id = skill.Id,
+							Skilllevel = skill.Skilllevel
+						});
+
+						dbContext.Applicants.Add(applicantEntity);
+						dbContext.SaveChanges();
+					}
+					else
+					{
+						ModelState.AddModelError("Warning Error", "Information is not correct");
+						return View(applicantProfileViewModel);
+					}
+				}
+
+			}
+			return View(applicantProfileViewModel);
 		}
+
+
+
+
 
 		public ActionResult ApplicantProfilePage()
 		{
+			var loggedInUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+			using (RecruiterContext dbContext = new RecruiterContext())
+			{
+				var check = (from p in dbContext.Applicants.Include(x => x.User).Include(x => x.PastEducation).Include(x => x.Skills).Include(x => x.ApplicantDocuments)
+							 .Include(x => x.Institutions).Include(x => x.Languages)
+							 where p.UserId == loggedInUserId
 
-			return View();
+							 select new ApplicantProfileViewModels
+							 {
+								 Country = p.Country,
+								 City = p.City,
+								 CompleteAddress = p.Address,
+								 Achievement = p.Achievement,
+								 Age = p.Age,
+								 Bio = p.Bio,
+								 EducationLevel = p.EducationLevel,
+								 FirstName = p.User.FirstName,
+								 LastName = p.User.LastName,
+								 Language = p.Languages,
+								 Certificates = (from files in dbContext.ApplicantDocuments
+												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsDeleted
+												 select new ApplicantDocumentViewModel
+												 {
+													 FilePath = files.FilePath,
+													 Name = files.Name,
+													 Type = files.Type
+												 }).ToList(),
+								 // Language = dbContext.Languages.Select(x => x.ApplicantId == p.Id, new Language { Name=})
+								 //Skills = (from details in dbContext.Applicants
+									//	   where details.A )
+
+							 }).FirstOrDefault();
+
+				return View(check);
+
+			}
 		}
 
 
@@ -250,6 +328,8 @@ namespace Recruiter.Controllers
 			ViewBag.UserId = new SelectList(db.Users, "Id", "Username");
 			return View();
 		}
+
+
 
 		// POST: Applicants/Create
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
