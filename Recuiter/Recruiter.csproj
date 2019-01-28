@@ -166,20 +166,57 @@
     <Content Include="bin\System.Web.Webpages.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\css\.DS_Store" />
     <Content Include="Content\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-grid.css.map" />
     <Content Include="Content\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css.map" />
     <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.bundle.js.map" />
     <Content Include="Content\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.js.map" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="Content\bootstrap\style.css" />
+    <Content Include="Content\combined.css" />
+    <Content Include="Content\images\account_logo.svg" />
     <Content Include="Content\images\bgIMG.svg" />
+    <Content Include="Content\images\company_logo.svg" />
+    <Content Include="Content\images\confirm_mail.svg" />
     <Content Include="Content\images\create_account.svg" />
+    <Content Include="Content\images\facebook.svg" />
+    <Content Include="Content\images\Group 9224.svg" />
+    <Content Include="Content\images\Group 9226.svg" />
+    <Content Include="Content\images\handshake .svg" />
+    <Content Include="Content\images\ic_school_24px.svg" />
+    <Content Include="Content\images\join.svg" />
+    <Content Include="Content\images\landingpage.svg" />
+    <Content Include="Content\images\linkedIn.svg" />
+    <Content Include="Content\images\mail.svg" />
+    <Content Include="Content\images\passport.jpg" />
     <Content Include="Content\images\sbsc_logo.svg" />
-    <Content Include="Content\style.css" />
+    <Content Include="Content\images\skills.svg" />
+    <Content Include="Content\images\twitter.svg" />
+    <Content Include="Content\images\User Interface%402x.jpg" />
+    <Content Include="Content\images\User Interface%402x.png" />
+    <Content Include="Content\images\User Interface%403x.jpg" />
+    <Content Include="Content\images\User Interface%403x.png" />
+    <Content Include="Content\images\User Interface.jpg" />
+    <Content Include="Content\images\User Interface.png" />
+    <Content Include="Content\images\UserInterface%402x.png" />
+    <Content Include="Content\images\UserInterface%403x.png" />
+    <Content Include="Content\images\UserInterface.png" />
+    <Content Include="Content\images\welcome_icon.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -195,17 +232,6 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-    <Content Include="Content\bootstrap\css\.DS_Store" />
-    <Content Include="Content\bootstrap\css\bootstrap-grid.css.map" />
-    <Content Include="Content\bootstrap\css\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap\css\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap\css\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap\css\bootstrap.css.map" />
-    <Content Include="Content\bootstrap\css\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap\js\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap\js\bootstrap.bundle.min.js.map" />
-    <Content Include="Content\bootstrap\js\bootstrap.js.map" />
-    <Content Include="Content\bootstrap\js\bootstrap.min.js.map" />
     <Content Include="App_Data\universities.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -242,13 +268,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901231042553_NewDatabase.cs" />
-    <Compile Include="Migrations\201901231042553_NewDatabase.Designer.cs">
-      <DependentUpon>201901231042553_NewDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901231129208_NewDatabasf.cs" />
-    <Compile Include="Migrations\201901231129208_NewDatabasf.Designer.cs">
-      <DependentUpon>201901231129208_NewDatabasf.cs</DependentUpon>
+    <Compile Include="Migrations\201901261553581_new.cs" />
+    <Compile Include="Migrations\201901261553581_new.Designer.cs">
+      <DependentUpon>201901261553581_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -306,6 +328,7 @@
     <Content Include="Views\Applicants\Index.cshtml" />
     <Content Include="Views\Applicants\ApplicantProfileEditReadOnly.cshtml" />
     <Content Include="Views\Applicants\ApplicantProfilePage.cshtml" />
+    <Content Include="Views\Shared\ProfileLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -320,11 +343,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901231042553_NewDatabase.resx">
-      <DependentUpon>201901231042553_NewDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901231129208_NewDatabasf.resx">
-      <DependentUpon>201901231129208_NewDatabasf.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901261553581_new.resx">
+      <DependentUpon>201901261553581_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

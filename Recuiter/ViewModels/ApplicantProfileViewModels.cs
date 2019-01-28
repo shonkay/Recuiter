@@ -22,14 +22,14 @@ namespace Recruiter.ViewModels
 
 		public int DocumentId { get; set; }
 
-		
+
 		//public Guid ActivationCode { get; set; }
 
 		[DisplayName("Phone Number")]
 		[DataType(DataType.PhoneNumber)]
 		public string PhoneNumber { get; set; }
 
-		[Display(Name ="E-mail Address")]
+		[Display(Name = "E-mail Address")]
 		[Required(AllowEmptyStrings = false, ErrorMessage = "E-mail Address is required")]
 		[DataType(DataType.EmailAddress)]
 		public string Email { get; set; }
@@ -37,17 +37,26 @@ namespace Recruiter.ViewModels
 		[Display(Name = "Country")]
 		public string Country { get; set; }
 
-		public string City { get; set; }
+        [Display(Name = "City")]
+        public string City { get; set; }
 
 		[DisplayName("Complete Address")]
 		public string CompleteAddress { get; set; }
 
-		[DisplayName("Years Of Experience")]
+        [DisplayName("Job Title")]
+        public string JobTitle { get; set; }
+
+        [DisplayName("Specialization")]
+        public string Specialization { get; set; }
+
+        [DisplayName("Experience")]
 		public int YearsOfExperience { get; set; }
 
 		public int Age { get; set; }
 
-		public  List<string> Language { get; set; }
+		public string Language { get; set; }
+
+		public List<string> LanguageList => Language.Split(',').ToList();
 
 		[DisplayName("Education Level")]
 		public MinimumQualificationType EducationLevel { get; set; }
@@ -61,6 +70,27 @@ namespace Recruiter.ViewModels
 
 		[DisplayName("Upload File")]
 		public string ImagePath { get; set; }
+
+
+		public List<Education> PastEducation { get; set; }
+
+		public List<Experience> WorkExperience { get; set; }
+
+		public List<ApplicantDocument> ApplicantDocuments { get; set; }
+
+		public List<Skill> Skills { get; set; }
+
+		public List<Education> Educations { get; set; }
+
+		public List<Institution> Institutions { get; set; }
+
+		public string Achievement { get; set; }
+
+		public string FilePath { get; set; }
+
+		public string Name { get; set; }
+		
+		public FileType Type { get; set; }
 	}
 
 }
