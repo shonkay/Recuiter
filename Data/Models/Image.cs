@@ -21,7 +21,7 @@ namespace Data.Models
 		[DisplayName("Upload File")]
 		public string ImagePath { get; set; }
 
-		//public HttpPostedFileBase ImageFile { get; set; }
+		public HttpPostedFileBase ImageFile { get; set; }
 
 	}
 }

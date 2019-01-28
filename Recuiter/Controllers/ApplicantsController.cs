@@ -15,45 +15,45 @@ using Recruiter.ViewModels;
 namespace Recruiter.Controllers
 {
 
-    public class ApplicantsController : Controller
-    {
-        private RecruiterContext db = new RecruiterContext();
-        //private readonly object applicationProfileViewModel;
+	public class ApplicantsController : Controller
+	{
+		private RecruiterContext db = new RecruiterContext();
+		//private readonly object applicationProfileViewModel;
 
-        [HttpGet]
-        public ActionResult Index( string searchString, string searchSkills, string searchContract, int? ContractClass, int? ExperienceLevel )
-        {
-            var jobss = from j in db.Jobs.Include(x => x.Department) select j;
+		[HttpGet]
+		public ActionResult Index(string searchString, string searchSkills, string searchContract, int? ContractClass, int? ExperienceLevel)
+		{
+			var jobss = from j in db.Jobs.Include(x => x.Department) select j;
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                jobss = jobss.Where(s => s.Title.Contains(searchString));
-            }
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				jobss = jobss.Where(s => s.Title.Contains(searchString));
+			}
 
-            if (!String.IsNullOrEmpty(searchSkills))
-            {
-                jobss = jobss.Where(s => s.SkillSet.Contains(searchSkills));
-            }
+			if (!String.IsNullOrEmpty(searchSkills))
+			{
+				jobss = jobss.Where(s => s.SkillSet.Contains(searchSkills));
+			}
 
-            if (ContractClass != null)
-            {
-                jobss = jobss.Where(x => x.ContractClass == (ContractClassType)ContractClass);
+			if (ContractClass != null)
+			{
+				jobss = jobss.Where(x => x.ContractClass == (ContractClassType)ContractClass);
 
 
-                ViewBag.SearchFilter = new Search { Contract = ContractClass };
+				ViewBag.SearchFilter = new Search { Contract = ContractClass };
 
-            }
+			}
 
-            if (ExperienceLevel != null)
-            {
-                jobss = jobss.Where(x => x.ExperienceLevel == (ExperienceLevelType)ExperienceLevel);
+			if (ExperienceLevel != null)
+			{
+				jobss = jobss.Where(x => x.ExperienceLevel == (ExperienceLevelType)ExperienceLevel);
 
-                ViewBag.SearchFilter = new Search { Expereince = ExperienceLevel };
-            }
+				ViewBag.SearchFilter = new Search { Expereince = ExperienceLevel };
+			}
 
-            //var jobList = new List<JobViewModel>();
-            //foreach(Job job in jobsss)
-            //{
+			//var jobList = new List<JobViewModel>();
+			//foreach(Job job in jobsss)
+			//{
 
             //	var jobView = new JobViewModel
             //	{
@@ -125,8 +125,7 @@ namespace Recruiter.Controllers
             return View();
         }
 
-
-        public ActionResult ApplicantProfileEditReadOnly()
+		public ActionResult ApplicantProfileEditReadOnly()
 		{
 
 			var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
@@ -192,7 +191,8 @@ namespace Recruiter.Controllers
 								 Email = p.User.Email,
 								 City = p.City,
 								 Country = p.Country,
-								 CompleteAddress = p.Country,
+								 CompleteAddress = p.Address,
+
 								 YearsOfExperience = p.YearsOfExperience,
 
 								 EducationLevel = p.EducationLevel,
@@ -238,7 +238,16 @@ namespace Recruiter.Controllers
 						applicant.EducationLevel = applicantProfileViewModel.EducationLevel;
 						applicant.YearsOfExperience = applicantProfileViewModel.YearsOfExperience;
 
-						dbContext.Applicants.Add(applicant);
+
+						dbContext.SaveChanges();
+					}
+					else if (applicant == null)
+					{
+						var appnew = new Applicant()
+						{
+							PhoneNumber = applicant.PhoneNumber,
+						};
+						dbContext.Applicants.Add(appnew);
 						dbContext.SaveChanges();
 					}
 					else
@@ -250,22 +259,66 @@ namespace Recruiter.Controllers
 				}
 
 			}
-			return View(applicantProfileViewModel);
-		}
-
-		[HttpGet]
-		public ActionResult ApplicantResumeProfile()
-		{
-			return View();
+			return RedirectToAction("ApplicantProfilePage");
 		}
 
 		[HttpPost]
-		public ActionResult ApplicantResumeProfile(ApplicantProfileViewModels applicant)
+		public ActionResult ApplicantResumeProfile(ApplicantProfileViewModels applicantProfileViewModel)
 		{
+			if (ModelState.IsValid)
+			{
+				var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+				using (RecruiterContext dbContext = new RecruiterContext())
+				{
+					var applicantEntity = dbContext.Applicants.Where(a => a.UserId == currentUserId).Include(x => x.User).Include(x => x.PastEducation).Include(x => x.Skills).Include(x => x.ApplicantDocuments)
+								 .Include(x => x.Institutions).FirstOrDefault();
 
-			return View();
+					if (applicantEntity == null)
+					//var   returnapp = new ApplicantResumeVM
+
+					{
+						applicantEntity.PastEducation.Select(edu => new ViewModels.Education
+						{
+							Qualification = edu.Qualification,
+							FromDate = edu.FromDate,
+							ToDate = edu.ToDate,
+							Institution = edu.Institution,
+							CourseStudies = edu.CourseStudied,
+						});
+
+						applicantEntity.WorkExperience.Select(edx => new ViewModels.Experience
+						{
+							Title = edx.Title,
+							FromDate = edx.FromDate,
+							ToDate = edx.ToDate,
+							Company = edx.CompanyName,
+						});
+
+						applicantEntity.Skills.Select(skill => new ViewModels.Skill
+						{
+							Achievement = skill.Achievement,
+							Id = skill.Id,
+							Skilllevel = skill.Skilllevel
+						});
+
+						dbContext.Applicants.Add(applicantEntity);
+						dbContext.SaveChanges();
+					}
+					else
+					{
+						ModelState.AddModelError("Warning Error", "Information is not correct");
+						return View(applicantProfileViewModel);
+					}
+				}
+
+			}
+			return View(applicantProfileViewModel);
 		}
 
+
+
+
+		[HttpGet]
 		public ActionResult ApplicantProfilePage()
 		{
 			var loggedInUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
@@ -296,12 +349,14 @@ namespace Recruiter.Controllers
 													 Type = files.Type
 												 }).ToList(),
 								 // Language = dbContext.Languages.Select(x => x.ApplicantId == p.Id, new Language { Name=})
+								 //Skills = (from details in dbContext.Applicants
+								 //	   where details.A )
 
 							 }).FirstOrDefault();
 
 				return View(check);
 
-			}
+			return View();
 		}
 
 
@@ -428,3 +483,11 @@ namespace Recruiter.Controllers
 		}
 	}
 }
+
+	//[HttpGet]
+	//	public ActionResult UploadImage()
+	//	{
+	//		return View();
+	//	}
+	//}
+

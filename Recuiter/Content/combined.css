@@ -17,7 +17,7 @@ body{
 
 .landingpage-bg{
     height:100vh;
-    background-image: url(../Images/landingpage.svg);
+    background-image: url(../Content/images/landingpage.svg);
     background-position: right top;
     background-size: auto;
     background-repeat: no-repeat;
@@ -282,4 +282,25 @@ p.footnote{
 
 .card-body {
     background-color: #fdfdfd;
+}
+
+.edu {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sub_head {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#mainee {
+    color: #717171;
+    font-size: 12px;
+}
+
+@media only screen and (max-width:900px) {
+    div.underlined {
+        display: none !important;
+    }
 }

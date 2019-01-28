@@ -89,7 +89,7 @@ namespace Recruiter.ViewModels
 		public string FilePath { get; set; }
 
 		public string Name { get; set; }
-
+		
 		public FileType Type { get; set; }
 	}
 
