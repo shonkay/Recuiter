@@ -11,7 +11,6 @@ namespace Data.Models
     public class Applicant : BaseModel
 	{
 		public virtual User User { get; set; }
-
 		public int UserId { get; set; }
 
 		public string Address { get; set; }

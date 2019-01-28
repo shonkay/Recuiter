@@ -361,5 +361,16 @@ namespace Recruiter.Controllers
 			ViewBag.Message = message;
 			return View(model);
 		}
+
+		
+	public ActionResult ChangePassword()
+		{
+			if (ModelState.IsValid)
+			{
+				var currentUser = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+				
+			}
+			return View();
+		}
 	}
 }
