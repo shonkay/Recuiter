@@ -7,13 +7,13 @@ namespace Recruiter.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Copy : IMigrationMetadata
+    public sealed partial class newEditDetails : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Copy));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(newEditDetails));
         
         string IMigrationMetadata.Id
         {
-            get { return "201901251553040_Copy"; }
+            get { return "201901251429178_newEditDetails"; }
         }
         
         string IMigrationMetadata.Source
