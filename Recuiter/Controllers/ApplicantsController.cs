@@ -143,7 +143,8 @@ namespace Recruiter.Controllers
 								 Email = p.User.Email,
 								 City = p.City,
 								 Country = p.Country,
-								 CompleteAddress = p.Country,
+								 CompleteAddress = p.Address,
+
 								 YearsOfExperience = p.YearsOfExperience,
 
 								 EducationLevel = p.EducationLevel,
@@ -189,7 +190,16 @@ namespace Recruiter.Controllers
 						applicant.EducationLevel = applicantProfileViewModel.EducationLevel;
 						applicant.YearsOfExperience = applicantProfileViewModel.YearsOfExperience;
 
-						dbContext.Applicants.Add(applicant);
+
+						dbContext.SaveChanges();
+					}
+					else if (applicant == null)
+					{
+						var appnew = new Applicant()
+						{
+							PhoneNumber = applicant.PhoneNumber,
+						};
+						dbContext.Applicants.Add(appnew);
 						dbContext.SaveChanges();
 					}
 					else
@@ -201,7 +211,7 @@ namespace Recruiter.Controllers
 				}
 
 			}
-			return View(applicantProfileViewModel);
+			return RedirectToAction("ApplicantProfilePage");
 		}
 
 		[HttpPost]
@@ -215,7 +225,7 @@ namespace Recruiter.Controllers
 					var applicantEntity = dbContext.Applicants.Where(a => a.UserId == currentUserId).Include(x => x.User).Include(x => x.PastEducation).Include(x => x.Skills).Include(x => x.ApplicantDocuments)
 								 .Include(x => x.Institutions).FirstOrDefault();
 
-					if(applicantEntity == null)
+					if (applicantEntity == null)
 					//var   returnapp = new ApplicantResumeVM
 
 					{
@@ -260,7 +270,7 @@ namespace Recruiter.Controllers
 
 
 
-
+		[HttpGet]
 		public ActionResult ApplicantProfilePage()
 		{
 			var loggedInUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
@@ -292,13 +302,13 @@ namespace Recruiter.Controllers
 												 }).ToList(),
 								 // Language = dbContext.Languages.Select(x => x.ApplicantId == p.Id, new Language { Name=})
 								 //Skills = (from details in dbContext.Applicants
-									//	   where details.A )
+								 //	   where details.A )
 
 							 }).FirstOrDefault();
 
 				return View(check);
 
-			}
+			return View();
 		}
 
 
@@ -425,3 +435,11 @@ namespace Recruiter.Controllers
 		}
 	}
 }
+
+	//[HttpGet]
+	//	public ActionResult UploadImage()
+	//	{
+	//		return View();
+	//	}
+	//}
+
