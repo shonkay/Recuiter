@@ -231,7 +231,7 @@ namespace Recruiter.Controllers
 			string subject = "Your Account is Successfully created!";
 
 			string body = "<br/> Please click on the following link in order to activate your account" + "<br/><a href='" + link + "'> Activation Account ! </a>";
-
+              
 			if (emailFor == "VerifyAccount")
 			{
 				subject = "Your account is successfully created!";

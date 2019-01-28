@@ -20,9 +20,10 @@ namespace Recruiter.Context
 		public IDbSet<InterviewQuestion> InterviewQuestions { get; set; }
 		public IDbSet<User> Users { get; set; }
 		public IDbSet<UserRole> UserRoles { get; set; }
+        public IDbSet<Notification> Notifications { get; set; }
 
 
-		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Conventions.Remove(new PluralizingTableNameConvention());
 
