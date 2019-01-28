@@ -74,9 +74,9 @@ namespace Recruiter.Controllers
             //	};
             //jobList.Add(jobView);
             //}
-            var lobsss = jobss.ToList();
+            var jobsss = jobss.ToList();
 
-            return View(lobsss);
+            return View(jobsss);
         }
 
         public ActionResult JobDetails( int? Id )
