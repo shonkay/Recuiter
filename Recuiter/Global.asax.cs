@@ -38,7 +38,7 @@ namespace Recruiter
                 principal.UserId = serializeModel.UserId;
                 principal.FirstName = serializeModel.FirstName;
                 principal.LastName = serializeModel.LastName;
-                principal.Roles = serializeModel.RoleName.ToArray<string>();
+                principal.Roles = (serializeModel.RoleName != null) ? (serializeModel.RoleName.ToArray<string>()) : new string[] { };
 
                 HttpContext.Current.User = principal;
             }

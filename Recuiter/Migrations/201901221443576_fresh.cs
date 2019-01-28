@@ -3,7 +3,7 @@ namespace Recruiter.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class recruiter1 : DbMigration
+    public partial class fresh : DbMigration
     {
         public override void Up()
         {
@@ -11,24 +11,14 @@ namespace Recruiter.Migrations
                 "dbo.ApplicantDocuments",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        DocumentId = c.Int(nullable: false),
                         ApplicantId = c.Int(nullable: false),
-                        Name = c.String(),
-                        FilePath = c.String(),
-                        Type = c.Int(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(),
-                        LastModifiedDate = c.DateTime(),
-                        CreatedById = c.Int(nullable: false),
-                        LastModifiedById = c.Int(),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => new { t.DocumentId, t.ApplicantId })
                 .ForeignKey("dbo.Applicants", t => t.ApplicantId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.CreatedById, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.LastModifiedById)
-                .Index(t => t.ApplicantId)
-                .Index(t => t.CreatedById)
-                .Index(t => t.LastModifiedById);
+                .ForeignKey("dbo.Documents", t => t.DocumentId, cascadeDelete: true)
+                .Index(t => t.DocumentId)
+                .Index(t => t.ApplicantId);
             
             CreateTable(
                 "dbo.Applicants",
@@ -37,16 +27,13 @@ namespace Recruiter.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.Int(nullable: false),
                         Address = c.String(),
-                        ProfilePicPath = c.String(),
                         PhoneNumber = c.String(),
                         Country = c.String(),
                         City = c.String(),
                         YearsOfExperience = c.Int(nullable: false),
                         Age = c.Int(nullable: false),
-                        Languages = c.String(),
                         EducationLevel = c.Int(nullable: false),
                         Bio = c.String(),
-                        Achievement = c.String(),
                         IsDeleted = c.Boolean(nullable: false),
                         CreatedDate = c.DateTime(),
                         LastModifiedDate = c.DateTime(),
@@ -157,63 +144,61 @@ namespace Recruiter.Migrations
                 .Index(t => t.LastModifiedById);
             
             CreateTable(
-                "dbo.Institutions",
+                "dbo.Documents",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        CreatedDate = c.DateTime(nullable: false),
+                        LastModifiedDate = c.DateTime(nullable: false),
+                        UserId = c.Int(nullable: false),
                         Name = c.String(),
+                        FilePath = c.String(),
+                        Type = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Users", t => t.UserId)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.ApplicantProfileViewModels",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ApplicantId = c.Int(nullable: false),
+                        FirstName = c.String(nullable: false),
+                        LastName = c.String(nullable: false),
+                        DocumentId = c.Int(nullable: false),
+                        ImageId = c.Int(nullable: false),
+                        PhoneNumber = c.String(),
+                        Email = c.String(nullable: false),
+                        Country = c.String(),
                         City = c.String(),
-                        Code = c.String(),
-                        Applicant_Id = c.Int(),
+                        CompleteAddress = c.String(),
+                        YearsOfExperience = c.Int(nullable: false),
+                        Age = c.Int(nullable: false),
+                        EducationLevel = c.Int(nullable: false),
+                        Bio = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Applicants", t => t.Applicant_Id)
-                .Index(t => t.Applicant_Id);
+                .ForeignKey("dbo.Applicants", t => t.ApplicantId, cascadeDelete: true)
+                .ForeignKey("dbo.Documents", t => t.DocumentId, cascadeDelete: true)
+                .ForeignKey("dbo.Images", t => t.ImageId, cascadeDelete: true)
+                .Index(t => t.ApplicantId)
+                .Index(t => t.DocumentId)
+                .Index(t => t.ImageId);
             
             CreateTable(
-                "dbo.Educations",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Qualification = c.String(),
-                        FromDate = c.Int(nullable: false),
-                        ToDate = c.Int(nullable: false),
-                        Institution = c.String(),
-                        CourseStudied = c.String(),
-                        Applicant_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Applicants", t => t.Applicant_Id)
-                .Index(t => t.Applicant_Id);
-            
-            CreateTable(
-                "dbo.Skills",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Skilllevel = c.Int(nullable: false),
-                        Achievement = c.String(),
-                        Applicant_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Applicants", t => t.Applicant_Id)
-                .Index(t => t.Applicant_Id);
-            
-            CreateTable(
-                "dbo.Experiences",
+                "dbo.Images",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(),
-                        FromDate = c.Int(nullable: false),
-                        ToDate = c.Int(nullable: false),
-                        IsPresent = c.Boolean(nullable: false),
-                        CompanyName = c.String(),
-                        Applicant_Id = c.Int(),
+                        UserId = c.Int(nullable: false),
+                        ImagePath = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Applicants", t => t.Applicant_Id)
-                .Index(t => t.Applicant_Id);
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.ApplicantReviewAssessments",
@@ -346,6 +331,19 @@ namespace Recruiter.Migrations
                 .Index(t => t.CreatedById)
                 .Index(t => t.LastModifiedById);
             
+            CreateTable(
+                "dbo.DocumentApplicants",
+                c => new
+                    {
+                        Document_Id = c.Int(nullable: false),
+                        Applicant_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Document_Id, t.Applicant_Id })
+                .ForeignKey("dbo.Documents", t => t.Document_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Applicants", t => t.Applicant_Id, cascadeDelete: true)
+                .Index(t => t.Document_Id)
+                .Index(t => t.Applicant_Id);
+            
         }
         
         public override void Down()
@@ -369,14 +367,17 @@ namespace Recruiter.Migrations
             DropForeignKey("dbo.Jobs", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.Applications", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.Applications", "ApplicantId", "dbo.Applicants");
-            DropForeignKey("dbo.ApplicantDocuments", "LastModifiedById", "dbo.Users");
-            DropForeignKey("dbo.ApplicantDocuments", "CreatedById", "dbo.Users");
-            DropForeignKey("dbo.Experiences", "Applicant_Id", "dbo.Applicants");
+            DropForeignKey("dbo.ApplicantProfileViewModels", "ImageId", "dbo.Images");
+            DropForeignKey("dbo.Images", "UserId", "dbo.Users");
+            DropForeignKey("dbo.ApplicantProfileViewModels", "DocumentId", "dbo.Documents");
+            DropForeignKey("dbo.ApplicantProfileViewModels", "ApplicantId", "dbo.Applicants");
+            DropForeignKey("dbo.ApplicantDocuments", "DocumentId", "dbo.Documents");
+            DropForeignKey("dbo.ApplicantDocuments", "ApplicantId", "dbo.Applicants");
             DropForeignKey("dbo.Applicants", "UserId", "dbo.Users");
-            DropForeignKey("dbo.Skills", "Applicant_Id", "dbo.Applicants");
-            DropForeignKey("dbo.Educations", "Applicant_Id", "dbo.Applicants");
             DropForeignKey("dbo.Applicants", "LastModifiedById", "dbo.Users");
-            DropForeignKey("dbo.Institutions", "Applicant_Id", "dbo.Applicants");
+            DropForeignKey("dbo.Documents", "UserId", "dbo.Users");
+            DropForeignKey("dbo.DocumentApplicants", "Applicant_Id", "dbo.Applicants");
+            DropForeignKey("dbo.DocumentApplicants", "Document_Id", "dbo.Documents");
             DropForeignKey("dbo.Applicants", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "User_Id", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
@@ -392,7 +393,8 @@ namespace Recruiter.Migrations
             DropForeignKey("dbo.Departments", "HoDId", "dbo.Users");
             DropForeignKey("dbo.Departments", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.Users", "CreatedById", "dbo.Users");
-            DropForeignKey("dbo.ApplicantDocuments", "ApplicantId", "dbo.Applicants");
+            DropIndex("dbo.DocumentApplicants", new[] { "Applicant_Id" });
+            DropIndex("dbo.DocumentApplicants", new[] { "Document_Id" });
             DropIndex("dbo.InterviewQuestions", new[] { "LastModifiedById" });
             DropIndex("dbo.InterviewQuestions", new[] { "CreatedById" });
             DropIndex("dbo.InterviewQuestions", new[] { "DepartmentId" });
@@ -412,10 +414,11 @@ namespace Recruiter.Migrations
             DropIndex("dbo.ApplicantReviewAssessments", new[] { "CreatedById" });
             DropIndex("dbo.ApplicantReviewAssessments", new[] { "ApplicationReviewId" });
             DropIndex("dbo.ApplicantReviewAssessments", new[] { "InterviewQuestionId" });
-            DropIndex("dbo.Experiences", new[] { "Applicant_Id" });
-            DropIndex("dbo.Skills", new[] { "Applicant_Id" });
-            DropIndex("dbo.Educations", new[] { "Applicant_Id" });
-            DropIndex("dbo.Institutions", new[] { "Applicant_Id" });
+            DropIndex("dbo.Images", new[] { "UserId" });
+            DropIndex("dbo.ApplicantProfileViewModels", new[] { "ImageId" });
+            DropIndex("dbo.ApplicantProfileViewModels", new[] { "DocumentId" });
+            DropIndex("dbo.ApplicantProfileViewModels", new[] { "ApplicantId" });
+            DropIndex("dbo.Documents", new[] { "UserId" });
             DropIndex("dbo.Roles", new[] { "LastModifiedById" });
             DropIndex("dbo.Roles", new[] { "CreatedById" });
             DropIndex("dbo.UserRoles", new[] { "User_Id" });
@@ -433,18 +436,17 @@ namespace Recruiter.Migrations
             DropIndex("dbo.Applicants", new[] { "LastModifiedById" });
             DropIndex("dbo.Applicants", new[] { "CreatedById" });
             DropIndex("dbo.Applicants", new[] { "UserId" });
-            DropIndex("dbo.ApplicantDocuments", new[] { "LastModifiedById" });
-            DropIndex("dbo.ApplicantDocuments", new[] { "CreatedById" });
             DropIndex("dbo.ApplicantDocuments", new[] { "ApplicantId" });
+            DropIndex("dbo.ApplicantDocuments", new[] { "DocumentId" });
+            DropTable("dbo.DocumentApplicants");
             DropTable("dbo.InterviewQuestions");
             DropTable("dbo.Jobs");
             DropTable("dbo.Applications");
             DropTable("dbo.ApplicationReviews");
             DropTable("dbo.ApplicantReviewAssessments");
-            DropTable("dbo.Experiences");
-            DropTable("dbo.Skills");
-            DropTable("dbo.Educations");
-            DropTable("dbo.Institutions");
+            DropTable("dbo.Images");
+            DropTable("dbo.ApplicantProfileViewModels");
+            DropTable("dbo.Documents");
             DropTable("dbo.Roles");
             DropTable("dbo.UserRoles");
             DropTable("dbo.Departments");

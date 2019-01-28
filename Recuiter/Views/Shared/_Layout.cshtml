@@ -107,6 +107,7 @@
         </ul>
         @User.Identity.Name
         </div>*@
+    @User.Identity.Name
     @*</div>
         </div>*@
 
@@ -128,8 +129,8 @@
 
     <div class="container body-content">
         @RenderBody()
-    </div>
-        <footer class="footer d-flex justify-content-between mx-0" style="position:relative">
+
+        <footer class="footer d-flex justify-content-between mx-0">
             <div>
                 <p class="footnote" style="color: #707070;  font-family: Roboto; font-size: 10px; margin-right: 10px;">Copyright © 2018. All rights reserved. <span style="color:#f16722;">Software Business Solutions Consulting.</span> </p>
             </div>
@@ -143,6 +144,8 @@
             </div>
 
         </footer>
+
+    </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

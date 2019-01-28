@@ -7,19 +7,18 @@ namespace Recruiter.ViewModels
 {
 	public class ApplicantResumeVM
 	{
-		public Education Education { get; set; }
-		public Experience Experience { get; set; }
-		public Skill Skill { get; set; }
-
+		public  List<Education> Education { get; set; }
+		public List<Experience> Experience { get; set; }
+		public List<Skill> Skill { get; set; }
 	}
 
 	public class Education
 	{
 		public string Qualification { get; set; }
 
-		public int FromDate { get; set; }
+		public DateTime FromDate { get; set; }
 
-		public int ToDate { get; set; }
+		public DateTime ToDate { get; set; }
 
 		public string Institution { get; set; }
 
@@ -31,9 +30,9 @@ namespace Recruiter.ViewModels
 	{
 		public string Title { get; set; }
 
-		public int FromDate { get; set; }
+		public DateTime FromDate { get; set; }
 
-		public int ToDate { get; set; }
+		public DateTime ToDate { get; set; }
 
 		public string Company { get; set; }
 	}
