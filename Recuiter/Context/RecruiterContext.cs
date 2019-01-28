@@ -20,6 +20,7 @@ namespace Recruiter.Context
 		public IDbSet<InterviewQuestion> InterviewQuestions { get; set; }
 		public IDbSet<User> Users { get; set; }
 		public IDbSet<UserRole> UserRoles { get; set; }
+		public IDbSet<ReviewResult> ReviewResults { get; set; }
 
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -37,6 +38,7 @@ namespace Recruiter.Context
 			modelBuilder.Configurations.Add(new ApplicationReviewMap());
 			modelBuilder.Configurations.Add(new ApplicationReviewAssesmentMap());
 			modelBuilder.Configurations.Add(new InterViewQuestionMap());
+			modelBuilder.Configurations.Add(new ReviewResultMap());
 
 		}
 
@@ -46,7 +48,6 @@ namespace Recruiter.Context
 
 		public System.Data.Entity.DbSet<Data.Models.Role> Roles { get; set; }
 
-		
-		
-	}
+        public System.Data.Entity.DbSet<Recruiter.ViewModels.JobViewModel> JobViewModels { get; set; }
+    }
 }

@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-	class Institution
+	public class Institution
 	{
+		public int Id { get; set; }
+
 		public string Name { get; set; }
+
 		public string City { get; set; }
+
 		public string Code { get; set; }
 
 	}

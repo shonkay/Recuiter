@@ -48,6 +48,7 @@
     <Compile Include="Crypto.cs" />
     <Compile Include="Enums\ApplicationFileTypes.cs" />
     <Compile Include="Enums\JobApplicationWorkFlow.cs" />
+    <Compile Include="Enums\JobProcessStatus.cs" />
     <Compile Include="Enums\WorkFlowType.cs" />
     <Compile Include="Models\Applicant.cs" />
     <Compile Include="Models\ApplicantInterview.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionTemplate.cs" />
     <Compile Include="Models\ResetPassword.cs" />
+    <Compile Include="Models\ReviewResult.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Search.cs" />
     <Compile Include="Models\UserRoles.cs" />

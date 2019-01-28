@@ -15,69 +15,118 @@ using Recruiter.ViewModels;
 namespace Recruiter.Controllers
 {
 
-	public class ApplicantsController : Controller
-	{
-		private RecruiterContext db = new RecruiterContext();
-		//private readonly object applicationProfileViewModel;
+    public class ApplicantsController : Controller
+    {
+        private RecruiterContext db = new RecruiterContext();
+        //private readonly object applicationProfileViewModel;
 
-		[HttpGet]
-		public ActionResult Index(string searchString, string searchSkills, string searchContract, int? ContractClass, int? ExperienceLevel)
-		{
-			var jobss = from j in db.Jobs.Include(x => x.Department) select j;
+        [HttpGet]
+        public ActionResult Index( string searchString, string searchSkills, string searchContract, int? ContractClass, int? ExperienceLevel )
+        {
+            var jobss = from j in db.Jobs.Include(x => x.Department) select j;
 
-			if (!String.IsNullOrEmpty(searchString))
-			{
-				jobss = jobss.Where(s => s.Title.Contains(searchString));
-			}
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                jobss = jobss.Where(s => s.Title.Contains(searchString));
+            }
 
-			if (!String.IsNullOrEmpty(searchSkills))
-			{
-				jobss = jobss.Where(s => s.SkillSet.Contains(searchSkills));
-			}
+            if (!String.IsNullOrEmpty(searchSkills))
+            {
+                jobss = jobss.Where(s => s.SkillSet.Contains(searchSkills));
+            }
 
-			if (ContractClass != null)
-			{
-				jobss = jobss.Where(x => x.ContractClass == (ContractClassType)ContractClass);
+            if (ContractClass != null)
+            {
+                jobss = jobss.Where(x => x.ContractClass == (ContractClassType)ContractClass);
 
 
-				ViewBag.SearchFilter = new Search { Contract = ContractClass };
+                ViewBag.SearchFilter = new Search { Contract = ContractClass };
 
-			}
+            }
 
-			if (ExperienceLevel != null)
-			{
-				jobss = jobss.Where(x => x.ExperienceLevel == (ExperienceLevelType)ExperienceLevel);
+            if (ExperienceLevel != null)
+            {
+                jobss = jobss.Where(x => x.ExperienceLevel == (ExperienceLevelType)ExperienceLevel);
 
-				ViewBag.SearchFilter = new Search { Expereince = ExperienceLevel };
-			}
+                ViewBag.SearchFilter = new Search { Expereince = ExperienceLevel };
+            }
 
-			//var jobList = new List<JobViewModel>();
-			//foreach(Job job in jobsss)
-			//{
+            //var jobList = new List<JobViewModel>();
+            //foreach(Job job in jobsss)
+            //{
 
-			//	var jobView = new JobViewModel
-			//	{
-			//		Id = job.Id,
-			//		JobId = job.JobId,
-			//		DepartmentId = job.DepartmentId,
-			//		Title = job.Title,
-			//		Summary = job.Summary,
-			//		Description = job.Description,
-			//		Responsibility = job.Responsibility,
-			//		GeneralRequirement = job.GeneralRequirement,
-			//		SkillSet = job.SkillSet,
-			//		MinimumQualification = job.MinimumQualification,
-			//		ExperienceLevel = job.ExperienceLevel,
-			//		ExperienceLength = job.ExperienceLength,
-			//		ContractClass = job.ContractClass,
-			//		ExpiryDate = job.ExpiryDate
-			//	};
-			//jobList.Add(jobView);
-			//}
-			return View(jobss.ToList());
-		}
+            //	var jobView = new JobViewModel
+            //	{
+            //		Id = job.Id,
+            //		JobId = job.JobId,
+            //		DepartmentId = job.DepartmentId,
+            //		Title = job.Title,
+            //		Summary = job.Summary,
+            //		Description = job.Description,
+            //		Responsibility = job.Responsibility,
+            //		GeneralRequirement = job.GeneralRequirement,
+            //		SkillSet = job.SkillSet,
+            //		MinimumQualification = job.MinimumQualification,
+            //		ExperienceLevel = job.ExperienceLevel,
+            //		ExperienceLength = job.ExperienceLength,
+            //		ContractClass = job.ContractClass,
+            //		ExpiryDate = job.ExpiryDate
+            //	};
+            //jobList.Add(jobView);
+            //}
+            var lobsss = jobss.ToList();
 
-		public ActionResult ApplicantProfileEditReadOnly()
+            return View(lobsss);
+        }
+
+        public ActionResult JobDetails( int? Id )
+        {
+            var jobDetails = (from job in db.Jobs
+                              where job.Id == Id
+                              select job).FirstOrDefault();
+
+            var viewModel = new JobViewModel
+            {
+                Id = jobDetails.Id,
+                Title = jobDetails.Title
+            };
+            return View(viewModel);
+        }
+
+        public ActionResult JobApplication(int? Id)
+        {
+            if(!(Id is null))
+            {
+                var userId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+                var applicantId = (db.Applicants.Where(a => a.UserId == userId).FirstOrDefault()).Id;
+                var application = new Application
+                {
+                    ApplicantId = applicantId,
+                    CreatedById = userId,
+                    JobId = Id.Value
+                };
+
+                db.Applications.Add(application);
+                db.SaveChanges();
+                ViewBag.JobApplicationSuccess = "You applied Successfully";
+                return View();
+            }
+            ViewBag.JobApplicationError = "Error! Select a Job to apply for. Thank you.";
+            return View();
+        }
+
+        public ActionResult Dashboard (int? applicantId)
+        {
+            var dashboard = new DashboardVM();
+            dashboard.ApplicantId = applicantId.Value;
+            var applications = (from application in db.Applications where application.ApplicantId == applicantId select application).ToList();
+           
+
+            return View();
+        }
+
+
+        public ActionResult ApplicantProfileEditReadOnly()
 		{
 
 			var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
@@ -128,7 +177,7 @@ namespace Recruiter.Controllers
 
 		[HttpGet]
 		// GET: Applicants
-		public ActionResult ApplicantProfileEdit(int Id)
+		public ActionResult ApplicantProfileEdit()
 		{
 			var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
 			using (RecruiterContext dbContext = new RecruiterContext())
@@ -219,8 +268,40 @@ namespace Recruiter.Controllers
 
 		public ActionResult ApplicantProfilePage()
 		{
+			var loggedInUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+			using (RecruiterContext dbContext = new RecruiterContext())
+			{
+				var check = (from p in dbContext.Applicants.Include(x => x.User).Include(x => x.PastEducation).Include(x => x.Skills).Include(x => x.ApplicantDocuments)
+							 .Include(x => x.Institutions).Include(x => x.Languages)
+							 where p.UserId == loggedInUserId
 
-			return View();
+							 select new ApplicantProfileViewModels
+							 {
+								 Country = p.Country,
+								 City = p.City,
+								 CompleteAddress = p.Address,
+								 Achievement = p.Achievement,
+								 Age = p.Age,
+								 Bio = p.Bio,
+								 EducationLevel = p.EducationLevel,
+								 FirstName = p.User.FirstName,
+								 LastName = p.User.LastName,
+								 Language = p.Languages,
+								 Certificates = (from files in dbContext.ApplicantDocuments
+												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsDeleted
+												 select new ApplicantDocumentViewModel
+												 {
+													 FilePath = files.FilePath,
+													 Name = files.Name,
+													 Type = files.Type
+												 }).ToList(),
+								 // Language = dbContext.Languages.Select(x => x.ApplicantId == p.Id, new Language { Name=})
+
+							 }).FirstOrDefault();
+
+				return View(check);
+
+			}
 		}
 
 
@@ -250,6 +331,8 @@ namespace Recruiter.Controllers
 			ViewBag.UserId = new SelectList(db.Users, "Id", "Username");
 			return View();
 		}
+
+
 
 		// POST: Applicants/Create
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 

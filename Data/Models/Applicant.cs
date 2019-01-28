@@ -11,7 +11,6 @@ namespace Data.Models
     public class Applicant : BaseModel
 	{
 		public virtual User User { get; set; }
-
 		public int UserId { get; set; }
 
 		public string Address { get; set; }
@@ -28,10 +27,10 @@ namespace Data.Models
 
 		[DisplayName("Years Of Experience")]
 		public int YearsOfExperience { get; set; }
-		
+
 		public int Age { get; set; }
 
-		public virtual ICollection<string> Languages { get; set; }
+		public string Languages { get; set; }
 
 		[DisplayName("Education Level")]
 		public MinimumQualificationType EducationLevel { get; set; }
@@ -45,6 +44,9 @@ namespace Data.Models
 		public virtual ICollection<ApplicantDocument> ApplicantDocuments { get; set; }
 
 		public virtual ICollection<Skill> Skills { get; set; }
+
+
+		public virtual ICollection<Institution> Institutions { get; set; }
 
 		public string Achievement { get; set; }
 
