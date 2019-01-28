@@ -109,6 +109,15 @@ namespace Recuiter.Context.Map
             HasOptional(x => x.LastModifiedBy).WithMany().WillCascadeOnDelete(false);
         }
     }
+
+    class ReviewResultMap : EntityTypeConfiguration<ReviewResult>
+    {
+        public ReviewResultMap()
+        {
+            HasRequired(x => x.CreatedBy).WithMany().WillCascadeOnDelete(false);
+            HasOptional(x => x.LastModifiedBy).WithMany().WillCascadeOnDelete(false);
+        }
+    }
 	class ImageMap : EntityTypeConfiguration<Image>
 	{
 		public ImageMap()

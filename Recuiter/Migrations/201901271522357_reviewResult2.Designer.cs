@@ -7,13 +7,13 @@ namespace Recruiter.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class fresh : IMigrationMetadata
+    public sealed partial class reviewResult2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(fresh));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(reviewResult2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201901221443576_fresh"; }
+            get { return "201901271522357_reviewResult2"; }
         }
         
         string IMigrationMetadata.Source

@@ -143,7 +143,8 @@ namespace Recruiter.Controllers
 								 Email = p.User.Email,
 								 City = p.City,
 								 Country = p.Country,
-								 CompleteAddress = p.Country,
+								 CompleteAddress = p.Address,
+
 								 YearsOfExperience = p.YearsOfExperience,
 
 								 EducationLevel = p.EducationLevel,

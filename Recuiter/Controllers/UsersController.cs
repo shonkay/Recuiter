@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -67,7 +68,8 @@ namespace Recruiter.Controllers
                     FirstName = userVM.FirstName,
                     LastName = userVM.LastName,
                     Email = userVM.Email,
-                    Password = userVM.Password,
+                    Password = Convert.ToBase64String(System.Security.Cryptography.SHA256.Create()
+                .ComputeHash(Encoding.UTF8.GetBytes(userVM.Password))),
                     CreatedDate = DateTime.Now
                 };
                 

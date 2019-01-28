@@ -1,11 +1,10 @@
 ﻿
-
 using Data.Enums;
 
 namespace Data.Models
 {
     public class Application : BaseModel
-	{   
+	{ 
         public int ApplicantId { get; set; }
 
         public Applicant Applicant { get; set; }
