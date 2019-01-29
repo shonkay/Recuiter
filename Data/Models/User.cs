@@ -50,5 +50,10 @@ namespace Data.Models
 		public virtual ICollection<UserRole> Roles { get; set; }
 
 		public string ResetPasswordCode { get; set; }
-	}
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
+        public string ConfirmPassword { get; set; }
+    }
+
+    
 }

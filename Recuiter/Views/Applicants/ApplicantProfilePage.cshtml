@@ -28,7 +28,7 @@
                 </li>
                 <li class="nav-item  border-bottom"
                     id="pass_change">
-                    <a class="nav-link text-dark" href="#"><i class="fas fa-lock mr-1"></i>Change Password</a>
+                    <a class="nav-link text-dark" href=""><i class="fas fa-lock mr-1"></i>Change Password</a>
                 </li>
             </ul>
         </div>
@@ -37,7 +37,8 @@
             <div class="media">
                 <img src="~/Content/images/passport.jpg" class="align-self-start mr-3" alt="passport">
                 <div class="media-body">
-                    <h5 class="mt-0">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h5> <p>@Html.DisplayFor(model => model.JobTitle)</p>
+                    <h5 class="mt-0">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h5>
+                    <p>@Html.DisplayFor(model => model.JobTitle)</p>
                     <div class="d-flex justify-content-between border-bottom underlined">
                         <p>About</p>
                         <p>Education</p>
@@ -53,11 +54,11 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <p><b>Experience</b></p>
-                            <p>Intermediate (3 - 5 yrs)</p>
+                            <p>@Html.DisplayFor(model => model.YearsOfExperience) (3 - 5 yrs)</p>
                         </div>
                         <div class="col-sm-3">
                             <p><b>Age</b></p>
-                            <p>37 years</p>
+                            <p>@Html.DisplayFor(model => model.Age)</p>
                         </div>
 
                     </div>
@@ -70,6 +71,14 @@
 
 
         </div>
+
+        <p>@Html.DisplayFor(model => model.Bio)</p>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;">
+        <button type="submit" class="btn btn-II ">Edit Profile</button>
+    </div>
+    <div>
     </div>
 
 </div>

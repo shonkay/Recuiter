@@ -202,7 +202,6 @@
     <Content Include="Content\bootstrap\style.css" />
     <Content Include="Content\combined.css" />
     <Content Include="Content\images\account_logo.svg" />
-    <Content Include="Content\images\bgIMG.svg" />
     <Content Include="Content\images\company_logo.svg" />
     <Content Include="Content\images\confirm_mail.svg" />
     <Content Include="Content\images\create_account.svg" />
@@ -269,7 +268,9 @@
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HRcontroller.cs" />
     <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Controllers\ReviewerController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -281,27 +282,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901251518181_CopyFromMary.cs" />
-    <Compile Include="Migrations\201901251518181_CopyFromMary.Designer.cs">
-      <DependentUpon>201901251518181_CopyFromMary.cs</DependentUpon>
+    <Compile Include="Migrations\201901281133134_new.cs" />
+    <Compile Include="Migrations\201901281133134_new.Designer.cs">
+      <DependentUpon>201901281133134_new.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901251553040_Copy.cs" />
-    <Compile Include="Migrations\201901251553040_Copy.Designer.cs">
-      <DependentUpon>201901251553040_Copy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901251730305_ApplicantResumeProfile.cs" />
-    <Compile Include="Migrations\201901251730305_ApplicantResumeProfile.Designer.cs">
-      <DependentUpon>201901251730305_ApplicantResumeProfile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901280934383_CreatedNewDB.cs" />
-    <Compile Include="Migrations\201901280934383_CreatedNewDB.Designer.cs">
-      <DependentUpon>201901280934383_CreatedNewDB.cs</DependentUpon>
+    <Compile Include="Migrations\201901281602565_password.cs" />
+    <Compile Include="Migrations\201901281602565_password.Designer.cs">
+      <DependentUpon>201901281602565_password.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ApplicantDocumentViewModel.cs" />
     <Compile Include="ViewModels\ApplicantProfileViewModels.cs" />
     <Compile Include="ViewModels\ApplicantResumeVM.cs" />
+    <Compile Include="ViewModels\ApplicationVM.cs" />
+    <Compile Include="ViewModels\AssessmentVM.cs" />
+    <Compile Include="ViewModels\DashboardVM.cs" />
     <Compile Include="ViewModels\JobViewModel.cs" />
     <Compile Include="ViewModels\LoginView.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
@@ -355,6 +351,14 @@
     <Content Include="Views\Applicants\ApplicantProfilePage.cshtml" />
     <Content Include="Views\Shared\ProfileLayout.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
+    <Content Include="Views\Hr\Index.cshtml" />
+    <Content Include="Views\Reviewer\Index.cshtml" />
+    <Content Include="Views\Reviewer\ReviewQuestions.cshtml" />
+    <Content Include="Views\Document\Upload.cshtml" />
+    <Content Include="Views\Applicants\JobApplication.cshtml" />
+    <Content Include="Views\Applicants\JobDetails.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Applicants\ApplicantResumeProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -369,21 +373,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901251518181_CopyFromMary.resx">
-      <DependentUpon>201901251518181_CopyFromMary.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901251553040_Copy.resx">
-      <DependentUpon>201901251553040_Copy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901251730305_ApplicantResumeProfile.resx">
-      <DependentUpon>201901251730305_ApplicantResumeProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901280934383_CreatedNewDB.resx">
-      <DependentUpon>201901280934383_CreatedNewDB.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="App_Data\UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\UploadedFiles\" />
+    <EmbeddedResource Include="Migrations\201901281133134_new.resx">
+      <DependentUpon>201901281133134_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901281602565_password.resx">
+      <DependentUpon>201901281602565_password.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

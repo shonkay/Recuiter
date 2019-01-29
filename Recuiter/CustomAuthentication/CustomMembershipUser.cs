@@ -25,6 +25,11 @@ namespace Recruiter.CustomAuthentication
             LastName = user.LastName;
             Roles = user.Roles;
         }
+
+        internal object ChangePassword(string v1, object oldPassword, string v2, object newPassword)
+        {
+            throw new NotImplementedException();
+        }
     }
     
 }

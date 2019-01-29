@@ -7,9 +7,9 @@ namespace Recruiter.ViewModels
 {
 	public class ApplicantResumeVM
 	{
-		public  List<Education> Education { get; set; }
-		public List<Experience> Experience { get; set; }
-		public List<Skill> Skill { get; set; }
+		public  ICollection<Education> Education { get; set; }
+		public ICollection<Experience> Experience { get; set; }
+		public ICollection<Skill> Skill { get; set; }
 	}
 
 	public class Education
@@ -23,12 +23,14 @@ namespace Recruiter.ViewModels
 		public string Institution { get; set; }
 
 		public string CourseStudies { get; set; }
-
-	}
+        public int Id { get; set; }
+    }
 
 	public class Experience
 	{
-		public string Title { get; set; }
+        public int Id { get; set; }
+
+        public string Title { get; set; }
 
 		public DateTime FromDate { get; set; }
 

@@ -362,15 +362,58 @@ namespace Recruiter.Controllers
 			return View(model);
 		}
 
-		
-	public ActionResult ChangePassword()
-		{
-			if (ModelState.IsValid)
-			{
-				var currentUser = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
-				
-			}
-			return View();
-		}
-	}
+
+        // GET: /Manage/ChangePassword 
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        // 
+        // POST: /Manage/ChangePassword 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordVM model)
+        {
+            var message = "";
+            if (ModelState.IsValid)
+            {
+                var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+                using (RecruiterContext dbContext = new RecruiterContext())
+                {
+
+                    var User = dbContext.Users.Where(a => a.Id == currentUserId).FirstOrDefault();
+
+                    if (User != null)
+                    {
+
+                       
+                        if (model.OldPassword != model.NewPassword)
+                        {
+                            User.Password = model.NewPassword;
+
+                            message = "Your password has been updated!";
+                            dbContext.SaveChanges();
+                        }
+                        else
+                        {
+                            message = "New password is the same as current password";
+                        }
+                    }
+
+                       
+
+                    else
+                    {
+                        ModelState.AddModelError("Warning Error", "Information is not correct");
+
+                    }
+
+                }
+
+            }
+            ViewBag.Message = message;
+            return View(model);
+        }
+    }
 }

@@ -12,58 +12,36 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-3" style="background-color: #fafafa;">
-			<ul class="nav flex-column">
-				<li class="nav-item border-bottom" id="profile">
-					<a class="nav-link active text-dark" href="#"><i class="fas fa-user mr-1"></i>My Profile</a>
-				</li>
-				<li class="nav-item border-bottom">
-					<a class="nav-link text-dark" href="#"><i class="fas fa-file-alt mr-1"></i>My Resume</a>
-				</li>
-				<li class="nav-item border-bottom" id="app_jobs">
-					<a class="nav-link text-dark" href="#"><i class="fas fa-clipboard mr-1"></i>Applied Jobs</a>
-				</li>
-				<li class="nav-item border-bottom">
-					<a class="nav-link text-dark" href="#"><i class="fas fa-bookmark mr-1"></i>Shortlisted Jobs</a>
-				</li>
-				<li class="nav-item  border-bottom"
-					id="pass_change">
-					<a class="nav-link text-dark" href="#"><i class="fas fa-lock mr-1"></i>Change Password</a>
-				</li>
-			</ul>
+            <ul class="nav flex-column">
+                <li class="nav-item border-bottom" id="profile">
+                    <a class="nav-link active text-dark" href="#"><i class="fas fa-user mr-1"></i>My Profile</a>
+                </li>
+                <li class="nav-item border-bottom">
+                    <a class="nav-link text-dark" href="#"><i class="fas fa-file-alt mr-1"></i>My Resume</a>
+                </li>
+                <li class="nav-item border-bottom" id="app_jobs">
+                    <a class="nav-link text-dark" href="#"><i class="fas fa-clipboard mr-1"></i>Applied Jobs</a>
+                </li>
+                <li class="nav-item border-bottom">
+                    <a class="nav-link text-dark" href="#"><i class="fas fa-bookmark mr-1"></i>Shortlisted Jobs</a>
+                </li>
+                <li class="nav-item  border-bottom"
+                    id="pass_change">
+                    <a class="nav-link text-dark" href="#"><i class="fas fa-lock mr-1"></i>Change Password</a>
+                </li>
+                <li class="nav-item  border-bottom"
+                    id="pass_change">
+                    <a class="nav-link text-dark" href="#"><i class="fas fa-lock mr-1"></i>Upload CV</a>
+                </li>
+            </ul>
 		</div>
         <div class="col-sm-9 alpha" style="min-height: 96rem;">
             <h5 class="mt-0">WELCOME STEELE</h5>
             <div class="media">
                 <img src="~/Content/images/passport.jpg" class="align-self-start mr-3" alt="passport">
                 <div class="media-body">
-<img src="~/Content/images/UserInterface.png" class="img-fluid topbanner mb-4" alt="user Interface">
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-3" style="background-color: #fafafa;">
-			<ul class="nav flex-column">
-				<li class="nav-item border-bottom" id="profile">
-					<a class="nav-link active text-dark" href="#"><i class="fas fa-user mr-1"></i>My Profile</a>
-				</li>
-				<li class="nav-item border-bottom">
-					<a class="nav-link text-dark" href="#"><i class="fas fa-file-alt mr-1"></i>My Resume</a>
-				</li>
-				<li class="nav-item border-bottom" id="app_jobs">
-					<a class="nav-link text-dark" href="#"><i class="fas fa-clipboard mr-1"></i>Applied Jobs</a>
-				</li>
-				<li class="nav-item border-bottom">
-					<a class="nav-link text-dark" href="#"><i class="fas fa-bookmark mr-1"></i>Shortlisted Jobs</a>
-				</li>
-				<li class="nav-item  border-bottom"
-					id="pass_change">
-					<a class="nav-link text-dark" href="#"><i class="fas fa-lock mr-1"></i>Change Password</a>
-				</li>
-				<li class="nav-item  border-bottom"
-					id="pass_change">
-					<a class="nav-link text-dark" href="#"><i class="fas fa-lock mr-1"></i>Upload CV</a>
-				</li>
-				</a>
 
-
+				
                     <div style=" padding-top: 5rem;">
 
                         <div>
@@ -71,10 +49,11 @@
                             <p id="bot">Max file size is 1MB, Minimum dimension 270x210 and suitable files are jpg & png</p>
                         </div>
                     </div>
-
-                </div>
+                              
+        </div>
 
             </div>
+    
 
 
             @using (Html.BeginForm())
@@ -303,6 +282,9 @@
         </div>
 	</div>
 </div>
+
+
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

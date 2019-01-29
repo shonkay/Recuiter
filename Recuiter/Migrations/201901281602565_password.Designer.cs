@@ -7,13 +7,13 @@ namespace Recruiter.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class LastModifiedNullable : IMigrationMetadata
+    public sealed partial class password : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(LastModifiedNullable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(password));
         
         string IMigrationMetadata.Id
         {
-            get { return "201812191152143_LastModifiedNullable"; }
+            get { return "201901281602565_password"; }
         }
         
         string IMigrationMetadata.Source
