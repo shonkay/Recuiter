@@ -25,130 +25,144 @@
 <body>
 
 
-    <nav class="navbar navbar-light bg-light">
+	<nav class="navbar navbar-light bg-light">
 
-        <a class="navbar-brand mr-auto" href="@Url.Action("Index", "Home", null)"><img src="~/Content/images/company_logo.svg" style="width:100px; height:70px;"></a>
-        <div class="d-flex ">
+		<a class="navbar-brand mr-auto" href="@Url.Action("Index", "Home", null)"><img src="~/Content/images/company_logo.svg" style="width:100px; height:70px;"></a>
+		<div class="d-flex ">
 
-        </div>
-    </nav>
-
-
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("E-Recruiter", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>*@
-
-    @*<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-
-            <li class="active"><a href="~/Departments/index">Department <span class="sr-only">(current)</span></a></li>
-            <li><a href="~/Jobs/index">Job</a></li>
-            <li><a href="~/Users/index">Users <span class="sr-only">(current)</span></a></li>
-            <li><a href="~/Roles/index">Roles</a></li>*@
-    @*<li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-            </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-            @if (!User.Identity.IsAuthenticated)
-            {
+		</div>
+	</nav>
 
 
-            }
-            else
-            {
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="~/account/update">Update</a></li>
-                        <li><a href="~/account/logout">Logout</a></li>
-                    </ul>
-                </li>
-            }
+	@*<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				@Html.ActionLink("E-Recruiter", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+			</div>*@
 
-        </ul>
+	@*<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
 
-        <ul class="nav navbar-nav navbar-right">
-            @if (!User.Identity.IsAuthenticated)
-            {
+			<li class="active"><a href="~/Departments/index">Department <span class="sr-only">(current)</span></a></li>
+			<li><a href="~/Jobs/index">Job</a></li>
+			<li><a href="~/Users/index">Users <span class="sr-only">(current)</span></a></li>
+			<li><a href="~/Roles/index">Roles</a></li>*@
+	@*<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">One more separated link</a></li>
+						</ul>
+					</li>
+			</ul>
 
-                <li><a href="~/account/login">Login</a></li>
+		<ul class="nav navbar-nav navbar-right">
+			@if (!User.Identity.IsAuthenticated)
+			{
 
-            }
-            else
-            {
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="~/account/update">Update</a></li>
-                        <li><a href="~/account/logout">Logout</a></li>
+			}
+			else
+			{
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="~/account/update">Update</a></li>
+						<li><a href="~/account/logout">Logout</a></li>
+					</ul>
+				</li>
+			}
 
-                    </ul>
-                </li>
-            }
-        </ul>
-        @User.Identity.Name
-        </div>*@
-    @User.Identity.Name
-    @*</div>
-        </div>*@
+		</ul>
 
-    <div id="header_container">
-        <div id="header">
+		<ul class="nav navbar-nav navbar-right">
+			@if (!User.Identity.IsAuthenticated)
+			{
 
-            @*@ViewBag.Title*@
+				<li><a href="~/account/login">Login</a></li>
 
-            <span style="float:right; font-size:small">
-                @if (HttpContext.Current.User.Identity.IsAuthenticated)
-                {
-                    var identity = ((CustomPrincipal)HttpContext.Current.User);
-                    @Html.Label(string.Format("Welcome {0} {1}", identity.FirstName, identity.LastName))
-                    @Html.ActionLink("Log out", "LogOut", "Account")
-                }
-            </span>
-        </div>
-    </div>
+			}
+			else
+			{
 
-    <div class="container body-content">
-        @RenderBody()
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="~/account/update">Update</a></li>
+						<li><a href="~/account/logout">Logout</a></li>
 
-        <footer class="footer d-flex justify-content-between mx-0">
-            <div>
-                <p class="footnote" style="color: #707070;  font-family: Roboto; font-size: 10px; margin-right: 10px;">Copyright © 2018. All rights reserved. <span style="color:#f16722;">Software Business Solutions Consulting.</span> </p>
-            </div>
+					</ul>
+				</li>
+			}
+		</ul>
+		@User.Identity.Name
+		</div>*@
+	@User.Identity.Name
+	@*</div>
+		</div>*@
 
-            <div class="d-flex justify-content-center">
-                <i class="fab fa-facebook-f pr-4"></i>
-                <i class="fab fa-google-plus-g pr-4"></i>
-                <i class="fab fa-linkedin-in pr-4"></i>
-                <i class="fab fa-twitter"></i>
+	<div id="header_container">
+		<div id="header">
 
-            </div>
+			@*@ViewBag.Title*@
 
-        </footer>
+			<span style="float:right; font-size:small">
+				@if (HttpContext.Current.User.Identity.IsAuthenticated)
+				{
+					var identity = ((CustomPrincipal)HttpContext.Current.User);
+					@Html.Label(string.Format("Welcome {0} {1}", identity.FirstName, identity.LastName))
+					@Html.ActionLink("Log out", "LogOut", "Account")
+				}
+			</span>
+		</div>
+	</div>
 
-    </div>
+	<div class="container body-content">
+		@RenderBody()
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    @RenderSection("Scripts", false)
+		<footer class="footer d-flex justify-content-between mx-0">
+			<div>
+				<p class="footnote" style="color: #707070;  font-family: Roboto; font-size: 10px; margin-right: 10px;">Copyright © 2018. All rights reserved. <span style="color:#f16722;">Software Business Solutions Consulting.</span> </p>
+			</div>
+
+			<div class="d-flex justify-content-center">
+				<i class="fab fa-facebook-f pr-4"></i>
+				<i class="fab fa-google-plus-g pr-4"></i>
+				<i class="fab fa-linkedin-in pr-4"></i>
+				<i class="fab fa-twitter"></i>
+
+			</div>
+
+		</footer>
+
+	</div>
+	<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+	<script src="~/signalr/hubs"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var hub = $.connection.notificationHub;
+			$.connection.hub.start()
+				.done(function () {
+					console.log("Hub Connected!");
+
+				})
+				.fail(function () {
+					console.log("Could not Connect!");
+				});
+		});
+	</script>
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+	@RenderSection("Scripts", false)
 </body>
 </html>

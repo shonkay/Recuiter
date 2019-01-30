@@ -8,9 +8,11 @@ using Recruiter.Context;
 
 namespace Recruiter.Controllers
 {
+	
     public class DocumentController : Controller
     {
         // GET: Document
+		[HttpGet]
         public ActionResult Index()
         {
             return View();

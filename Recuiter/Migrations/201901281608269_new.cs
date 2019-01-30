@@ -1,9 +1,9 @@
-namespace Recuiter.Migrations
+namespace Recruiter.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class inital : DbMigration
+    public partial class _new : DbMigration
     {
         public override void Up()
         {
@@ -11,34 +11,53 @@ namespace Recuiter.Migrations
                 "dbo.ApplicantDocuments",
                 c => new
                     {
-                        DocumentId = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         ApplicantId = c.Int(nullable: false),
+                        Name = c.String(),
+                        FilePath = c.String(),
+                        Type = c.Int(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
+                        CreatedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
                     })
-                .PrimaryKey(t => new { t.DocumentId, t.ApplicantId })
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Applicants", t => t.ApplicantId, cascadeDelete: true)
-                .ForeignKey("dbo.Documents", t => t.DocumentId, cascadeDelete: true)
-                .Index(t => t.DocumentId)
-                .Index(t => t.ApplicantId);
+                .ForeignKey("dbo.Users", t => t.CreatedById, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.LastModifiedById)
+                .Index(t => t.ApplicantId)
+                .Index(t => t.CreatedById)
+                .Index(t => t.LastModifiedById);
             
             CreateTable(
                 "dbo.Applicants",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        PhoneNumber = c.String(),
-                        Email = c.String(),
+                        UserId = c.Int(nullable: false),
                         Address = c.String(),
+                        ProfilePicPath = c.String(),
+                        PhoneNumber = c.String(),
+                        Country = c.String(),
+                        City = c.String(),
+                        YearsOfExperience = c.Int(nullable: false),
+                        Age = c.Int(nullable: false),
+                        Languages = c.String(),
+                        EducationLevel = c.Int(nullable: false),
+                        Bio = c.String(),
+                        Achievement = c.String(),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(nullable: false),
-                        LastModifiedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.CreatedById)
                 .ForeignKey("dbo.Users", t => t.LastModifiedById)
+                .ForeignKey("dbo.Users", t => t.UserId)
+                .Index(t => t.UserId)
                 .Index(t => t.CreatedById)
                 .Index(t => t.LastModifiedById);
             
@@ -48,17 +67,18 @@ namespace Recuiter.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(),
                         LastModifiedById = c.Int(),
                         IsDeleted = c.Boolean(nullable: false),
                         Username = c.String(),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        Email = c.String(),
+                        FirstName = c.String(nullable: false),
+                        LastName = c.String(nullable: false),
+                        Email = c.String(nullable: false),
                         Password = c.String(),
                         IsActive = c.Boolean(nullable: false),
                         DepartmentId = c.Int(),
+                        ResetPasswordCode = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.CreatedById)
@@ -76,10 +96,10 @@ namespace Recuiter.Migrations
                         Name = c.String(),
                         HoDId = c.Int(),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(nullable: false),
-                        LastModifiedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.CreatedById)
@@ -97,15 +117,17 @@ namespace Recuiter.Migrations
                         RoleId = c.Int(nullable: false),
                         Id = c.Int(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(nullable: false),
                         LastModifiedById = c.Int(nullable: false),
+                        Role_Id = c.Int(),
                         User_Id = c.Int(),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
                 .ForeignKey("dbo.Users", t => t.CreatedById)
                 .ForeignKey("dbo.Users", t => t.LastModifiedById)
+                .ForeignKey("dbo.Roles", t => t.Role_Id)
                 .ForeignKey("dbo.Roles", t => t.RoleId)
                 .ForeignKey("dbo.Users", t => t.UserId)
                 .ForeignKey("dbo.Users", t => t.User_Id)
@@ -113,6 +135,7 @@ namespace Recuiter.Migrations
                 .Index(t => t.RoleId)
                 .Index(t => t.CreatedById)
                 .Index(t => t.LastModifiedById)
+                .Index(t => t.Role_Id)
                 .Index(t => t.User_Id);
             
             CreateTable(
@@ -122,32 +145,75 @@ namespace Recuiter.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(nullable: false),
-                        LastModifiedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.CreatedById)
-                .ForeignKey("dbo.Users", t => t.LastModifiedById, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.LastModifiedById)
                 .Index(t => t.CreatedById)
                 .Index(t => t.LastModifiedById);
             
             CreateTable(
-                "dbo.Documents",
+                "dbo.Institutions",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
-                        UserId = c.Int(nullable: false),
                         Name = c.String(),
-                        FilePath = c.String(),
-                        Type = c.Int(nullable: false),
+                        City = c.String(),
+                        Code = c.String(),
+                        Applicant_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.UserId)
-                .Index(t => t.UserId);
+                .ForeignKey("dbo.Applicants", t => t.Applicant_Id)
+                .Index(t => t.Applicant_Id);
+            
+            CreateTable(
+                "dbo.Educations",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Qualification = c.String(),
+                        FromDate = c.DateTime(nullable: false),
+                        ToDate = c.DateTime(nullable: false),
+                        Institution = c.String(),
+                        CourseStudied = c.String(),
+                        Applicant_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Applicants", t => t.Applicant_Id)
+                .Index(t => t.Applicant_Id);
+            
+            CreateTable(
+                "dbo.Skills",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Skilllevel = c.Int(nullable: false),
+                        Achievement = c.String(),
+                        Applicant_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Applicants", t => t.Applicant_Id)
+                .Index(t => t.Applicant_Id);
+            
+            CreateTable(
+                "dbo.Experiences",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        FromDate = c.DateTime(nullable: false),
+                        ToDate = c.DateTime(nullable: false),
+                        IsPresent = c.Boolean(nullable: false),
+                        CompanyName = c.String(),
+                        Applicant_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Applicants", t => t.Applicant_Id)
+                .Index(t => t.Applicant_Id);
             
             CreateTable(
                 "dbo.ApplicantReviewAssessments",
@@ -158,10 +224,10 @@ namespace Recuiter.Migrations
                         ApplicationReviewId = c.Int(nullable: false),
                         Response = c.String(),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(nullable: false),
-                        LastModifiedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.ApplicationReviews", t => t.ApplicationReviewId, cascadeDelete: true)
@@ -178,23 +244,26 @@ namespace Recuiter.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserId = c.Int(nullable: false),
+                        ReviewerId = c.Int(nullable: false),
                         ApplicationId = c.Int(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(nullable: false),
-                        LastModifiedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
+                        User_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Applications", t => t.ApplicationId, cascadeDelete: true)
                 .ForeignKey("dbo.Users", t => t.CreatedById)
                 .ForeignKey("dbo.Users", t => t.LastModifiedById)
-                .ForeignKey("dbo.Users", t => t.UserId)
-                .Index(t => t.UserId)
+                .ForeignKey("dbo.Users", t => t.ReviewerId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.User_Id)
+                .Index(t => t.ReviewerId)
                 .Index(t => t.ApplicationId)
                 .Index(t => t.CreatedById)
-                .Index(t => t.LastModifiedById);
+                .Index(t => t.LastModifiedById)
+                .Index(t => t.User_Id);
             
             CreateTable(
                 "dbo.Applications",
@@ -203,12 +272,12 @@ namespace Recuiter.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         ApplicantId = c.Int(nullable: false),
                         JobId = c.Int(nullable: false),
-                        Status = c.String(),
+                        Status = c.Int(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(nullable: false),
-                        LastModifiedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Applicants", t => t.ApplicantId, cascadeDelete: true)
@@ -227,12 +296,25 @@ namespace Recuiter.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         JobId = c.Int(nullable: false),
                         DepartmentId = c.Int(nullable: false),
-                        JobDescription = c.String(),
+                        Title = c.String(nullable: false),
+                        Summary = c.String(nullable: false),
+                        Description = c.String(nullable: false),
+                        Responsibility = c.String(nullable: false),
+                        GeneralRequirement = c.String(nullable: false),
+                        SkillSet = c.String(nullable: false),
+                        MinimumQualification = c.Int(nullable: false),
+                        ExperienceLevel = c.Int(nullable: false),
+                        ExperienceLength = c.Int(nullable: false),
+                        ContractClass = c.Int(nullable: false),
+                        ContractLength = c.String(nullable: false),
+                        ExpiryDate = c.DateTime(nullable: false),
+                        IsApproved = c.Boolean(nullable: false),
+                        IsPublished = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(nullable: false),
-                        LastModifiedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.CreatedById)
@@ -251,10 +333,10 @@ namespace Recuiter.Migrations
                         Question = c.String(),
                         IsGeneral = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastModifiedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
                         CreatedById = c.Int(nullable: false),
-                        LastModifiedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.CreatedById)
@@ -264,18 +346,103 @@ namespace Recuiter.Migrations
                 .Index(t => t.CreatedById)
                 .Index(t => t.LastModifiedById);
             
+            CreateTable(
+                "dbo.JobViewModels",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JobId = c.Int(nullable: false),
+                        DepartmentId = c.Int(nullable: false),
+                        Title = c.String(nullable: false),
+                        Summary = c.String(nullable: false),
+                        Description = c.String(nullable: false),
+                        Responsibility = c.String(nullable: false),
+                        GeneralRequirement = c.String(nullable: false),
+                        SkillSet = c.String(nullable: false),
+                        MinimumQualification = c.Int(nullable: false),
+                        ExperienceLevel = c.Int(nullable: false),
+                        ExperienceLength = c.Int(nullable: false),
+                        ContractClass = c.Int(nullable: false),
+                        ContractLength = c.String(nullable: false),
+                        ExpiryDate = c.DateTime(nullable: false),
+                        CreatedById = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Departments", t => t.DepartmentId, cascadeDelete: true)
+                .Index(t => t.DepartmentId);
+            
+            CreateTable(
+                "dbo.Notifications",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Type = c.Int(),
+                        Details = c.String(),
+                        Title = c.String(),
+                        DetailsURL = c.String(),
+                        SentTo = c.String(),
+                        Date = c.DateTime(),
+                        IsRead = c.Boolean(),
+                        IsDeleted = c.Boolean(),
+                        IsReminder = c.Boolean(),
+                        Code = c.String(),
+                        NotificationType = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.ReviewResults",
+                c => new
+                    {
+                        ReviewerId = c.Int(nullable: false),
+                        ApplicantId = c.Int(nullable: false),
+                        Appearance = c.Int(nullable: false),
+                        Disposition = c.Int(nullable: false),
+                        Communication = c.Int(nullable: false),
+                        EducationalQualification = c.Int(nullable: false),
+                        RelevantExperience = c.Int(nullable: false),
+                        RelevantTechnicalExperience = c.Int(nullable: false),
+                        AnalyticalReasoningAbility = c.Int(nullable: false),
+                        GeneralKnowledge = c.Int(nullable: false),
+                        EstimateOfIntelligence = c.Int(nullable: false),
+                        GeneralRemark = c.String(),
+                        Recommendation = c.String(),
+                        TotalScore = c.Int(nullable: false),
+                        Id = c.Int(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        CreatedDate = c.DateTime(),
+                        LastModifiedDate = c.DateTime(),
+                        CreatedById = c.Int(nullable: false),
+                        LastModifiedById = c.Int(),
+                    })
+                .PrimaryKey(t => new { t.ReviewerId, t.ApplicantId })
+                .ForeignKey("dbo.Applicants", t => t.ApplicantId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.CreatedById)
+                .ForeignKey("dbo.Users", t => t.LastModifiedById)
+                .ForeignKey("dbo.Users", t => t.ReviewerId, cascadeDelete: true)
+                .Index(t => t.ReviewerId)
+                .Index(t => t.ApplicantId)
+                .Index(t => t.CreatedById)
+                .Index(t => t.LastModifiedById);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.ReviewResults", "ReviewerId", "dbo.Users");
+            DropForeignKey("dbo.ReviewResults", "LastModifiedById", "dbo.Users");
+            DropForeignKey("dbo.ReviewResults", "CreatedById", "dbo.Users");
+            DropForeignKey("dbo.ReviewResults", "ApplicantId", "dbo.Applicants");
+            DropForeignKey("dbo.JobViewModels", "DepartmentId", "dbo.Departments");
             DropForeignKey("dbo.ApplicantReviewAssessments", "LastModifiedById", "dbo.Users");
             DropForeignKey("dbo.ApplicantReviewAssessments", "InterviewQuestionId", "dbo.InterviewQuestions");
             DropForeignKey("dbo.InterviewQuestions", "LastModifiedById", "dbo.Users");
             DropForeignKey("dbo.InterviewQuestions", "DepartmentId", "dbo.Departments");
             DropForeignKey("dbo.InterviewQuestions", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.ApplicantReviewAssessments", "CreatedById", "dbo.Users");
-            DropForeignKey("dbo.ApplicationReviews", "UserId", "dbo.Users");
+            DropForeignKey("dbo.ApplicationReviews", "User_Id", "dbo.Users");
             DropForeignKey("dbo.ApplicantReviewAssessments", "ApplicationReviewId", "dbo.ApplicationReviews");
+            DropForeignKey("dbo.ApplicationReviews", "ReviewerId", "dbo.Users");
             DropForeignKey("dbo.ApplicationReviews", "LastModifiedById", "dbo.Users");
             DropForeignKey("dbo.ApplicationReviews", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.ApplicationReviews", "ApplicationId", "dbo.Applications");
@@ -286,14 +453,19 @@ namespace Recuiter.Migrations
             DropForeignKey("dbo.Jobs", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.Applications", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.Applications", "ApplicantId", "dbo.Applicants");
-            DropForeignKey("dbo.ApplicantDocuments", "DocumentId", "dbo.Documents");
-            DropForeignKey("dbo.Documents", "UserId", "dbo.Users");
-            DropForeignKey("dbo.ApplicantDocuments", "ApplicantId", "dbo.Applicants");
+            DropForeignKey("dbo.ApplicantDocuments", "LastModifiedById", "dbo.Users");
+            DropForeignKey("dbo.ApplicantDocuments", "CreatedById", "dbo.Users");
+            DropForeignKey("dbo.Experiences", "Applicant_Id", "dbo.Applicants");
+            DropForeignKey("dbo.Applicants", "UserId", "dbo.Users");
+            DropForeignKey("dbo.Skills", "Applicant_Id", "dbo.Applicants");
+            DropForeignKey("dbo.Educations", "Applicant_Id", "dbo.Applicants");
             DropForeignKey("dbo.Applicants", "LastModifiedById", "dbo.Users");
+            DropForeignKey("dbo.Institutions", "Applicant_Id", "dbo.Applicants");
             DropForeignKey("dbo.Applicants", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "User_Id", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
+            DropForeignKey("dbo.UserRoles", "Role_Id", "dbo.Roles");
             DropForeignKey("dbo.Roles", "LastModifiedById", "dbo.Users");
             DropForeignKey("dbo.Roles", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "LastModifiedById", "dbo.Users");
@@ -304,6 +476,12 @@ namespace Recuiter.Migrations
             DropForeignKey("dbo.Departments", "HoDId", "dbo.Users");
             DropForeignKey("dbo.Departments", "CreatedById", "dbo.Users");
             DropForeignKey("dbo.Users", "CreatedById", "dbo.Users");
+            DropForeignKey("dbo.ApplicantDocuments", "ApplicantId", "dbo.Applicants");
+            DropIndex("dbo.ReviewResults", new[] { "LastModifiedById" });
+            DropIndex("dbo.ReviewResults", new[] { "CreatedById" });
+            DropIndex("dbo.ReviewResults", new[] { "ApplicantId" });
+            DropIndex("dbo.ReviewResults", new[] { "ReviewerId" });
+            DropIndex("dbo.JobViewModels", new[] { "DepartmentId" });
             DropIndex("dbo.InterviewQuestions", new[] { "LastModifiedById" });
             DropIndex("dbo.InterviewQuestions", new[] { "CreatedById" });
             DropIndex("dbo.InterviewQuestions", new[] { "DepartmentId" });
@@ -314,18 +492,23 @@ namespace Recuiter.Migrations
             DropIndex("dbo.Applications", new[] { "CreatedById" });
             DropIndex("dbo.Applications", new[] { "JobId" });
             DropIndex("dbo.Applications", new[] { "ApplicantId" });
+            DropIndex("dbo.ApplicationReviews", new[] { "User_Id" });
             DropIndex("dbo.ApplicationReviews", new[] { "LastModifiedById" });
             DropIndex("dbo.ApplicationReviews", new[] { "CreatedById" });
             DropIndex("dbo.ApplicationReviews", new[] { "ApplicationId" });
-            DropIndex("dbo.ApplicationReviews", new[] { "UserId" });
+            DropIndex("dbo.ApplicationReviews", new[] { "ReviewerId" });
             DropIndex("dbo.ApplicantReviewAssessments", new[] { "LastModifiedById" });
             DropIndex("dbo.ApplicantReviewAssessments", new[] { "CreatedById" });
             DropIndex("dbo.ApplicantReviewAssessments", new[] { "ApplicationReviewId" });
             DropIndex("dbo.ApplicantReviewAssessments", new[] { "InterviewQuestionId" });
-            DropIndex("dbo.Documents", new[] { "UserId" });
+            DropIndex("dbo.Experiences", new[] { "Applicant_Id" });
+            DropIndex("dbo.Skills", new[] { "Applicant_Id" });
+            DropIndex("dbo.Educations", new[] { "Applicant_Id" });
+            DropIndex("dbo.Institutions", new[] { "Applicant_Id" });
             DropIndex("dbo.Roles", new[] { "LastModifiedById" });
             DropIndex("dbo.Roles", new[] { "CreatedById" });
             DropIndex("dbo.UserRoles", new[] { "User_Id" });
+            DropIndex("dbo.UserRoles", new[] { "Role_Id" });
             DropIndex("dbo.UserRoles", new[] { "LastModifiedById" });
             DropIndex("dbo.UserRoles", new[] { "CreatedById" });
             DropIndex("dbo.UserRoles", new[] { "RoleId" });
@@ -338,14 +521,22 @@ namespace Recuiter.Migrations
             DropIndex("dbo.Users", new[] { "CreatedById" });
             DropIndex("dbo.Applicants", new[] { "LastModifiedById" });
             DropIndex("dbo.Applicants", new[] { "CreatedById" });
+            DropIndex("dbo.Applicants", new[] { "UserId" });
+            DropIndex("dbo.ApplicantDocuments", new[] { "LastModifiedById" });
+            DropIndex("dbo.ApplicantDocuments", new[] { "CreatedById" });
             DropIndex("dbo.ApplicantDocuments", new[] { "ApplicantId" });
-            DropIndex("dbo.ApplicantDocuments", new[] { "DocumentId" });
+            DropTable("dbo.ReviewResults");
+            DropTable("dbo.Notifications");
+            DropTable("dbo.JobViewModels");
             DropTable("dbo.InterviewQuestions");
             DropTable("dbo.Jobs");
             DropTable("dbo.Applications");
             DropTable("dbo.ApplicationReviews");
             DropTable("dbo.ApplicantReviewAssessments");
-            DropTable("dbo.Documents");
+            DropTable("dbo.Experiences");
+            DropTable("dbo.Skills");
+            DropTable("dbo.Educations");
+            DropTable("dbo.Institutions");
             DropTable("dbo.Roles");
             DropTable("dbo.UserRoles");
             DropTable("dbo.Departments");

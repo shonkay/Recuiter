@@ -13,7 +13,7 @@ namespace Recruiter.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201901031422151_new"; }
+            get { return "201901281608269_new"; }
         }
         
         string IMigrationMetadata.Source

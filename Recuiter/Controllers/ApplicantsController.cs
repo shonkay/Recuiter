@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+      
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -55,75 +57,75 @@ namespace Recruiter.Controllers
 			//foreach(Job job in jobsss)
 			//{
 
-            //	var jobView = new JobViewModel
-            //	{
-            //		Id = job.Id,
-            //		JobId = job.JobId,
-            //		DepartmentId = job.DepartmentId,
-            //		Title = job.Title,
-            //		Summary = job.Summary,
-            //		Description = job.Description,
-            //		Responsibility = job.Responsibility,
-            //		GeneralRequirement = job.GeneralRequirement,
-            //		SkillSet = job.SkillSet,
-            //		MinimumQualification = job.MinimumQualification,
-            //		ExperienceLevel = job.ExperienceLevel,
-            //		ExperienceLength = job.ExperienceLength,
-            //		ContractClass = job.ContractClass,
-            //		ExpiryDate = job.ExpiryDate
-            //	};
-            //jobList.Add(jobView);
-            //}
-            var jobsss = jobss.ToList();
+			//	var jobView = new JobViewModel
+			//	{
+			//		Id = job.Id,
+			//		JobId = job.JobId,
+			//		DepartmentId = job.DepartmentId,
+			//		Title = job.Title,
+			//		Summary = job.Summary,
+			//		Description = job.Description,
+			//		Responsibility = job.Responsibility,
+			//		GeneralRequirement = job.GeneralRequirement,
+			//		SkillSet = job.SkillSet,
+			//		MinimumQualification = job.MinimumQualification,
+			//		ExperienceLevel = job.ExperienceLevel,
+			//		ExperienceLength = job.ExperienceLength,
+			//		ContractClass = job.ContractClass,
+			//		ExpiryDate = job.ExpiryDate
+			//	};
+			//jobList.Add(jobView);
+			//}
+			var jobsss = jobss.ToList();
 
-            return View(jobsss);
-        }
+			return View(jobsss);
+		}
 
-        public ActionResult JobDetails( int? Id )
-        {
-            var jobDetails = (from job in db.Jobs
-                              where job.Id == Id
-                              select job).FirstOrDefault();
+		public ActionResult JobDetails(int? Id)
+		{
+			var jobDetails = (from job in db.Jobs
+							  where job.Id == Id
+							  select job).FirstOrDefault();
 
-            var viewModel = new JobViewModel
-            {
-                Id = jobDetails.Id,
-                Title = jobDetails.Title
-            };
-            return View(viewModel);
-        }
+			var viewModel = new JobViewModel
+			{
+				Id = jobDetails.Id,
+				Title = jobDetails.Title
+			};
+			return View(viewModel);
+		}
 
-        public ActionResult JobApplication(int? Id)
-        {
-            if(!(Id is null))
-            {
-                var userId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
-                var applicantId = (db.Applicants.Where(a => a.UserId == userId).FirstOrDefault()).Id;
-                var application = new Application
-                {
-                    ApplicantId = applicantId,
-                    CreatedById = userId,
-                    JobId = Id.Value
-                };
+		public ActionResult JobApplication(int? Id)
+		{
+			if (!(Id is null))
+			{
+				var userId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+				var applicantId = (db.Applicants.Where(a => a.UserId == userId).FirstOrDefault()).Id;
+				var application = new Application
+				{
+					ApplicantId = applicantId,
+					CreatedById = userId,
+					JobId = Id.Value
+				};
 
-                db.Applications.Add(application);
-                db.SaveChanges();
-                ViewBag.JobApplicationSuccess = "You applied Successfully";
-                return View();
-            }
-            ViewBag.JobApplicationError = "Error! Select a Job to apply for. Thank you.";
-            return View();
-        }
+				db.Applications.Add(application);
+				db.SaveChanges();
+				ViewBag.JobApplicationSuccess = "You applied Successfully";
+				return View();
+			}
+			ViewBag.JobApplicationError = "Error! Select a Job to apply for. Thank you.";
+			return View();
+		}
 
-        public ActionResult Dashboard (int? applicantId)
-        {
-            var dashboard = new DashboardVM();
-            dashboard.ApplicantId = applicantId.Value;
-            var applications = (from application in db.Applications where application.ApplicantId == applicantId select application).ToList();
-           
+		public ActionResult Dashboard(int? applicantId)
+		{
+			var dashboard = new DashboardVM();
+			dashboard.ApplicantId = applicantId.Value;
+			var applications = (from application in db.Applications where application.ApplicantId == applicantId select application).ToList();
 
-            return View();
-        }
+
+			return View();
+		}
 
 		public ActionResult ApplicantProfileEditReadOnly()
 		{
@@ -273,9 +275,9 @@ namespace Recruiter.Controllers
 					var applicantEntity = dbContext.Applicants.Where(a => a.UserId == currentUserId).Include(x => x.User).Include(x => x.PastEducation).Include(x => x.Skills).Include(x => x.ApplicantDocuments)
 								 .Include(x => x.Institutions).FirstOrDefault();
 
-					if (applicantEntity == null)
-					//var   returnapp = new ApplicantResumeVM
-
+					if (applicantEntity != null)
+						//var   returnapp = new ApplicantResumeVM
+						 
 					{
 						applicantEntity.PastEducation.Select(edu => new ViewModels.Education
 						{
@@ -356,36 +358,35 @@ namespace Recruiter.Controllers
 
 				return View(check);
 
-			return View();
-		}
-
-
-
-
-		// GET: Applicants/Details/5
-		public ActionResult Details(int? id)
-		{
-
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Applicant applicant = db.Applicants.Find(id);
-			if (applicant == null)
-			{
-				return HttpNotFound();
-			}
-			return View(applicant);
 		}
 
-		// GET: Applicants/Create
-		public ActionResult Create()
-		{
-			ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username");
-			ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username");
-			ViewBag.UserId = new SelectList(db.Users, "Id", "Username");
-			return View();
-		}
+
+
+			// GET: Applicants/Details/5
+			public ActionResult Details(int? id)
+			{
+
+				if (id == null)
+				{
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				}
+				Applicant applicant = db.Applicants.Find(id);
+				if (applicant == null)
+				{
+					return HttpNotFound();
+				}
+				return View(applicant);
+			}
+
+			// GET: Applicants/Create
+			public ActionResult Create()
+			{
+				ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username");
+				ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username");
+				ViewBag.UserId = new SelectList(db.Users, "Id", "Username");
+				return View();
+			}
 
 
 

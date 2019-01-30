@@ -137,6 +137,12 @@
     <Content Include="bin\EntityFramework.SqlServer.dll" />
     <Content Include="bin\EntityFramework.SqlServer.xml" />
     <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.SignalR.Core.dll" />
+    <Content Include="bin\Microsoft.AspNet.SignalR.Core.pdb" />
     <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
     <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
@@ -286,7 +292,9 @@
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HRcontroller.cs" />
     <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Controllers\ReviewerController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -299,35 +307,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\NotificationHub.cs" />
-    <Compile Include="Migrations\201901251518181_CopyFromMary.cs" />
-    <Compile Include="Migrations\201901251518181_CopyFromMary.Designer.cs">
-      <DependentUpon>201901251518181_CopyFromMary.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901251553040_Copy.cs" />
-    <Compile Include="Migrations\201901251553040_Copy.Designer.cs">
-      <DependentUpon>201901251553040_Copy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901251730305_ApplicantResumeProfile.cs" />
-    <Compile Include="Migrations\201901251730305_ApplicantResumeProfile.Designer.cs">
-      <DependentUpon>201901251730305_ApplicantResumeProfile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901271122538_add_notification.cs" />
-    <Compile Include="Migrations\201901271122538_add_notification.Designer.cs">
-      <DependentUpon>201901271122538_add_notification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901281326079_TemiDayo.cs" />
-    <Compile Include="Migrations\201901281326079_TemiDayo.Designer.cs">
-      <DependentUpon>201901281326079_TemiDayo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901280934383_CreatedNewDB.cs" />
-    <Compile Include="Migrations\201901280934383_CreatedNewDB.Designer.cs">
-      <DependentUpon>201901280934383_CreatedNewDB.cs</DependentUpon>
+    <Compile Include="Migrations\201901281608269_new.cs" />
+    <Compile Include="Migrations\201901281608269_new.Designer.cs">
+      <DependentUpon>201901281608269_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ApplicantDocumentViewModel.cs" />
     <Compile Include="ViewModels\ApplicantProfileViewModels.cs" />
     <Compile Include="ViewModels\ApplicantResumeVM.cs" />
+    <Compile Include="ViewModels\ApplicationVM.cs" />
+    <Compile Include="ViewModels\AssessmentVM.cs" />
+    <Compile Include="ViewModels\DashboardVM.cs" />
     <Compile Include="ViewModels\JobViewModel.cs" />
     <Compile Include="ViewModels\LoginView.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
@@ -381,6 +373,12 @@
     <Content Include="Views\Applicants\ApplicantProfilePage.cshtml" />
     <Content Include="Views\Shared\ProfileLayout.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
+    <Content Include="Views\Reviewer\Index.cshtml" />
+    <Content Include="Views\Reviewer\ReviewQuestions.cshtml" />
+    <Content Include="Views\Hr\Index.cshtml" />
+    <Content Include="Views\Applicants\JobApplication.cshtml" />
+    <Content Include="Views\Applicants\JobDetails.cshtml" />
+    <Content Include="Views\Applicants\ApplicantResumeProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -395,27 +393,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901251518181_CopyFromMary.resx">
-      <DependentUpon>201901251518181_CopyFromMary.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901251553040_Copy.resx">
-      <DependentUpon>201901251553040_Copy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901251730305_ApplicantResumeProfile.resx">
-      <DependentUpon>201901251730305_ApplicantResumeProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901271122538_add_notification.resx">
-      <DependentUpon>201901271122538_add_notification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901281326079_TemiDayo.resx">
-      <DependentUpon>201901281326079_TemiDayo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901280934383_CreatedNewDB.resx">
-      <DependentUpon>201901280934383_CreatedNewDB.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="App_Data\UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\UploadedFiles\" />
+    <EmbeddedResource Include="Migrations\201901281608269_new.resx">
+      <DependentUpon>201901281608269_new.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
