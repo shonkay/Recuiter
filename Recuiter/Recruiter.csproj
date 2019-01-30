@@ -224,7 +224,6 @@
     <Content Include="Content\bootstrap\style.css" />
     <Content Include="Content\combined.css" />
     <Content Include="Content\images\account_logo.svg" />
-    <Content Include="Content\images\bgIMG.svg" />
     <Content Include="Content\images\company_logo.svg" />
     <Content Include="Content\images\confirm_mail.svg" />
     <Content Include="Content\images\create_account.svg" />
@@ -307,9 +306,29 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\NotificationHub.cs" />
-    <Compile Include="Migrations\201901281608269_new.cs" />
-    <Compile Include="Migrations\201901281608269_new.Designer.cs">
-      <DependentUpon>201901281608269_new.cs</DependentUpon>
+    <Compile Include="Migrations\201901251518181_CopyFromMary.cs" />
+    <Compile Include="Migrations\201901251518181_CopyFromMary.Designer.cs">
+      <DependentUpon>201901251518181_CopyFromMary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901281602565_password.cs" />
+    <Compile Include="Migrations\201901281602565_password.Designer.cs">
+      <DependentUpon>201901281602565_password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901251730305_ApplicantResumeProfile.cs" />
+    <Compile Include="Migrations\201901251730305_ApplicantResumeProfile.Designer.cs">
+      <DependentUpon>201901251730305_ApplicantResumeProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901271122538_add_notification.cs" />
+    <Compile Include="Migrations\201901271122538_add_notification.Designer.cs">
+      <DependentUpon>201901271122538_add_notification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901281326079_TemiDayo.cs" />
+    <Compile Include="Migrations\201901281326079_TemiDayo.Designer.cs">
+      <DependentUpon>201901281326079_TemiDayo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901280934383_CreatedNewDB.cs" />
+    <Compile Include="Migrations\201901280934383_CreatedNewDB.Designer.cs">
+      <DependentUpon>201901280934383_CreatedNewDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -373,6 +392,14 @@
     <Content Include="Views\Applicants\ApplicantProfilePage.cshtml" />
     <Content Include="Views\Shared\ProfileLayout.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
+    <Content Include="Views\Hr\Index.cshtml" />
+    <Content Include="Views\Reviewer\Index.cshtml" />
+    <Content Include="Views\Reviewer\ReviewQuestions.cshtml" />
+    <Content Include="Views\Document\Upload.cshtml" />
+    <Content Include="Views\Applicants\JobApplication.cshtml" />
+    <Content Include="Views\Applicants\JobDetails.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Applicants\ApplicantResumeProfile.cshtml" />
     <Content Include="Views\Reviewer\Index.cshtml" />
     <Content Include="Views\Reviewer\ReviewQuestions.cshtml" />
     <Content Include="Views\Hr\Index.cshtml" />
@@ -396,9 +423,21 @@
     <Folder Include="App_Data\UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901281608269_new.resx">
-      <DependentUpon>201901281608269_new.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901281133134_new.resx">
+      <DependentUpon>201901281133134_new.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901271122538_add_notification.resx">
+      <DependentUpon>201901271122538_add_notification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901281326079_TemiDayo.resx">
+      <DependentUpon>201901281326079_TemiDayo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901280934383_CreatedNewDB.resx">
+      <DependentUpon>201901280934383_CreatedNewDB.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\UploadedFiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

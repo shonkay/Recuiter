@@ -80,6 +80,7 @@
     <Compile Include="Models\ApplicationInterviewReview.cs" />
     <Compile Include="Models\ApplicationReview.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\ApplicantDocument.cs" />
     <Compile Include="Models\Image.cs" />
