@@ -1,0 +1,218 @@
+﻿@model Recruiter.ViewModels.ApplicantProfileViewModels
+
+@{
+    ViewBag.Title = "Applicant Profile Page";
+    Layout = "~/Views/Shared/ProfileLayout.cshtml";
+}
+
+@*<h2>ApplicantProfilePage</h2>*@
+
+
+
+@*<img src="@Url.Content(Model.ImagePath)" class="img-fluid topbanner mb-4" alt="user Interface">*@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3" style="background-color: #fafafa;">
+            <ul class="nav flex-column">
+               <li class="nav-item border-bottom" id="profile">
+                    @*<a class="nav-link active text-dark" href="#"><i class="fas fa-user mr-1"></i>My Profile</a>*@ <a href="@Url.Action("ApplicantProfilePage", "Applicants")" class="nav-link text-dark"><i class="fas fa-user mr-1"></i>My Profile</a>
+                </li>
+                <li class="nav-item border-bottom">
+                    <a class="nav-link text-dark" href="#"><i class="fas fa-file-alt mr-1"></i>My Resume</a>
+                </li>
+                <li class="nav-item border-bottom">
+                    <a class="nav-link text-dark" href="#"><i class="fas fa-clipboard mr-1"></i>Applied Jobs</a>
+                </li>
+                <li class="nav-item border-bottom">
+                    <a class="nav-link text-dark" href="#"><i class="fas fa-bookmark mr-1"></i>Shortlisted Jobs</a>
+                </li>
+                <li class="nav-item  border-bottom">
+                    @*<a class="nav-link text-dark" href="#"><i class="fas fa-lock mr-1"></i>Change Password</a>*@ <a href="@Url.Action("ChangePassword", "Account")" class="nav-link text-dark"><i class="fas fa-lock mr-1"></i>Change Password</a>
+                </li>
+                <li class="nav-item  border-bottom">
+                    @*<a class="nav-link text-dark" href="#"><i class="fas fa-lock mr-1"></i>Upload CV</a>*@ <a href="@Url.Action("Index", "Document")" class="nav-link text-dark"><i class="fas fa-lock mr-1"></i>Upload CV</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm-9 alpha" style="min-height: 92rem;">
+            <div class="media">
+                <img src="@Url.Content(Model.ImagePath)" width="150" height="150" class="align-self-start mr-3" alt="passport">
+                <div class="media-body">
+                    <h5 class="mt-0">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h5>
+                    <p>@Html.DisplayFor(model => model.JobTitle)</p>
+                    <div class="d-flex justify-content-between border-bottom underlined">
+                        <p>About</p>
+                        <p>Education</p>
+                        <p>Work Experience</p>
+                        <p>Professional Skills</p>
+                        <p>Awards</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<p><b>Experience</b></p>
+							<p>@Html.DisplayFor(model => model.YearsOfExperience) (3 - 5 yrs)</p>
+						</div>
+						<div class="col-sm-3">
+							<p><b>Age</b></p>
+							<p>@Html.DisplayFor(model => model.Age)</p>
+						</div>
+
+					</div>
+					<div>
+						<h4>ApplicantProfileViewModels</h4>
+						<hr />
+						<dl class="dl-horizontal">
+
+							<dd>
+								<img src="@Url.Content(Model.ImagePath)" width="250" height="250" />
+							</dd>
+
+						</dl>
+
+						<dl class="dl-horizontal">
+							<dt>
+								@Html.DisplayNameFor(model => model.FirstName)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.FirstName)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.LastName)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.LastName)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.DocumentId)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.DocumentId)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.PhoneNumber)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.PhoneNumber)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.Email)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.Email)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.Country)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.Country)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.City)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.City)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.CompleteAddress)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.CompleteAddress)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.YearsOfExperience)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.YearsOfExperience)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.Age)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.Age)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.EducationLevel)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.EducationLevel)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.Bio)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.Bio)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.Title)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.Title)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => model.ImagePath)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => model.ImagePath)
+							</dd>
+
+						</dl>
+					</div>
+					<p>
+						@Html.ActionLink("Edit", "ApplicantProfileEdit", new { id = Model.Id }) |
+						@Html.ActionLink("Back to List", "Index")
+					</p>
+
+
+
+
+				</div>
+            </div>
+
+
+        </div>
+
+        <p>@Html.DisplayFor(model => model.Bio)</p>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;">
+        <button type="submit" class="btn btn-II ">Edit Profile</button>
+    </div>
+    <div>
+    </div>
+
+</div>
+
+

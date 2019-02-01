@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Data.Models.Job>
+@{
+	ViewBag.Title = "E-Recruiter";
+	Layout = "~/Views/Shared/HomeLayout.cshtml";
+
+}
+
+<section>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h2 class="h32">Vacancies in SBSC Nigeria</h2>
+			<h4 class="h42">Sign up today to find Job opportunities near you</h4>
+		</div>
+	</div>
+</section>
+
+<section class="search-sec">
+	<div class="container">
+		<form action="#" method="post" novalidate="novalidate">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 p-0">
+							<select class="form-control" id="exampleFormControlSelect1" style="background-color:white; border-radius: 0px; font-size:12px; width:100%;">
+								<option>Job Functions</option>
+								<option>Software Developer</option>
+								<option>UI/UX Designer</option>
+								<option>Front-End Developer</option>
+								<option>Business System Analyst</option>
+								<option>Business Developer</option>
+								<option>Projeect Manager</option>
+							</select>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-12 p-0">
+							<select class="form-control" id="exampleFormControlSelect1" style="background-color:white; border-radius: 0px; font-size:12px; width:100%;">
+								<option>Specialization</option>
+								<option>Software Developer</option>
+								<option>UI/UX Designer</option>
+								<option>Front-End Developer</option>
+								<option>Business System Analyst</option>
+								<option>Business Developer</option>
+								<option>Projeect Manager</option>
+							</select>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-12 p-0">
+							<button type="submit" class="btn btn-II mx-1">Search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+</section>
+
+
+	<div class="container-fluid">
+		<div class="row content">
+			<div class="col-sm-3 sidenav">
+				<div class="row">
+					<div class="col-sm-4">
+						<h5>Filters</h5>
+					</div>
+					<div class="col-sm-4">
+
+					</div>
+					<div class="col-sm-4">
+						<h5>Clear all</h5>
+					</div>
+				</div>
+				<hr>
+				<span>
+					<div class="row">
+						<div class="col-sm-4">
+							<h5>Skills</h5>
+						</div>
+						<div class="col-sm-4">
+						</div>
+						<div class="col-sm-4">
+							<h5>Clear all</h5>
+						</div>
+					</div>
+
+
+					<h2>E-Recruiter Home Page.</h2>
+@using (Html.BeginForm())
+{
+	@*<div class="form-group">
+	@Html.LabelFor(model => model.SkillSet)
+
+						@Html.EditorFor(model => model.SkillSet, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "PHP Developer" })
+						@Html.ValidationMessageFor(model => SkillSet, "", new { @class = "text-danger" })
+					
+</div>
+	
+    <input type="skills" class="form-control" id="skills" aria-describedby="emailHelp" placeholder="Skills">*@
+  
+}
