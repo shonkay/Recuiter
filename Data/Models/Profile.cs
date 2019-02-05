@@ -22,8 +22,6 @@ namespace Data.Models
 
 		public int DocumentId { get; set; }
 
-		public Image Image { get; set; }
-
 		public int ImageId { get; set; }
 
 		[DisplayName("Phone Number")]

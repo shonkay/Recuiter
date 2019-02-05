@@ -373,6 +373,26 @@
     <Compile Include="Migrations\201902010808253_NewDataBase.Designer.cs">
       <DependentUpon>201902010808253_NewDataBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902011717591_skill.cs" />
+    <Compile Include="Migrations\201902011717591_skill.Designer.cs">
+      <DependentUpon>201902011717591_skill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902040456243_ImageModelDeleted.cs" />
+    <Compile Include="Migrations\201902040456243_ImageModelDeleted.Designer.cs">
+      <DependentUpon>201902040456243_ImageModelDeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902040511093_ProfileUrlInUserModelDeleted.cs" />
+    <Compile Include="Migrations\201902040511093_ProfileUrlInUserModelDeleted.Designer.cs">
+      <DependentUpon>201902040511093_ProfileUrlInUserModelDeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041142414_Latest.cs" />
+    <Compile Include="Migrations\201902041142414_Latest.Designer.cs">
+      <DependentUpon>201902041142414_Latest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041712218_UpdatedProjectWork.cs" />
+    <Compile Include="Migrations\201902041712218_UpdatedProjectWork.Designer.cs">
+      <DependentUpon>201902041712218_UpdatedProjectWork.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -470,6 +490,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201902010808253_NewDataBase.resx">
       <DependentUpon>201902010808253_NewDataBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902011717591_skill.resx">
+      <DependentUpon>201902011717591_skill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902040456243_ImageModelDeleted.resx">
+      <DependentUpon>201902040456243_ImageModelDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902040511093_ProfileUrlInUserModelDeleted.resx">
+      <DependentUpon>201902040511093_ProfileUrlInUserModelDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041142414_Latest.resx">
+      <DependentUpon>201902041142414_Latest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041712218_UpdatedProjectWork.resx">
+      <DependentUpon>201902041712218_UpdatedProjectWork.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

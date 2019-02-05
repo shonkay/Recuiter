@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Data.Models
@@ -41,7 +42,8 @@ namespace Data.Models
 		[DataType(DataType.Password)]
         public string Password { get; set; }
 
-		public string ProfilePictureUrl { get; set; }
+		[DisplayName("Upload File")]
+		public string ImagePath { get; set; }
 
 		public bool IsActive { get; set; }
 

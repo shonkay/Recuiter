@@ -54,7 +54,7 @@ namespace Recruiter.Controllers
 					{
 						CustomSerializeModel userModel = new Data.Models.CustomSerializeModel()
 						{
-							UserId = user.UserId,
+							UserId = user.UserId, 
 							FirstName = user.FirstName,
 							LastName = user.LastName,
 							RoleName = user.Roles.Select(r => r.Role.Name).ToList()
@@ -70,16 +70,29 @@ namespace Recruiter.Controllers
 						HttpCookie faCookie = new HttpCookie("Cookie1", enTicket);
 						Response.Cookies.Add(faCookie);
 
+						
+						if ( userModel.RoleName.SingleOrDefault(x=>x== "Admin")== "Admin")
+						{
+							return RedirectToAction("Index", "Hr");
+						}
+						else if (userModel.RoleName.SingleOrDefault(x=>x=="Applicant")== "Applicant")
+						{
+							return RedirectToAction("Index", "Applicants");
+						}
+
+
+
 					}
 
-					if (User.IsInRole("Admin"))
-					{
-						return RedirectToAction("Index", "Hr");
-					}
-					else if (User.IsInRole("Applicant"))
-					{
-						return RedirectToAction("Index", "Applicants");
-					}
+
+					//if (User.IsInRole("Admin"))
+					//{
+					//	return RedirectToAction("Index", "Hr");
+					//}
+					//else if (User.IsInRole("Applicant"))
+					//{
+					//	return RedirectToAction("Index", "Applicants");
+					//}
 
 
 				}

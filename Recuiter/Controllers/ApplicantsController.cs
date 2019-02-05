@@ -19,6 +19,9 @@ namespace Recruiter.Controllers
 	public class ApplicantsController : Controller
 	{
 		private RecruiterContext db = new RecruiterContext();
+		//private readonly CustomMembership membership=new CustomMembership();
+
+
 		//private readonly object applicationProfileViewModel;
 
 		[HttpGet]
@@ -152,7 +155,7 @@ namespace Recruiter.Controllers
 				//// learn how to join tables using linq;
 				var query = (from p in dbContext.Applicants.Include(x => x.User)
 							 where p.UserId == currentUserId
-							 select new ApplicantProfileViewModels
+							 select new Applicants
 							 {
 								 Age = p.Age,
 								 Bio = p.Bio,
@@ -160,7 +163,7 @@ namespace Recruiter.Controllers
 								 FirstName = p.User.FirstName,
 								 LastName = p.User.LastName,
 								 Certificates = (from files in dbContext.ApplicantDocuments
-												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsDeleted
+												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsActive
 												 select new ApplicantDocumentViewModel
 												 {
 													 FilePath = files.FilePath,
@@ -184,7 +187,7 @@ namespace Recruiter.Controllers
 			{
 				var query = (from p in dbContext.Applicants.Include(x => x.User)
 							 where p.UserId == currentUserId
-							 select new ApplicantProfileViewModels
+							 select new Applicants
 							 {
 								 Age = p.Age,
 								 Bio = p.Bio,
@@ -201,7 +204,7 @@ namespace Recruiter.Controllers
 								 LastName = p.User.LastName,
 
 								 Certificates = (from files in dbContext.ApplicantDocuments
-												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsDeleted
+												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsActive
 												 select new ApplicantDocumentViewModel
 												 {
 													 FilePath = files.FilePath,
@@ -218,7 +221,7 @@ namespace Recruiter.Controllers
 
 
 		[HttpPost]
-		public ActionResult ApplicantProfileEdit(ApplicantProfileViewModels applicantProfileViewModel)
+		public ActionResult ApplicantProfileEdit(Applicants applicantProfileViewModel)
 		{
 			if (ModelState.IsValid)
 			{
@@ -314,7 +317,7 @@ namespace Recruiter.Controllers
 
 
 		[HttpPost]
-		public ActionResult ApplicantResumeProfile(ApplicantProfileViewModels applicantProfileViewModel)
+		public ActionResult ApplicantResumeProfile(Applicants applicantProfileViewModel)
 		{
 
 			if (ModelState.IsValid)
@@ -456,13 +459,14 @@ namespace Recruiter.Controllers
 			var loggedInUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
 			using (RecruiterContext dbContext = new RecruiterContext())
 			{
+
 				var check = (from p in dbContext.Applicants.Include(x => x.User).Include(x => x.PastEducation).Include(x => x.Skills).Include(x => x.ApplicantDocuments)
 							 .Include(x => x.Institutions)
 							 where p.UserId == loggedInUserId
-							 join image in dbContext.Images on new { Key1 = p.UserId, Key2 = false } equals new { Key1 = image.UserId, Key2 = image.IsDeleted } into P1
-							 from P2 in P1.DefaultIfEmpty()
+							 //join image in dbContext.Images on new { Key1 = p.UserId, Key2 = false } equals new { Key1 = image.UserId, Key2 = image.IsDeleted } into P1
+							 //from P2 in P1.DefaultIfEmpty()
 
-							 select new ApplicantProfileViewModels
+							 select new Applicants
 							 {
 								 Country = p.Country,
 								 City = p.City,
@@ -475,10 +479,10 @@ namespace Recruiter.Controllers
 								 LastName = p.User.LastName,
 								 Language = p.Languages,
 								 PhoneNumber = p.PhoneNumber,
-								 ImagePath = P2.ImagePath,
+								 ImagePath = p.User.ImagePath,
 								 YearsOfExperience = p.YearsOfExperience,
 								 Certificates = (from files in dbContext.ApplicantDocuments
-												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsDeleted
+												 where files.ApplicantId == p.Id && files.Type == FileType.Certificate && !files.IsActive
 												 select new ApplicantDocumentViewModel
 												 {
 													 FilePath = files.FilePath,
@@ -620,65 +624,63 @@ namespace Recruiter.Controllers
 		}
 
 
+
 		[HttpPost]
-		public ActionResult AddImage(Image imageModel)
+		public ActionResult AddImage(UserVM imageModel)
 		{
 
-			var currentUserId = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
-
-			string fileName = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
-			string extension = Path.GetExtension(imageModel.ImageFile.FileName);
-			fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-			imageModel.ImagePath = "~/UploadedImages/" + fileName;
-			fileName = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
-			imageModel.ImageFile.SaveAs(fileName);
-			imageModel.UserId = currentUserId;
-			imageModel.CreatedById = currentUserId;
-			imageModel.LastModifiedById = currentUserId;
-
-
-			using (RecruiterContext db = new RecruiterContext())
+			try
 			{
-				// To check whether there was upload b4
-				var imageOld = (from old in db.Images
-								where old.UserId == imageModel.UserId && old.IsDeleted == true
-								select old).FirstOrDefault();
 
+				string fileName = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
+				string extension = Path.GetExtension(imageModel.ImageFile.FileName);
+				fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+				imageModel.ImagePath = "~/UploadedImages/" + fileName;
+				fileName = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
 
-				if (imageOld != null)
+				imageModel.ImageFile.SaveAs(fileName);
+
+				var currentUser = (Membership.GetUser(User.Identity.Name) as CustomMembershipUser).UserId;
+
+				using (var db = new RecruiterContext())
 				{
-					//If there is ... change to inActive
-					imageOld.IsDeleted = true;
+					var user = db.Users.FirstOrDefault(x => x.Id == currentUser);
 
-					db.Images.Attach(imageOld);
-					db.Entry(imageOld).State = EntityState.Modified;
-					db.SaveChanges();
+					if (user != null)
+					{
+						user.ImagePath = "~/UploadedImages/" + fileName;
+
+						db.Entry(user).State = EntityState.Modified;
+						db.SaveChanges();
+					}
+					else
+					{
+						var newUser = new User
+						{
+							ImagePath = imageModel.ImagePath,
+							IsActive = true
+						};
+						db.Users.Add(newUser);
+						db.SaveChanges();
+					}
 				}
 
-
-				db.Images.Add(imageModel);
-				db.SaveChanges();
-
-				//ModelState.Clear();
-				return RedirectToAction("ApplicantProfilePage");
 			}
-		}
-
-		[HttpGet]
-		public ActionResult AddImage(int id)
-		{
-			Image imageModel = new Image();
-
-			using (RecruiterContext db = new RecruiterContext())
+			catch
 			{
-				imageModel = db.Images.Where(x => x.Id == id).FirstOrDefault();
+
 			}
 
-			return View(imageModel);
+			//db.Users.Add(imageModel);
+			db.SaveChanges();
+
+
+			//ModelState.Clear();
+			return RedirectToAction("ApplicantProfilePage");
+
 		}
 	}
+
 }
-
-
 
 

@@ -18,6 +18,11 @@ namespace Recruiter.ViewModels
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+		public string ImagePath { get; set; }
+
+		public HttpPostedFileBase ImageFile { get; set; }
+
         [Required]
         [Display(Name = "Email Address")]
         public string Email { get; set; }

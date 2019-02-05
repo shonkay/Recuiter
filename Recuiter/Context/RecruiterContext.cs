@@ -21,7 +21,7 @@ namespace Recruiter.Context
 		public IDbSet<User> Users { get; set; }
 		public IDbSet<UserRole> UserRoles { get; set; }
 		public IDbSet<ReviewResult> ReviewResults { get; set; }
-		public IDbSet<Image> Images { get; set; }
+		//public IDbSet<Image> Images { get; set; }
 		public IDbSet<Notification> Notifications { get; set; }
 
 
@@ -41,7 +41,7 @@ namespace Recruiter.Context
 			modelBuilder.Configurations.Add(new ApplicationReviewAssesmentMap());
 			modelBuilder.Configurations.Add(new InterViewQuestionMap());
 			modelBuilder.Configurations.Add(new ReviewResultMap());
-			modelBuilder.Configurations.Add(new ImageMap());
+			//modelBuilder.Configurations.Add(new ImageMap());
 			
 
 		}

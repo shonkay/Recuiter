@@ -19,7 +19,7 @@ namespace Recruiter.Controllers
         // GET: Roles
         public ActionResult Index()
         {
-            var roles = db.Roles.Include(r => r.CreatedBy).Include(r => r.LastModifiedBy).Where(r => r.IsDeleted == false);
+            var roles = db.Roles.Include(r => r.CreatedBy).Include(r => r.LastModifiedBy).Where(r => r.IsActive == false);
             return View(roles.ToList());
         }
 
@@ -119,7 +119,7 @@ namespace Recruiter.Controllers
         {
             Role role = db.Roles.Find(id);
             //db.Roles.Remove(role);
-            role.IsDeleted = true;
+            role.IsActive = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -83,7 +83,6 @@
     <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\ApplicantDocument.cs" />
-    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Institution.cs" />
     <Compile Include="Models\Interview.cs" />
     <Compile Include="Models\InterviewReviewers.cs" />

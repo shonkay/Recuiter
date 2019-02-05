@@ -21,7 +21,7 @@ namespace Recruiter.Controllers
         // GET: Jobs
         public ActionResult Index()
         {
-            var jobs = db.Jobs.Include(j => j.CreatedBy).Include(j => j.Department).Include(j => j.LastModifiedBy).Where(j => j.IsDeleted == false);
+            var jobs = db.Jobs.Include(j => j.CreatedBy).Include(j => j.Department).Include(j => j.LastModifiedBy).Where(j => j.IsActive == false);
             return View(jobs.ToList());
         }
 
@@ -194,7 +194,7 @@ namespace Recruiter.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Job job = db.Jobs.Find(id);
-            job.IsDeleted = true;
+            job.IsActive = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

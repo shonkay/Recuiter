@@ -117,14 +117,14 @@ namespace Recuiter.Context.Map
 			HasRequired(x => x.CreatedBy).WithMany().WillCascadeOnDelete(false);
 			HasOptional(x => x.LastModifiedBy).WithMany().WillCascadeOnDelete(false);
 		}
-	}
-	public class ImageMap : EntityTypeConfiguration<Image>
-	{
-		public ImageMap()
-		{
-			HasRequired(x => x.User).WithMany().HasForeignKey(x => x.UserId).WillCascadeOnDelete(false);
-			HasRequired(x => x.CreatedBy).WithMany().WillCascadeOnDelete(false);
-			HasOptional(x => x.LastModifiedBy).WithMany().WillCascadeOnDelete(false);
-		}
+	//}
+	//public class ImageMap : EntityTypeConfiguration<Image>
+	//{
+	//	public ImageMap()
+	//	{
+	//		HasRequired(x => x.User).WithMany().HasForeignKey(x => x.UserId).WillCascadeOnDelete(false);
+	//		HasRequired(x => x.CreatedBy).WithMany().WillCascadeOnDelete(false);
+	//		HasOptional(x => x.LastModifiedBy).WithMany().WillCascadeOnDelete(false);
+	//	}
 	}
 }

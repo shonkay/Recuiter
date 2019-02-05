@@ -23,7 +23,7 @@ namespace Recruiter.Controllers
         // GET: Departments
         public ActionResult Index()
         {
-            var departments = db.Departments.Include(d => d.CreatedBy).Include(d => d.HoD).Include(d => d.LastModifiedBy).Where(d => d.IsDeleted == false);
+            var departments = db.Departments.Include(d => d.CreatedBy).Include(d => d.HoD).Include(d => d.LastModifiedBy).Where(d => d.IsActive == false);
             return View(departments.ToList());
         }
 
@@ -155,7 +155,7 @@ namespace Recruiter.Controllers
         {
             Department department = db.Departments.Find(id);
             //db.Departments.Remove(department);
-            department.IsDeleted = true;
+            department.IsActive = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
