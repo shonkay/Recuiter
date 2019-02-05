@@ -1,0 +1,95 @@
+﻿@model Recruiter.ViewModels.ApplicantResumeVM
+@{
+	ViewBag.Title = "ApplicantResumeProfile";
+	Layout = "~/Views/Shared/ProfileLayout.cshtml";
+}
+
+<h2>ApplicantResumeProfile</h2>
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	foreach (var education in Model.Education)
+	{
+		<div class="row mb-4">
+			<div class="col">
+				@Html.LabelFor(x => education.Qualification)
+
+				@Html.EditorFor(x => education.Qualification, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+				@Html.ValidationMessageFor(x => education.Qualification, "", new { @class = "text-danger" })
+
+				@Html.LabelFor(x => education.CourseStudies)
+
+				@Html.EditorFor(x => education.CourseStudies, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+				@Html.ValidationMessageFor(x => education.CourseStudies, "", new { @class = "text-danger" })
+
+				@Html.LabelFor(x => education.Institution)
+
+				@Html.EditorFor(x => education.Institution, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+				@Html.ValidationMessageFor(x => education.Institution, "", new { @class = "text-danger" })
+
+				@Html.LabelFor(x => education.FromDate)
+
+				@Html.EditorFor(x => education.FromDate, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+				@Html.ValidationMessageFor(x => education.FromDate, "", new { @class = "text-danger" })
+
+				@Html.LabelFor(x => education.ToDate)
+
+				@Html.EditorFor(x => education.ToDate, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+				@Html.ValidationMessageFor(x => education.ToDate, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	}
+
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	foreach (var experience in Model.Experience)
+	{
+			<div class="row mb-4">
+				<div class="col">
+					@Html.LabelFor(x => experience.Title)
+
+					@Html.EditorFor(x => experience.Title, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+					@Html.ValidationMessageFor(x => experience.Title, "", new { @class = "text-danger" })
+
+					@Html.LabelFor(x => experience.Company)
+
+					@Html.EditorFor(x => experience.Company, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+					@Html.ValidationMessageFor(x => experience.Title, "", new { @class = "text-danger" })
+
+					@Html.LabelFor(x => experience.FromDate)
+
+					@Html.EditorFor(x => experience.FromDate, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+					@Html.ValidationMessageFor(x => experience.FromDate, "", new { @class = "text-danger" })
+
+					@Html.LabelFor(x => experience.ToDate)
+
+					@Html.EditorFor(x => experience.ToDate, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+					@Html.ValidationMessageFor(x => experience.ToDate, "", new { @class = "text-danger" })
+				</div>
+			</div>
+	}
+
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+			foreach (var skill in Model.Skill)
+			{
+				<div class="row mb-4">
+					<div class="col">
+						@Html.LabelFor(x => skill.Skilllevel)
+
+						@Html.EditorFor(x => skill.Skilllevel, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+						@Html.ValidationMessageFor(x => skill.Skilllevel, "", new { @class = "text-danger" })
+
+						@Html.LabelFor(x => skill.Achievement)
+
+						@Html.EditorFor(x => skill.Achievement, new { htmlAttributes = new { @class = "form-control" }, @placeholder = "Enter First name" })
+						@Html.ValidationMessageFor(x => skill.Achievement, "", new { @class = "text-danger" })
+
+						
+					</div>
+				</div>
+			}
+		
+}
