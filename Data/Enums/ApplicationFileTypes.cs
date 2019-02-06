@@ -33,16 +33,27 @@ public enum ExperienceLevelType
 }
 public enum SkillLevel
 {
-	Expert = 1,
-	Intermediate,
-	Beginner
+	UI = 1,
+    UX,
+	Photoshop,
+	AdobeXD,
+    Sketch,
+    Invision,
+    ProjectManagement,
+    HTML,
+    CSS,
+    MicrosoftOffice,
+    Communication,
+    Teamwork
 }
 
 public enum ContractClassType
 {
-    [Display(Name = "Full TIme")]
-    FullTIme = 1,
-    [Display(Name = "Part Time")]
-    PartTime
+    [Display(Name = "Full Time")]
+    Fulltime = 1,
+    [Display(Name = "Internship")]
+    Internship,
+    [Display(Name = "Contract")]
+    Contract
 }
 

@@ -202,7 +202,7 @@ p.footnote{
 
     
  .footer {
-    position: fixed;
+    /*position: fixed;*/
     left: 0;
     bottom: 0;
     width: 100%;
@@ -210,6 +210,8 @@ p.footnote{
     text-align: center;
     background-color: #25316d;
     padding: 30px 60px;
+    display:block;
+ 
 
   }
 
@@ -283,6 +285,13 @@ p.footnote{
 .card-body {
     background-color: #fdfdfd;
 }
+.card-body2 {
+    /* height: 71px; */
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
+    background-color: #fafafa;
+    padding: 0;
+}
+
 
 .edu {
     font-size: 18px;
@@ -319,7 +328,7 @@ p.footnote{
 	background-color: #fafafa;
 }
 .img-banner {
-	background-image: url("'images/User Interface.png'");
+	background-image: url(images/UserInterface.png);
 	object-fit: contain;
 	background-size: contain;
 	min-height: 10rem;
@@ -372,8 +381,17 @@ p.footnote{
 	border-color: #313366;
 	margin-left: 1rem;
 }
+.decoy {
+    margin-bottom: 16px;
+}
 
+#rectangle {
+    min-height: 87rem;
+}
 
+#square {
+    height: 560px;
+}
 .head {
 	font-size: 20px;
 	padding-top: 1rem;

@@ -1,4 +1,4 @@
-﻿@model Recruiter.ViewModels.Applicants
+﻿@model Recruiter.ViewModels.ApplicantProfileViewModels
 
 @{
 	Layout = "~/Views/Shared/ProfileLayout.cshtml";
@@ -8,7 +8,7 @@
 	ViewBag.Title = "Applicant Profile";
 }
 
-@*<img src="~/Content/images/UserInterface.png" class="img-fluid topbanner mb-4" alt="user Interface">*@
+<img src="~/Content/images/UserInterface.png" class="img-fluid topbanner mb-4" alt="user Interface">
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-3" style="background-color: #fafafa;">
@@ -200,7 +200,8 @@
 						<div class="col">
 							@Html.LabelFor(model => model.YearsOfExperience)
 
-							@Html.EnumDropDownListFor(x => x.YearsOfExperience)
+							@Html.EnumDropDownListFor(x => x.YearsOfExperience,
+                        new { @class = "form-control" })
 
 							@*@Html.DropDownList("Experience",
 						new SelectList(Enum.GetValues(typeof(ExperienceLevelType))),
@@ -252,7 +253,7 @@
 						@Html.LabelFor(model => model.Bio)
 						<div>
 							@Html.TextArea("myTextArea", ""
-						   , new { @class = "form-control", rows = 3 })
+						   , new { @class = "form-control", rows = 3})
 
 							@Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
 						</div>

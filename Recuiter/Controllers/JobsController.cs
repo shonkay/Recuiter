@@ -21,7 +21,7 @@ namespace Recruiter.Controllers
         // GET: Jobs
         public ActionResult Index()
         {
-            var jobs = db.Jobs.Include(j => j.CreatedBy).Include(j => j.Department).Include(j => j.LastModifiedBy).Where(j => j.IsActive == false);
+            var jobs = db.Jobs.Include(j => j.CreatedBy)/*.Include(j => j.Department)*/.Include(j => j.LastModifiedBy)/*.Include(j => j.ContractClass)*/.Where(j => j.IsDeleted == false);
             return View(jobs.ToList());
         }
 
@@ -63,18 +63,18 @@ namespace Recruiter.Controllers
 
                 var jobs = new Job
                 {
-                    Id = jobCreateView.JobId,
-                    DepartmentId = jobCreateView.DepartmentId,
+                    //Id = jobCreateView.JobId,
+                    //DepartmentId = jobCreateView.DepartmentId,
                     Title = jobCreateView.Title,
-                    Summary = jobCreateView.Summary,
+                    //Summary = jobCreateView.Summary,
                     Description = jobCreateView.Description,
                     Responsibility = jobCreateView.Responsibility,
-                    GeneralRequirement = jobCreateView.GeneralRequirement,
+                    Characteristics = jobCreateView.Characteristics,
                     SkillSet = jobCreateView.SkillSet,
                     MinimumQualification = jobCreateView.MinimumQualification,
                     ExperienceLevel = jobCreateView.ExperienceLevel,
                     ContractClass = jobCreateView.ContractClass,
-                    ContractLength = jobCreateView.ContractLength,
+                    //ContractLength = jobCreateView.ContractLength,
                     ExpiryDate = jobCreateView.ExpiryDate,
                     CreatedDate = DateTime.Now
                 };
@@ -111,24 +111,24 @@ namespace Recruiter.Controllers
                 return HttpNotFound();
             }
             jobVM.Id = job.Id;
-            jobVM.JobId = job.JobId;
-            jobVM.DepartmentId = job.DepartmentId;
+            //jobVM.JobId = job.JobId;
+            //jobVM.DepartmentId = job.DepartmentId;
             jobVM.Title = job.Title;
-            jobVM.Summary = job.Summary;
+            //jobVM.Summary = job.Summary;
             jobVM.Description = job.Description;
             jobVM.Responsibility = job.Responsibility;
-            jobVM.GeneralRequirement = job.GeneralRequirement;
+            jobVM.Characteristics = job.Characteristics;
             jobVM.SkillSet = job.SkillSet;
             jobVM.MinimumQualification = job.MinimumQualification;
             jobVM.ExperienceLevel = job.ExperienceLevel;
             jobVM.ExperienceLength = job.ExperienceLength;
             jobVM.ContractClass = job.ContractClass;
-            jobVM.ContractLength = job.ContractLength;
+            //jobVM.ContractLength = job.ContractLength;
             jobVM.ExpiryDate = job.ExpiryDate;
             jobVM.CreatedById = job.CreatedById;
 
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", job.CreatedById);
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
+            //ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
 
             return View(jobVM);
         }
@@ -145,19 +145,19 @@ namespace Recruiter.Controllers
             var job = db.Jobs.Find(jobVM.Id);
             if (ModelState.IsValid)
             {
-                job.JobId = jobVM.JobId;
-                job.DepartmentId = jobVM.DepartmentId;
+                //job.JobId = jobVM.JobId;
+                //job.DepartmentId = jobVM.DepartmentId;
                 job.Title = jobVM.Title;
-                job.Summary = jobVM.Summary;
+                //job.Summary = jobVM.Summary;
                 job.Description = jobVM.Description;
                 job.Responsibility = jobVM.Responsibility;
-                job.GeneralRequirement = jobVM.GeneralRequirement;
+                job.Characteristics = jobVM.Characteristics;
                 job.SkillSet = jobVM.SkillSet;
                 job.MinimumQualification = jobVM.MinimumQualification;
                 job.ExperienceLevel = jobVM.ExperienceLevel;
                 job.ExperienceLength = jobVM.ExperienceLength;
                 job.ContractClass = jobVM.ContractClass;
-                job.ContractLength = jobVM.ContractLength;
+                //job.ContractLength = jobVM.ContractLength;
                 job.ExpiryDate = jobVM.ExpiryDate;
                 job.LastModifiedById = user.UserId;
                 job.LastModifiedDate = DateTime.Now;
@@ -168,7 +168,7 @@ namespace Recruiter.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "Username", job.CreatedById);
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
+            //ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", job.DepartmentId);
             ViewBag.LastModifiedById = new SelectList(db.Users, "Id", "Username", job.LastModifiedById);
             return View(jobVM);
         }
@@ -194,7 +194,7 @@ namespace Recruiter.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Job job = db.Jobs.Find(id);
-            job.IsActive = true;
+            job.IsDeleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

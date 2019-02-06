@@ -27,11 +27,11 @@ nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*--end reset--*/
-body{
+/*body{
 	background:url(../images/bg.jpg)no-repeat 0px 0px;
 	background-size: cover;
 	background-position: 50% 50%;
-}
+}*/
 h1 {
     font-size: 50px;
     text-align: center;

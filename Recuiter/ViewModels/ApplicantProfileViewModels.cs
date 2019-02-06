@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Recruiter.ViewModels
 {
-	public class Applicants
+	public class ApplicantProfileViewModels
 	{
 		public int Id { get; set; }
 
@@ -75,7 +75,7 @@ namespace Recruiter.ViewModels
 		public User User { get; set; }
 
 		public int UserId { get; set; }
-
+		
 		[NotMapped]
 		public HttpPostedFileBase ImageFile { get; set; }
 

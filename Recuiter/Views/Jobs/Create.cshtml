@@ -48,35 +48,13 @@
 			<h4>Job</h4>
 			<hr />
 			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-			<div class="form-group">
-				@Html.LabelFor(model => model.JobId, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.JobId, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.JobId, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.DepartmentId, "DepartmentId", htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.DropDownList("DepartmentId", null, htmlAttributes: new { @class = "form-control" })
-					@Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
-				</div>
-			</div>
+			
 
 			<div class="form-group">
 				@Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
 				<div class="col-md-10">
 					@Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
 					@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-				</div>
-			</div>
-
-			<div class="form-group">
-				@Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.Summary, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
 				</div>
 			</div>
 
@@ -97,17 +75,17 @@
 			</div>
 
 			<div class="form-group">
-				@Html.LabelFor(model => model.GeneralRequirement, htmlAttributes: new { @class = "control-label col-md-2" })
+				@Html.LabelFor(model => model.Characteristics, htmlAttributes: new { @class = "control-label col-md-2" })
 				<div class="col-md-10">
-					@Html.EditorFor(model => model.GeneralRequirement, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.GeneralRequirement, "", new { @class = "text-danger" })
+					@Html.EditorFor(model => model.Characteristics, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Characteristics, "", new { @class = "text-danger" })
 				</div>
 			</div>
 
 			<div class="form-group">
 				@Html.LabelFor(model => model.SkillSet, htmlAttributes: new { @class = "control-label col-md-2" })
 				<div class="col-md-10">
-					@Html.EditorFor(model => model.SkillSet, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.EnumDropDownListFor(model => model.SkillSet, new { htmlAttributes = new { @class = "form-control" } })
 					@Html.ValidationMessageFor(model => model.SkillSet, "", new { @class = "text-danger" })
 				</div>
 			</div>
@@ -128,13 +106,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				@Html.LabelFor(model => model.ExperienceLength, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.ExperienceLength, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.ExperienceLength, "", new { @class = "text-danger" })
-				</div>
-			</div>
+			
 
 			<div class="form-group">
 				@Html.LabelFor(model => model.ContractClass, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -144,13 +116,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				@Html.LabelFor(model => model.ContractLength, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.ContractLength, new { htmlAttributes = new { @class = "form-control" } })
-					@Html.ValidationMessageFor(model => model.ContractLength, "", new { @class = "text-danger" })
-				</div>
-			</div>
+			
 
 			<div class="form-group">
 				@Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
