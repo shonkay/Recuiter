@@ -306,29 +306,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\NotificationHub.cs" />
-    <Compile Include="Migrations\201901251518181_CopyFromMary.cs" />
-    <Compile Include="Migrations\201901251518181_CopyFromMary.Designer.cs">
-      <DependentUpon>201901251518181_CopyFromMary.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901281602565_password.cs" />
-    <Compile Include="Migrations\201901281602565_password.Designer.cs">
-      <DependentUpon>201901281602565_password.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901251730305_ApplicantResumeProfile.cs" />
-    <Compile Include="Migrations\201901251730305_ApplicantResumeProfile.Designer.cs">
-      <DependentUpon>201901251730305_ApplicantResumeProfile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901271122538_add_notification.cs" />
-    <Compile Include="Migrations\201901271122538_add_notification.Designer.cs">
-      <DependentUpon>201901271122538_add_notification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901281326079_TemiDayo.cs" />
-    <Compile Include="Migrations\201901281326079_TemiDayo.Designer.cs">
-      <DependentUpon>201901281326079_TemiDayo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901280934383_CreatedNewDB.cs" />
-    <Compile Include="Migrations\201901280934383_CreatedNewDB.Designer.cs">
-      <DependentUpon>201901280934383_CreatedNewDB.cs</DependentUpon>
+    <Compile Include="Migrations\201902070653426_updatedatabase.cs" />
+    <Compile Include="Migrations\201902070653426_updatedatabase.Designer.cs">
+      <DependentUpon>201902070653426_updatedatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -423,21 +403,9 @@
     <Folder Include="App_Data\UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901281133134_new.resx">
-      <DependentUpon>201901281133134_new.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902070653426_updatedatabase.resx">
+      <DependentUpon>201902070653426_updatedatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901271122538_add_notification.resx">
-      <DependentUpon>201901271122538_add_notification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901281326079_TemiDayo.resx">
-      <DependentUpon>201901281326079_TemiDayo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901280934383_CreatedNewDB.resx">
-      <DependentUpon>201901280934383_CreatedNewDB.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\UploadedFiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
